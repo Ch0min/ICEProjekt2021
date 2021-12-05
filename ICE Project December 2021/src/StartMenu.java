@@ -68,7 +68,7 @@ public class StartMenu extends JPanel implements ActionListener {
         label2.setIcon(icon2);
         label2.setHorizontalAlignment(JLabel.CENTER);
 
-        ImageIcon iconLightLeft = new ImageIcon("Pictures/lightleft.png");
+        ImageIcon iconLightLeft = new ImageIcon("Pictures/lightleftgd.png");
         JLabel lightLeft = new JLabel();
         lightLeft.setIcon(iconLightLeft);
         lightLeft.setVerticalAlignment(JLabel.CENTER);
@@ -86,7 +86,7 @@ public class StartMenu extends JPanel implements ActionListener {
         menuPanelBottomLeft.setBounds(0, 460, 400, 450);
 
         // Middle design
-        ImageIcon toplogo = new ImageIcon("Pictures/bluebg.png");
+        ImageIcon toplogo = new ImageIcon("Pictures/hvvmlogo.png");
         JLabel label3 = new JLabel();
         label3.setIcon(toplogo);
         label3.setVerticalAlignment(JLabel.TOP);
@@ -105,12 +105,17 @@ public class StartMenu extends JPanel implements ActionListener {
         menuPanelCentralBot.setBounds(400, 450, 400, 450);
 
         // Right side design
-        ImageIcon iconLightRight = new ImageIcon("Pictures/lightright.png");
+        ImageIcon iconLightRight = new ImageIcon("Pictures/lightrightgd.png");
         JLabel lightRight = new JLabel();
         lightRight.setIcon(iconLightRight);
         lightRight.setVerticalAlignment(JLabel.CENTER);
 
-        ImageIcon iconRightbg = new ImageIcon("Pictures/rightbg.png");
+        ImageIcon iconCrowdMenu = new ImageIcon("Pictures/crowdmenu.png");
+        JLabel crowdMenu = new JLabel();
+        crowdMenu.setIcon(iconCrowdMenu);
+        crowdMenu.setVerticalAlignment(JLabel.CENTER);
+
+        ImageIcon iconRightbg = new ImageIcon("Pictures/rightbotmenu.png");
         JLabel rightbg = new JLabel();
         rightbg.setIcon(iconRightbg);
         rightbg.setVerticalAlignment(JLabel.CENTER);
@@ -144,9 +149,9 @@ public class StartMenu extends JPanel implements ActionListener {
         menuFrame.add(quitKnap);
 
         // Left side
+        menuPanelTopLeft.add(lightLeft);
         menuPanelMidLeft.add(label);
         menuPanelBottomLeft.add(label2);
-        menuPanelTopLeft.add(lightLeft);
         menuFrame.add(menuPanelTopLeft);
         menuFrame.add(menuPanelMidLeft);
         menuFrame.add(menuPanelBottomLeft);
@@ -159,6 +164,7 @@ public class StartMenu extends JPanel implements ActionListener {
 
         // Right side
         menuPanelTopRight.add(lightRight);
+        menuPanelMidRight.add(crowdMenu);
         menuPanelBottomRight.add(rightbg);
         menuFrame.add(menuPanelTopRight);
         menuFrame.add(menuPanelMidRight);
