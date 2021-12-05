@@ -3,8 +3,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameDesign implements ActionListener {     // Da programmet kører på en masse små handlinger.
-// Gamedesigns instance variabler
+public class GameDesign extends JPanel implements ActionListener {     // Da programmet kører på en masse små handlinger.
+    // Gamedesigns Instanser
     JFrame gameFrame = new JFrame();
     JTextField textField = new JTextField();  // Vil holde the current spørgsmål, som man er på.
     JTextArea textArea = new JTextArea();    // Vil også holde på the current spørgsmål.
@@ -19,7 +19,12 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
     JLabel answer_labelC = new JLabel();
     JLabel answer_labelD = new JLabel();
 
-// TIMER INSTANSER
+    // Results Instanser
+    JPanel resultPanel = new JPanel();
+    JLabel resultLabel = new JLabel();
+    JButton resultButton = new JButton();
+
+    // Timer Instanser
     JProgressBar timerBar = new JProgressBar();
     JLabel seconds_left = new JLabel();             // Vil fungere som selve displayet for vores countdown timer.
 
@@ -27,28 +32,28 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
 //    JTextField number_right = new JTextField();     //  Vil vises efter vi har calculated vores resultater.
 //    JTextField percentage = new JTextField();       // Vil vise en procentdel af ens endelig score.
 
-//  LYD GAME DESIGN
+    //  LYD GAME DESIGN
     SoundDesign soundDesign;    // Introduktion
     SoundDesign correctAnswer;
     SoundDesign wrongAnswer;
 
 
-        String[] questions = {      // Indeholder spørgsmålene.
-                "Hvilket apparat kaldte man tidligere en datamat?",                                             // 1
-                "I hvilket årstal vandt Danmarks herrelandshold deres første fodbold EM-trofæ?",                // 2
-                "Hvor mange dele består en trilogi af?",                                                        // 3
-                "Hvad spiser Skipper Skræk når han har brug for ekstra kræfter?",                               // 4
-                "Hvilket sprog taler man i Østrig?",                                                          // 5
-                "Hvilket af disse dyr hører IKKE til kattefamilien",                                                 // 6
-                "Hvad måler man elektrisk spænding i?",                                                         // 7
-                "Hvad kalder man et dyr der bliver ædt af andre dyr?",                                          // 8
-                "Hvem blev efterladt i Nilen som baby?",                                                        // 9
-                "Hvilken dansk skuespiller spiller hovedrollen i den amerikanske film 'Shot Caller fra 2017?",  // 10
-                "Hvor mange øer består Danmark af?",                                                            // 11
-                "Hvad samler en numismatiker på?",                                                              // 12
-                "I hvilket af kroppens led sidder 'patella'?",                                                   // 13
-                "Hvilket materiale er man berømt for at producere og forarbejde i Murano i det nordlige Italien?", // 14
-                "Hvilket af følgende er ikke et vinmærke?"                                              // 15
+    String[] questions = {      // Indeholder spørgsmålene.
+            "Hvilket apparat kaldte man tidligere en datamat?",                                             // 1
+            "I hvilket årstal vandt Danmarks herrelandshold deres første fodbold EM-trofæ?",                // 2
+            "Hvor mange dele består en trilogi af?",                                                        // 3
+            "Hvad spiser Skipper Skræk når han har brug for ekstra kræfter?",                               // 4
+            "Hvilket sprog taler man i Østrig?",                                                          // 5
+            "Hvilket af disse dyr hører IKKE til kattefamilien",                                                 // 6
+            "Hvad måler man elektrisk spænding i?",                                                         // 7
+            "Hvad kalder man et dyr der bliver ædt af andre dyr?",                                          // 8
+            "Hvem blev efterladt i Nilen som baby?",                                                        // 9
+            "Hvilken dansk skuespiller spiller hovedrollen i den amerikanske film 'Shot Caller fra 2017?",  // 10
+            "Hvor mange øer består Danmark af?",                                                            // 11
+            "Hvad samler en numismatiker på?",                                                              // 12
+            "I hvilket af kroppens led sidder 'patella'?",                                                   // 13
+            "Hvilket materiale er man berømt for at producere og forarbejde i Murano i det nordlige Italien?", // 14
+            "Hvilket af følgende er ikke et vinmærke?"                                              // 15
 
 
     };
@@ -92,28 +97,29 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
                     'A'       // 15
             };
 
-// Pengebeløb liste
+    // Pengebeløb liste
     String[] rewardsList = {"1000 KR", "2000 KR", "3000 KR", "4000 KR", "5000 KR", "8000 KR", "12000 KR", "20000 KR",
             "32000 KR", "50000 KR", "75000 KR", "125000 KR", "250000 KR", "500000 KR", "1 MILLION KR"};
 
-// Gamedesign variabler
+    // Gamedesign variabler
     char answer;    // vil holde på svar.
     int index;      // Bruges som en timer til at vide hvilket spørgsmål man er ved.
+    int total_questions = questions.length;
     int correct_guesses = 0;      // vil holde på antal korrekte gæt.
     int results;     // Holder på resultat.
     int seconds = 30;   // Timer til hvor mange sekunder man har ved hvert spørgsmål.
 
     Timer countdown = new Timer(1000, new ActionListener() {     // fx 2000ms = 2 sekunder.
 
-       @Override
-       public void actionPerformed(ActionEvent e) {
-           seconds--;      // Efter hvert action performed method, så decrementer vi seconds med 1.
-           seconds_left.setText(String.valueOf(seconds));
-           if(seconds <= 0) {      // Hvis timeren rammer 0.
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            seconds--;      // Efter hvert action performed method, så decrementer vi seconds med 1.
+            seconds_left.setText(String.valueOf(seconds));
+            if (seconds <= 0) {      // Hvis timeren rammer 0.
                 displayAnswer();    // Vil display det rigtige svar, og disable alle muligheder.
-           }
-       }
-   });  // Tilføje ');', så error går væk. Sikkert fordi Timeren mangler en parentes.
+            }
+        }
+    });  // Tilføje ');', så error går væk. Sikkert fordi Timeren mangler en parentes.
 
 
     // Gamedesign constructor.
@@ -195,6 +201,17 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
         buttonD.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, true));
         buttonD.setText("D:");
         buttonD.setOpaque(true);
+
+        // Pengecheck button
+        resultPanel = new JPanel();
+        resultPanel.setFont(new Font("Calibri", Font.BOLD, 15));
+        resultLabel = new JLabel("SE DINE RESULTATER: ");
+        resultLabel.setFont(new Font("Calibri", Font.PLAIN, 20));
+        resultButton = new JButton("PENGECHECK");
+        resultButton.setFont(new Font("Impact", Font.BOLD, 30));
+        resultButton.addActionListener(this);
+        resultPanel.add(resultLabel);
+        resultPanel.add(resultButton);
 
 
 // Game Panels
@@ -282,9 +299,9 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
 //        timerBar.setFont(new Font("Copperplate", Font.BOLD, 20));
 //        timerBar.setFont(new Font("Copperplate", Font.PLAIN, 20));
 
-        seconds_left.setBounds(0,475,800,20);
+        seconds_left.setBounds(0, 475, 800, 20);
         seconds_left.setForeground(new Color(255, 185, 0));
-        seconds_left.setBackground(new Color(0,50,159));
+        seconds_left.setBackground(new Color(0, 50, 159));
         seconds_left.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 30));   // Windows: "Copperplate Gothic Bold"
         seconds_left.setHorizontalAlignment(JTextField.RIGHT);
         seconds_left.setText(String.valueOf(seconds));
@@ -339,28 +356,27 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
 
         gameFrame.setVisible(true);
         nextQuestion();
-       // fillTimerBar();
+        // fillTimerBar();
 
 
     }
 
-    public void fillTimerBar() {
-        int count = 100;
-        while (count > 0) {
-            timerBar.setValue(count);
-            try {
-                Thread.sleep( 300); // Thread: tillader et program til at køre mere effektivt ved at køre flere tasks på samme tid
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            count -= 1;
-        }
-        timerBar.setString("TIDEN ER UDLØBET");
-    }
+//    public void fillTimerBar() {
+//        int count = 100;
+//        while (count > 0) {
+//            timerBar.setValue(count);
+//            try {
+//                Thread.sleep( 300); // Thread: tillader et program til at køre mere effektivt ved at køre flere tasks på samme tid
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            count -= 1;
+//        }
+//        timerBar.setString("TIDEN ER UDLØBET");
+//    }
 
     public void nextQuestion() {
-        int total_questions = questions.length;
-        if(index >= total_questions) {
+        if (index >= total_questions) {
             // Pengecheck popup vindue
             String[] options = {"Afslut"};
             JPanel resultPanel = new JPanel();
@@ -373,11 +389,11 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
             resultPanel.add(resultButton);
             JOptionPane.showOptionDialog(gameFrame, resultPanel, "RESULTAT", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
             System.exit(0);
-         //   results();
+
 
         } else {
             textField.setText("Spørgsmål " + (index + 1));       // Incrementer 'Spørgsmål' hver gang der kommer et nyt spørgsmål.
-            JOptionPane.showOptionDialog(gameFrame, "SPØRGSMÅL TIL  " + rewardsList[index],"PENGEBELØB", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            JOptionPane.showOptionDialog(gameFrame, "SPØRGSMÅL TIL  " + rewardsList[index], "PENGEBELØB", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             textArea.setText(questions[index]);                  // Hver gang index bliver incremented, så skal programmet skifte til næste spørgsmål.
             answer_labelA.setText(options[index][0]);            // Bruger vores options 2d array, for at hente svarmulighederne.
             answer_labelB.setText(options[index][1]);
@@ -389,7 +405,7 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int correct_guesses = 0;      // vil holde på antal korrekte gæt.
+        int correct_guesses = 0;      // vil holde på antal korrekte gæt. Bruger vi ikke rigtigt endnu
         buttonA.setEnabled(false);
         buttonB.setEnabled(false);
         buttonC.setEnabled(false);
@@ -397,50 +413,55 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
         correctAnswer = new SoundDesign("Soundeffects/correct-answer.wav");
         wrongAnswer = new SoundDesign("Soundeffects/wrong-answer.wav");
 
-        if (e.getSource() == buttonA) {      // Hvis en person klikker på Button A, hvad skal der så ske?
-            answer = 'A';
-            if (answer == answers[index]) {  // Hvis vores svar er equal til det svar der er stored i vores 'answers array' i et bestemt index, så incrementer vi 'correct_guess' med 1.
-                correctAnswer.play();
-                correct_guesses++;
-            } else if (answer != answers[index]) {
-                wrongAnswer.play();
+            if (e.getSource() == buttonA) {      // Hvis en person klikker på Button A, hvad skal der så ske?
+                answer = 'A';
+                if (answer == answers[index]) {  // Hvis vores svar er equal til det svar der er stored i vores 'answers array' i et bestemt index, så incrementer vi 'correct_guess' med 1.
+                    correctAnswer.play();
+                    correct_guesses++;
+                } else if (answer != answers[index]) {
+                    wrongAnswer.play();
+                }
             }
-        }
 
-        if (e.getSource() == buttonB) {
-            answer = 'B';
-            if (answer == answers[index]) {
-                correctAnswer.play();
-                correct_guesses++;
-            } else if (answer != answers[index]) {
-                wrongAnswer.play();
+            if (e.getSource() == buttonB) {
+                answer = 'B';
+                if (answer == answers[index]) {
+                    correctAnswer.play();
+                    correct_guesses++;
+                } else if (answer != answers[index]) {
+                    wrongAnswer.play();
+                }
             }
-        }
 
-        if (e.getSource() == buttonC) {
-            answer = 'C';
-            if (answer == answers[index]) {
-                correctAnswer.play();
-                correct_guesses++;
-            } else if (answer != answers[index]) {
-                wrongAnswer.play();
+            if (e.getSource() == buttonC) {
+                answer = 'C';
+                if (answer == answers[index]) {
+                    correctAnswer.play();
+                    correct_guesses++;
+                } else if (answer != answers[index]) {
+                    wrongAnswer.play();
+                }
             }
-        }
 
-        if (e.getSource() == buttonD) {
-            answer = 'D';
-            if (answer == answers[index]) {
-                correctAnswer.play();
-                correct_guesses++;
-            } else if (answer != answers[index]) {
-                wrongAnswer.play();
+            if (e.getSource() == buttonD) {
+                answer = 'D';
+                if (answer == answers[index]) {
+                    correctAnswer.play();
+                    correct_guesses++;
+                } else if (answer != answers[index]) {
+                    wrongAnswer.play();
+                }
             }
+
+        if (e.getSource() == resultButton) {
+            gameFrame.dispose();    // Lukker menu vinduet.
+            soundDesign.stop();
+            ResultsWindow resultsWindow = new ResultsWindow();   // Når der klikkes på spilknappen, så åbner der et nyt vindue i GameDesign.
         }
         displayAnswer();
-
     }
 
-        public void displayAnswer() {
+    public void displayAnswer() {
         countdown.stop();
 
         buttonA.setEnabled(false);
@@ -467,8 +488,7 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
         if (answers[index] != 'D')     // Hvis svaret ikke er 'D', hvad gør vi så?
             answer_labelD.setForeground(new Color(255, 0, 0));
 
-
-            // Timer i metoden, da vi gerne vil have de forkerte svar converter til deres oprindelige farve igen, efter skift af hvert spørgsmål.
+        // Timer i metoden, da vi gerne vil have de forkerte svar converter til deres oprindelige farve igen, efter skift af hvert spørgsmål.
         Timer pause = new Timer(5000, new ActionListener() {     // 5 sekunders pause efter hver spørgsmål.
 
             @Override
@@ -478,7 +498,7 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
                 answer_labelC.setForeground(new Color(255, 255, 255));
                 answer_labelD.setForeground(new Color(255, 255, 255));
 
-             //   answer = ' ';    // Reset vores svar.
+                //   answer = ' ';    // Reset vores svar.
                 seconds = 30;
                 seconds_left.setText(String.valueOf(seconds));
                 buttonA.setEnabled(true);        // Vi skal nemlig huske at enable vores knapper igen her.
@@ -487,33 +507,23 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
                 buttonD.setEnabled(true);
 
                 // Hvis svaret er rigtigt så fortsæt.
-             if (answer == answers[index]) {
-                 index++;     // For at køre videre til næste spørgsmål.
-                 nextQuestion();
+                if (answer == answers[index]) {
+                    index++;     // For at køre videre til næste spørgsmål.
+                    nextQuestion();
 
-                 // Hvis svaret er forkert. Så åben resultat vindue.
-             } else if (answer != answers[index]) {
-                 // Pengecheck popup vindue
+                    // Hvis svaret er forkert. Så åben resultat vindue.
+                } else if (answer != answers[index]) {
+                    // Pengecheck popup vindue
                     String[] options = {"Afslut"};
-                    JPanel resultPanel = new JPanel();
-                    resultPanel.setFont(new Font("Calibri", Font.BOLD, 15));
-                    JLabel resultLabel = new JLabel("SE DINE RESULTATER: ");
-                    resultLabel.setFont(new Font("Calibri", Font.PLAIN, 20));
-                    JButton resultButton = new JButton("PENGECHECK");
-                    resultButton.setFont(new Font("Impact", Font.BOLD, 30));
-                    resultPanel.add(resultLabel);
-                    resultPanel.add(resultButton);
                     JOptionPane.showOptionDialog(gameFrame, resultPanel, "RESULTAT", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-                    System.exit(0);
+                    gameFrame.dispose();
 
                 }
             }
         });  // Tilføje ');', så error går væk. Sikkert fordi Timeren mangler en parentes.
         pause.setRepeats(false);     // For at timeren kun aktiveres en gang.
         pause.start();               // Her får vi timeren til at starte.
-
     }
-
 
 }
 

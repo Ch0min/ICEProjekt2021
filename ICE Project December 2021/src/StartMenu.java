@@ -110,7 +110,7 @@ public class StartMenu extends JPanel implements ActionListener {
         lightRight.setIcon(iconLightRight);
         lightRight.setVerticalAlignment(JLabel.CENTER);
 
-        ImageIcon iconCrowdMenu = new ImageIcon("Pictures/crowdmenu.png");
+        ImageIcon iconCrowdMenu = new ImageIcon("Pictures/rightmidmenu.png");
         JLabel crowdMenu = new JLabel();
         crowdMenu.setIcon(iconCrowdMenu);
         crowdMenu.setVerticalAlignment(JLabel.CENTER);
