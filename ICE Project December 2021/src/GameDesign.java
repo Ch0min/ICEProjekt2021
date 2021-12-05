@@ -361,6 +361,18 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
     public void nextQuestion() {
         int total_questions = questions.length;
         if(index >= total_questions) {
+            // Pengecheck popup vindue
+            String[] options = {"Afslut"};
+            JPanel resultPanel = new JPanel();
+            resultPanel.setFont(new Font("Calibri", Font.BOLD, 15));
+            JLabel resultLabel = new JLabel("SE DINE RESULTATER: ");
+            resultLabel.setFont(new Font("Calibri", Font.PLAIN, 20));
+            JButton resultButton = new JButton("PENGECHECK");
+            resultButton.setFont(new Font("Impact", Font.BOLD, 30));
+            resultPanel.add(resultLabel);
+            resultPanel.add(resultButton);
+            JOptionPane.showOptionDialog(gameFrame, resultPanel, "RESULTAT", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+            System.exit(0);
          //   results();
 
         } else {
@@ -481,6 +493,7 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
 
                  // Hvis svaret er forkert. Så åben resultat vindue.
              } else if (answer != answers[index]) {
+                 // Pengecheck popup vindue
                     String[] options = {"Afslut"};
                     JPanel resultPanel = new JPanel();
                     resultPanel.setFont(new Font("Calibri", Font.BOLD, 15));
