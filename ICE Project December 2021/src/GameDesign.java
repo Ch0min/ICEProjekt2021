@@ -436,6 +436,7 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
         buttonC.setEnabled(false);
         buttonD.setEnabled(false);
 
+        // Skifter farve
         if (answers[index] == 'A')     // Hvis svaret er 'A', hvad gør vi så?
             answer_labelA.setForeground(new Color(240, 230, 140));
         if (answers[index] == 'B')    // Hvis svaret er 'B', hvad gør vi så?
