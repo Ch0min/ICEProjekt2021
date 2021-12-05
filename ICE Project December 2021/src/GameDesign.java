@@ -364,7 +364,7 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
          //   results();
 
         } else {
-            textField.setText("Spørgsmål " + (index + 1));       // Incrementer 'Question' hver gang der kommer et nyt spørgsmål.
+            textField.setText("Spørgsmål " + (index + 1));       // Incrementer 'Spørgsmål' hver gang der kommer et nyt spørgsmål.
             JOptionPane.showOptionDialog(gameFrame, "SPØRGSMÅL TIL  " + rewardsList[index],"PENGEBELØB", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             textArea.setText(questions[index]);                  // Hver gang index bliver incremented, så skal programmet skifte til næste spørgsmål.
             answer_labelA.setText(options[index][0]);            // Bruger vores options 2d array, for at hente svarmulighederne.
