@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameDesign extends JPanel implements ActionListener {     // Da programmet kører på en masse små handlinger.
-    // Gamedesigns Instanser
+// Gamedesigns Instanser
     JFrame gameFrame = new JFrame();
     JTextField textField = new JTextField();  // Vil holde the current spørgsmål, som man er på.
     JTextArea textArea = new JTextArea();    // Vil også holde på the current spørgsmål.
@@ -19,27 +19,25 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     JLabel answer_labelC = new JLabel();
     JLabel answer_labelD = new JLabel();
 
-    // Results Instanser
+// Results Instanser
     JPanel resultPanel = new JPanel();
     JLabel resultLabel = new JLabel();
     JButton resultButton = new JButton();
 
-    // Timer Instanser
+// Timer Instanser
     JProgressBar timerBar = new JProgressBar();
     JLabel seconds_left = new JLabel();             // Vil fungere som selve displayet for vores countdown timer.
 
-// RESULTATER - muligvis bruges i results window class.
-//    JTextField number_right = new JTextField();     //  Vil vises efter vi har calculated vores resultater.
-//    JTextField percentage = new JTextField();       // Vil vise en procentdel af ens endelig score.
-
-    //  LYD GAME DESIGN
+// Audio Instanser
     SoundDesign soundDesign;    // Introduktion
     SoundDesign correctAnswer;
     SoundDesign wrongAnswer;
+    SoundDesign finalAnswer;
+    SoundDesign clockRanOut;
 
-
+// Spørgsmåls Instans Lister
     String[] questions = {      // Indeholder spørgsmålene.
-            "Hvilket apparat kaldte man tidligere en datamat?",                                             // 1
+            "Hvilket apparat kaldte man tidligere for en datamat?",                                             // 1
             "I hvilket årstal vandt Danmarks herrelandshold deres første fodbold EM-trofæ?",                // 2
             "Hvor mange dele består en trilogi af?",                                                        // 3
             "Hvad spiser Skipper Skræk når han har brug for ekstra kræfter?",                               // 4
@@ -97,11 +95,11 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     'A'       // 15
             };
 
-    // Pengebeløb liste
+// Pengebeløb liste
     String[] rewardsList = {"1000 KR", "2000 KR", "3000 KR", "4000 KR", "5000 KR", "8000 KR", "12000 KR", "20000 KR",
             "32000 KR", "50000 KR", "75000 KR", "125000 KR", "250000 KR", "500000 KR", "1 MILLION KR"};
 
-    // Gamedesign variabler
+// Gamedesign variabler
     char answer;    // vil holde på svar.
     int index;      // Bruges som en timer til at vide hvilket spørgsmål man er ved.
     int total_questions = questions.length;
@@ -109,6 +107,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     int results;     // Holder på resultat.
     int seconds = 30;   // Timer til hvor mange sekunder man har ved hvert spørgsmål.
 
+// Timer Design
     Timer countdown = new Timer(1000, new ActionListener() {     // fx 2000ms = 2 sekunder.
 
         @Override
@@ -116,6 +115,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             seconds--;      // Efter hvert action performed method, så decrementer vi seconds med 1.
             seconds_left.setText(String.valueOf(seconds));
             if (seconds <= 0) {      // Hvis timeren rammer 0.
+                clockRanOut = new SoundDesign("Soundeffects/wrong-answer.wav");
+                clockRanOut.play();
                 displayAnswer();    // Vil display det rigtige svar, og disable alle muligheder.
             }
         }
@@ -124,17 +125,22 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
     // Gamedesign constructor.
     public GameDesign() {
-        soundDesign = new SoundDesign("Soundeffects/førstespørgsmål.wav");
-        soundDesign.play();
-        soundDesign.loop();
-
         try {
             gameRun();
         } catch (RuntimeException e) {
             System.out.println("Runtime afbrudt");
         }
+        gameAudio();
 
     }
+
+    public void gameAudio() {
+        soundDesign = new SoundDesign("Soundeffects/førstespørgsmål.wav");
+        soundDesign.play();
+        soundDesign.loop();
+
+    }
+
 
     public void gameRun() {
         // Game fields
@@ -393,7 +399,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
         } else {
             textField.setText("Spørgsmål " + (index + 1));       // Incrementer 'Spørgsmål' hver gang der kommer et nyt spørgsmål.
-            JOptionPane.showOptionDialog(gameFrame, "SPØRGSMÅL TIL  " + rewardsList[index], "PENGEBELØB", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            JOptionPane.showOptionDialog(gameFrame, "SPØRGSMÅL TIL: " + rewardsList[index], "PENGEBELØB", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             textArea.setText(questions[index]);                  // Hver gang index bliver incremented, så skal programmet skifte til næste spørgsmål.
             answer_labelA.setText(options[index][0]);            // Bruger vores options 2d array, for at hente svarmulighederne.
             answer_labelB.setText(options[index][1]);
@@ -406,12 +412,13 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     @Override
     public void actionPerformed(ActionEvent e) {
         int correct_guesses = 0;      // vil holde på antal korrekte gæt. Bruger vi ikke rigtigt endnu
+        correctAnswer = new SoundDesign("Soundeffects/correct.wav");
+        wrongAnswer = new SoundDesign("Soundeffects/wrong.wav");
+
         buttonA.setEnabled(false);
         buttonB.setEnabled(false);
         buttonC.setEnabled(false);
         buttonD.setEnabled(false);
-        correctAnswer = new SoundDesign("Soundeffects/correct-answer.wav");
-        wrongAnswer = new SoundDesign("Soundeffects/wrong-answer.wav");
 
             if (e.getSource() == buttonA) {      // Hvis en person klikker på Button A, hvad skal der så ske?
                 answer = 'A';
@@ -498,7 +505,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 answer_labelC.setForeground(new Color(255, 255, 255));
                 answer_labelD.setForeground(new Color(255, 255, 255));
 
-                //   answer = ' ';    // Reset vores svar.
                 seconds = 30;
                 seconds_left.setText(String.valueOf(seconds));
                 buttonA.setEnabled(true);        // Vi skal nemlig huske at enable vores knapper igen her.

@@ -4,8 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        StartMenu startMenu = new StartMenu();  // Bruges lidt som vores controller class.
-      //  GameDesign gameDesign = new GameDesign();     // Skal ikke være her til sidst. Bruges kun til at lave Gamedesign så menuen ikke popper op først hele tiden.
+      //  StartMenu startMenu = new StartMenu();  // Bruges lidt som vores controller class.
+        GameDesign gameDesign = new GameDesign();     // Skal ikke være her til sidst. Bruges kun til at lave Gamedesign så menuen ikke popper op først hele tiden.
       //  ResultsWindow rw = new ResultsWindow();    //   Samme som ^
 
 
@@ -24,5 +24,5 @@ public class Main {
 - Højre side i gamedesign skal designes  /livslinjer, et træ af pengebeløb så man kan se hvor man er nået.
 - millionwindow skal designes og laves lyd til
 -
--
+- Til sidst gør det mere OOP
  */

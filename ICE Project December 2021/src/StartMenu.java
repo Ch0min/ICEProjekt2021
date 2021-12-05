@@ -9,13 +9,19 @@ public class StartMenu extends JPanel implements ActionListener {
     JButton spilKnap;
     JButton quitKnap;
     SoundDesign soundDesign;
+    SoundDesign timerRunOut;
 
     public StartMenu() {
-        this.startMenu();
+        startMenu();
+        startMenuAudio();
+    }
+
+    public void startMenuAudio() {
         soundDesign = new SoundDesign("Soundeffects/menu.wav");
         soundDesign.play();
         soundDesign.loop();
     }
+
 
     // Design menu
     public void startMenu() {
