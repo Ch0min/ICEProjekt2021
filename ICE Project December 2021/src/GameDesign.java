@@ -275,13 +275,13 @@ public class GameDesign implements ActionListener {     // Da programmet kører 
         menuPanelCentralMid.setBackground(new Color(0, 0, 159));
         menuPanelCentralMid.setBounds(400, 200, 400, 275);
 
-// Timer design
+// Timer design fik det til at virke, men programmet kan åbenbart ikke fungere så.
 //        timerBar.setBorder(BorderFactory.createLineBorder(new Color(0, 50, 159), 5, false));
 //        timerBar.setValue(0);
 //        timerBar.setBounds(0,475,800,20);
 //        timerBar.setFont(new Font("Copperplate", Font.BOLD, 20));
-
 //        timerBar.setFont(new Font("Copperplate", Font.PLAIN, 20));
+
         seconds_left.setBounds(0,475,800,20);
         seconds_left.setForeground(new Color(255, 185, 0));
         seconds_left.setBackground(new Color(0,50,159));
