@@ -15,5 +15,6 @@ public class Main {
 /* NOTER TIL NÆSTE GANG
 - Pop result window, 'Knappen Pengecheck' skal åbne nyt vindue.
 - Få resultwindow op, når man har tabt.
-- Når timeren rammer 0, skal resultwindow også op
+- Når timeren rammer 0, skal der lyd på
+- Højre side i gamedesign skal designes
  */
