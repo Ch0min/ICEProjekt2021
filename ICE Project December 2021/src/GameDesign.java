@@ -60,21 +60,21 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
     String[][] options = {      // Holder på alle svarmulighederne, til vores spørgsmål.
             // Ved at gøre det på den her måde, så kan vi tilføje og slette spørgsmål, da det her program er dynamisk.
-            {"Mobiltelefon", "MP3-afspiller", "Lommeregner", "Computer"},   // 1
-            {"1990", "1992", "1994", "1996"},                   // 2
-            {"1", "2", "3", "4"},                               // 3
-            {"Gulerødder", "Kartofler", "Tomater", "Spinat"},   // 4
-            {"Tysk", "Østrigsk", "Fransk", "Italiensk"},        // 5
-            {"Leopard", "Los", "Gazelle", "Gepard"},            // 6
-            {"Watt", "Volt", "Ohm", "Maxwell"},                 // 7
-            {"Rovdyr", "Avlsdyr", "Æddyr", "Byttedyr"},         // 8
-            {"Jesus", "Muhammed", "Moses", "Elijah"},           // 9
-            {"Mads Mikkelsen", "Pilou Asbæk", "Ulrich Thomsen", "Nikolaj Coster-Waldau"},   // 10
-            {"ca. 50", "ca. 200", "ca. 400", "ca. 700"},         // 11
-            {"Mønter", "Kort", "Terninger", "Frimærker"},        // 12
-            {"I albuen", "I knæet", "I rygsøjlen", "I håndleddet"},    // 13
-            {"Plastik", "Stof", "Metal", "Glas"},             // 14
-            {"Bolero", "Barolo", "Brunello", "Barbaresco"}  // 15
+            {" Mobiltelefon", " MP3-afspiller", " Lommeregner", " Computer"},   // 1
+            {" 1990", " 1992", " 1994", " 1996"},                   // 2
+            {" 1", " 2", " 3", " 4"},                               // 3
+            {" Gulerødder", " Kartofler", " Tomater", " Spinat"},   // 4
+            {" Tysk", " Østrigsk", " Fransk", " Italiensk"},        // 5
+            {" Leopard", " Los", " Gazelle", " Gepard"},            // 6
+            {" Watt", " Volt", " Ohm", " Maxwell"},                 // 7
+            {" Rovdyr", " Avlsdyr", " Æddyr", " Byttedyr"},         // 8
+            {" Jesus", " Muhammed", " Moses", " Elijah"},           // 9
+            {" Mads Mikkelsen", " Pilou Asbæk", " Ulrich Thomsen", " Nikolaj Coster-Waldau"},   // 10
+            {" ca. 50", " ca. 200", " ca. 400", " ca. 700"},         // 11
+            {" Mønter", " Kort", " Terninger", " Frimærker"},        // 12
+            {" I albuen", " I knæet", " I rygsøjlen", " I håndleddet"},    // 13
+            {" Plastik", " Stof", " Metal", " Glas"},             // 14
+            {" Bolero", " Barolo", " Brunello", " Barbaresco"}  // 15
 
     };
 
@@ -141,7 +141,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         textField.setBounds(0, 475, 800, 20);      // 'setBounds' bruger man til at bestemme placeringen.
         textField.setBackground(new Color(0, 50, 159));
         textField.setForeground(new Color(255, 185, 0));
-        textField.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 20));  // // WindowsPC : "Copperplate Gothic Bold"
+        textField.setFont(new Font("Copperplate", Font.BOLD, 20));  // // WindowsPC : "Copperplate Gothic Bold"
         textField.setBorder(BorderFactory.createLineBorder(new Color(0, 50, 255), 1, true));
         textField.setHorizontalAlignment(JTextField.CENTER);    // Juster placeringen af teksten.(Center)
         textField.setFocusable(false);
@@ -152,14 +152,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         textArea.setWrapStyleWord(true);
         textArea.setBackground(new Color(0, 0, 250));
         textArea.setForeground(new Color(255, 255, 255));
-        textArea.setFont(new Font("Calibri", Font.BOLD, 20));
+        textArea.setFont(new Font("Calibri", Font.PLAIN, 19));
         textArea.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 1, true));
         textArea.setEditable(false);
 
 
 // Game Buttons
         // Button A
-        buttonA.setBounds(0, 535, 150, 125);
+        buttonA.setBounds(0, 540, 150, 120);
         buttonA.setForeground(new Color(255, 185, 0));
         buttonA.setBackground(new Color(0, 0, 159));
         buttonA.setFont(new Font("Impact", Font.BOLD, 40));
@@ -170,7 +170,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         buttonA.setOpaque(true);
 
         // Button B
-        buttonB.setBounds(400, 535, 150, 125);
+        buttonB.setBounds(400, 540, 150, 120);
         buttonB.setForeground(new Color(255, 185, 0));
         buttonB.setBackground(new Color(0, 0, 159));
         buttonB.setFont(new Font("Impact", Font.BOLD, 40));
@@ -302,7 +302,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         seconds_left.setBounds(0, 475, 800, 20);
         seconds_left.setForeground(new Color(255, 185, 0));
         seconds_left.setBackground(new Color(0, 50, 159));
-        seconds_left.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 30));   // Windows: "Copperplate Gothic Bold"
+        seconds_left.setFont(new Font("Copperplate", Font.BOLD, 30));   // Windows: "Copperplate Gothic Bold"
         seconds_left.setHorizontalAlignment(JTextField.RIGHT);
         seconds_left.setText(String.valueOf(seconds));
 
