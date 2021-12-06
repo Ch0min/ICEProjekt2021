@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,13 +20,17 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     JLabel answer_labelC = new JLabel();
     JLabel answer_labelD = new JLabel();
 
-// Results Instanser
+// Results & Pop-Up Vinduer Instanser
     JPanel resultPanel = new JPanel();
     JLabel resultLabel = new JLabel();
     JButton resultButton = new JButton();
 
+    // Bruges til at farve optionPane vinduerne.
+    UIManager UI;
+
 // Timer Instanser
-    JProgressBar timerBar = new JProgressBar();
+  //  Timer timerBarline;
+  //  JProgressBar timerBar;
     JLabel seconds_left = new JLabel();             // Vil fungere som selve displayet for vores countdown timer.
 
 // Audio Instanser
@@ -106,7 +111,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     private int correct_guesses = 0;      // vil holde på antal korrekte gæt.
     private int results;     // Holder på resultat.
     private int seconds = 30;   // Timer til hvor mange sekunder man har ved hvert spørgsmål.
-    private boolean delay;  // Delay efter man har svaret.
 
 // Timer Design
     Timer countdown = new Timer(1000, new ActionListener() {     // fx 2000ms = 2 sekunder.
@@ -299,12 +303,10 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         menuPanelCentralMid.setBackground(new Color(0, 0, 159));
         menuPanelCentralMid.setBounds(400, 200, 400, 275);
 
-// Timer design fik det til at virke, men programmet kan åbenbart ikke fungere så.
-//        timerBar.setBorder(BorderFactory.createLineBorder(new Color(0, 50, 159), 5, false));
-//        timerBar.setValue(0);
-//        timerBar.setBounds(0,475,800,20);
-//        timerBar.setFont(new Font("Copperplate", Font.BOLD, 20));
-//        timerBar.setFont(new Font("Copperplate", Font.PLAIN, 20));
+// Optionpane/Pop-Up design
+    //    UI = new UIManager();
+    //    UI.put("OptionPane.background", new ColorUIResource(197,179,88));
+    //    UI.put("Panel.background", new ColorUIResource(197,179,88));
 
         seconds_left.setBounds(0, 475, 800, 20);
         seconds_left.setForeground(new Color(255, 185, 0));
@@ -328,7 +330,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
 // Adding table
         gameFrame.add(seconds_left);
-        gameFrame.add(timerBar);
+       // gameFrame.add(timerBar);
 
         gameFrame.add(textField);
         gameFrame.add(textArea);
@@ -363,24 +365,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
         gameFrame.setVisible(true);
         nextQuestion();
-        // fillTimerBar();
-
 
     }
-
-//    public void fillTimerBar() {
-//        int count = 100;
-//        while (count > 0) {
-//            timerBar.setValue(count);
-//            try {
-//                Thread.sleep( 300); // Thread: tillader et program til at køre mere effektivt ved at køre flere tasks på samme tid
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            count -= 1;
-//        }
-//        timerBar.setString("TIDEN ER UDLØBET");
-//    }
 
     public void nextQuestion() {
         if (index >= total_questions) {
@@ -400,6 +386,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
         } else {
             textField.setText("Spørgsmål " + (index + 1));       // Incrementer 'Spørgsmål' hver gang der kommer et nyt spørgsmål.
+            textField.setFont(new Font("Copperplate", Font.BOLD, 30));
+            textField.setForeground(new Color(212,175,55));
             JOptionPane.showOptionDialog(gameFrame, "SPØRGSMÅL TIL: " + rewardsList[index], "PENGEBELØB", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             textArea.setText(questions[index]);                  // Hver gang index bliver incremented, så skal programmet skifte til næste spørgsmål.
             answer_labelA.setText(options[index][0]);            // Bruger vores options 2d array, for at hente svarmulighederne.
@@ -412,7 +400,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int correct_guesses = 0;      // vil holde på antal korrekte gæt. Bruger vi ikke rigtigt endnu
+      //  int correct_guesses = 0;      // vil holde på antal korrekte gæt. Bruger vi ikke rigtigt endnu
         correctAnswer = new SoundDesign("Soundeffects/correct.wav");
         wrongAnswer = new SoundDesign("Soundeffects/wrong.wav");
 
@@ -425,7 +413,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 answer = 'A';
                 if (answer == answers[index]) {  // Hvis vores svar er equal til det svar der er stored i vores 'answers array' i et bestemt index, så incrementer vi 'correct_guess' med 1.
                     correctAnswer.play();
-                    correct_guesses++;
+           //         correct_guesses++;
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
@@ -435,7 +423,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 answer = 'B';
                 if (answer == answers[index]) {
                     correctAnswer.play();
-                    correct_guesses++;
+               //     correct_guesses++;
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
@@ -445,7 +433,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 answer = 'C';
                 if (answer == answers[index]) {
                     correctAnswer.play();
-                    correct_guesses++;
+                //    correct_guesses++;
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
@@ -455,7 +443,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 answer = 'D';
                 if (answer == answers[index]) {
                     correctAnswer.play();
-                    correct_guesses++;
+                 //   correct_guesses++;
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
