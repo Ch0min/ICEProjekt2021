@@ -4,14 +4,14 @@ public class MillionWindow {
     JFrame resultsMillionFrame;
 
     public MillionWindow() {
-        this.reward();
+        this.rewardMillion();
         
     }
     
     
 
 
-    private void reward() {
+    private void rewardMillion() {
 
 
 

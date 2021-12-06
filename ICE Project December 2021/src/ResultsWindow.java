@@ -6,15 +6,18 @@ public class ResultsWindow extends JPanel {
     JFrame resultsFrame;
     SoundDesign resultsSound;
 
-    ResultsWindow() {
-        this.rewardMillion();
+    public ResultsWindow() {
+        this.reward();
         resultsSound = new SoundDesign("Soundeffects/1000000-music.wav");
-        resultsSound.play();
-        resultsSound.loop();
+     //   resultsSound.play();
+     //   resultsSound.loop();
 
     }
 
-    private void rewardMillion() {
+    private void reward() {
+
+
+
 
 
 

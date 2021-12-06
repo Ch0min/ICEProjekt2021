@@ -29,15 +29,12 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     UIManager UI;
 
 // Timer Instanser
-  //  Timer timerBarline;
-  //  JProgressBar timerBar;
     JLabel seconds_left = new JLabel();             // Vil fungere som selve displayet for vores countdown timer.
 
 // Audio Instanser
     SoundDesign soundDesign;    // Introduktion
     SoundDesign correctAnswer;
     SoundDesign wrongAnswer;
-    SoundDesign finalAnswer;
     SoundDesign clockRanOut;
 
 // Spørgsmåls Instans Lister
@@ -57,7 +54,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             "I hvilket af kroppens led sidder 'patella'?",                                                   // 13
             "Hvilket materiale er man berømt for at producere og forarbejde i Murano i det nordlige Italien?", // 14
             "Hvilket af følgende er ikke et vinmærke?"                                              // 15
-
 
     };
 
@@ -108,7 +104,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     private char answer;    // vil holde på svar.
     private int index;      // Bruges som en timer til at vide hvilket spørgsmål man er ved.
     private int total_questions = questions.length;
-    private int correct_guesses = 0;      // vil holde på antal korrekte gæt.
     private int results;     // Holder på resultat.
     private int seconds = 30;   // Timer til hvor mange sekunder man har ved hvert spørgsmål.
 
@@ -152,7 +147,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         textField.setBounds(0, 475, 800, 20);      // 'setBounds' bruger man til at bestemme placeringen.
         textField.setBackground(new Color(0, 50, 159));
         textField.setForeground(new Color(255, 185, 0));
-        textField.setFont(new Font("Copperplate", Font.BOLD, 20));  // // WindowsPC : "Copperplate Gothic Bold"
+        textField.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 20));  // // WindowsPC : "Copperplate Gothic Bold"
         textField.setBorder(BorderFactory.createLineBorder(new Color(0, 50, 255), 1, true));
         textField.setHorizontalAlignment(JTextField.CENTER);    // Juster placeringen af teksten.(Center)
         textField.setFocusable(false);
@@ -311,7 +306,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         seconds_left.setBounds(0, 475, 800, 20);
         seconds_left.setForeground(new Color(255, 185, 0));
         seconds_left.setBackground(new Color(0, 50, 159));
-        seconds_left.setFont(new Font("Copperplate", Font.BOLD, 30));   // Windows: "Copperplate Gothic Bold"
+        seconds_left.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 30));   // Windows: "Copperplate Gothic Bold"
         seconds_left.setHorizontalAlignment(JTextField.RIGHT);
         seconds_left.setText(String.valueOf(seconds));
 
@@ -330,7 +325,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
 // Adding table
         gameFrame.add(seconds_left);
-       // gameFrame.add(timerBar);
 
         gameFrame.add(textField);
         gameFrame.add(textArea);
@@ -364,6 +358,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         gameFrame.add(menuPanelCentralMid);
 
         gameFrame.setVisible(true);
+
         nextQuestion();
 
     }
@@ -383,7 +378,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             JOptionPane.showOptionDialog(gameFrame, resultPanel, "RESULTAT", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
             System.exit(0);
 
-
         } else {
             textField.setText("Spørgsmål " + (index + 1));       // Incrementer 'Spørgsmål' hver gang der kommer et nyt spørgsmål.
             textField.setFont(new Font("Copperplate", Font.BOLD, 30));
@@ -400,7 +394,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
     @Override
     public void actionPerformed(ActionEvent e) {
-      //  int correct_guesses = 0;      // vil holde på antal korrekte gæt. Bruger vi ikke rigtigt endnu
         correctAnswer = new SoundDesign("Soundeffects/correct.wav");
         wrongAnswer = new SoundDesign("Soundeffects/wrong.wav");
 
@@ -413,7 +406,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 answer = 'A';
                 if (answer == answers[index]) {  // Hvis vores svar er equal til det svar der er stored i vores 'answers array' i et bestemt index, så incrementer vi 'correct_guess' med 1.
                     correctAnswer.play();
-           //         correct_guesses++;
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
@@ -423,7 +415,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 answer = 'B';
                 if (answer == answers[index]) {
                     correctAnswer.play();
-               //     correct_guesses++;
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
@@ -433,7 +424,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 answer = 'C';
                 if (answer == answers[index]) {
                     correctAnswer.play();
-                //    correct_guesses++;
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
@@ -443,7 +433,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 answer = 'D';
                 if (answer == answers[index]) {
                     correctAnswer.play();
-                 //   correct_guesses++;
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
@@ -511,7 +500,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         delayClock.start();
 
         // Timer i metoden, da vi gerne vil have de forkerte svar converter til deres oprindelige farve igen, efter skift af hvert spørgsmål.
-        Timer pause = new Timer(6000, new ActionListener() {     // 5 sekunders pause efter hver spørgsmål.
+        Timer pause = new Timer(6000, new ActionListener() {     // 6 sekunders pause efter hver spørgsmål.
 
             @Override
             public void actionPerformed(ActionEvent e) {

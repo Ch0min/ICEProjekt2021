@@ -11,11 +11,16 @@ public class StartMenu extends JPanel implements ActionListener {
     SoundDesign soundDesign;
 
     public StartMenu() {
-        this.startMenu();
+        startMenu();
+        startMenuAudio();
+    }
+
+    public void startMenuAudio() {
         soundDesign = new SoundDesign("Soundeffects/menu.wav");
         soundDesign.play();
         soundDesign.loop();
     }
+
 
     // Design menu
     public void startMenu() {
@@ -31,7 +36,7 @@ public class StartMenu extends JPanel implements ActionListener {
         spilKnap.setHorizontalAlignment(JButton.LEFT);
         spilKnap.setHorizontalTextPosition(JButton.RIGHT);
         spilKnap.setVerticalTextPosition(JButton.CENTER);
-        spilKnap.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 25));   // WindowsPC : "Copperplate Gothic Bold"
+        spilKnap.setFont(new Font("Copperplate", Font.BOLD, 25));   // WindowsPC : "Copperplate Gothic Bold"
         spilKnap.setBackground(new Color(0, 50, 200));
         spilKnap.setForeground(new Color(240, 230, 140));
         spilKnap.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 5, true));
@@ -49,7 +54,7 @@ public class StartMenu extends JPanel implements ActionListener {
         quitKnap.setHorizontalAlignment(JButton.LEFT);
         quitKnap.setHorizontalTextPosition(JButton.RIGHT);
         quitKnap.setVerticalTextPosition(JButton.CENTER);
-        quitKnap.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 20));  // WindowsPC : "Copperplate Gothic Bold"
+        quitKnap.setFont(new Font("Copperplate", Font.PLAIN, 20));  // WindowsPC : "Copperplate Gothic Bold"
         quitKnap.setBackground(new Color(0, 50, 200));
         quitKnap.setForeground(new Color(240, 230, 140));
         quitKnap.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 3, true));

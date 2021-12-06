@@ -1,10 +1,11 @@
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameDesign extends JPanel implements ActionListener {     // Da programmet kører på en masse små handlinger.
-    // Gamedesigns Instanser
+// Gamedesigns Instanser
     JFrame gameFrame = new JFrame();
     JTextField textField = new JTextField();  // Vil holde the current spørgsmål, som man er på.
     JTextArea textArea = new JTextArea();    // Vil også holde på the current spørgsmål.
@@ -19,27 +20,29 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     JLabel answer_labelC = new JLabel();
     JLabel answer_labelD = new JLabel();
 
-    // Results Instanser
+// Results & Pop-Up Vinduer Instanser
     JPanel resultPanel = new JPanel();
     JLabel resultLabel = new JLabel();
     JButton resultButton = new JButton();
 
-    // Timer Instanser
-    JProgressBar timerBar = new JProgressBar();
+    // Bruges til at farve optionPane vinduerne.
+    UIManager UI;
+
+// Timer Instanser
+  //  Timer timerBarline;
+  //  JProgressBar timerBar;
     JLabel seconds_left = new JLabel();             // Vil fungere som selve displayet for vores countdown timer.
 
-// RESULTATER - muligvis bruges i results window class.
-//    JTextField number_right = new JTextField();     //  Vil vises efter vi har calculated vores resultater.
-//    JTextField percentage = new JTextField();       // Vil vise en procentdel af ens endelig score.
-
-    //  LYD GAME DESIGN
+// Audio Instanser
     SoundDesign soundDesign;    // Introduktion
     SoundDesign correctAnswer;
     SoundDesign wrongAnswer;
+    SoundDesign finalAnswer;
+    SoundDesign clockRanOut;
 
-
+// Spørgsmåls Instans Lister
     String[] questions = {      // Indeholder spørgsmålene.
-            "Hvilket apparat kaldte man tidligere en datamat?",                                             // 1
+            "Hvilket apparat kaldte man tidligere for en datamat?",                                             // 1
             "I hvilket årstal vandt Danmarks herrelandshold deres første fodbold EM-trofæ?",                // 2
             "Hvor mange dele består en trilogi af?",                                                        // 3
             "Hvad spiser Skipper Skræk når han har brug for ekstra kræfter?",                               // 4
@@ -60,21 +63,21 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
     String[][] options = {      // Holder på alle svarmulighederne, til vores spørgsmål.
             // Ved at gøre det på den her måde, så kan vi tilføje og slette spørgsmål, da det her program er dynamisk.
-            {"Mobiltelefon", "MP3-afspiller", "Lommeregner", "Computer"},   // 1
-            {"1990", "1992", "1994", "1996"},                   // 2
-            {"1", "2", "3", "4"},                               // 3
-            {"Gulerødder", "Kartofler", "Tomater", "Spinat"},   // 4
-            {"Tysk", "Østrigsk", "Fransk", "Italiensk"},        // 5
-            {"Leopard", "Los", "Gazelle", "Gepard"},            // 6
-            {"Watt", "Volt", "Ohm", "Maxwell"},                 // 7
-            {"Rovdyr", "Avlsdyr", "Æddyr", "Byttedyr"},         // 8
-            {"Jesus", "Muhammed", "Moses", "Elijah"},           // 9
-            {"Mads Mikkelsen", "Pilou Asbæk", "Ulrich Thomsen", "Nikolaj Coster-Waldau"},   // 10
-            {"ca. 50", "ca. 200", "ca. 400", "ca. 700"},         // 11
-            {"Mønter", "Kort", "Terninger", "Frimærker"},        // 12
-            {"I albuen", "I knæet", "I rygsøjlen", "I håndleddet"},    // 13
-            {"Plastik", "Stof", "Metal", "Glas"},             // 14
-            {"Bolero", "Barolo", "Brunello", "Barbaresco"}  // 15
+            {" Mobiltelefon", " MP3-afspiller", " Lommeregner", " Computer"},   // 1
+            {" 1990", " 1992", " 1994", " 1996"},                   // 2
+            {" 1", " 2", " 3", " 4"},                               // 3
+            {" Gulerødder", " Kartofler", " Tomater", " Spinat"},   // 4
+            {" Tysk", " Østrigsk", " Fransk", " Italiensk"},        // 5
+            {" Leopard", " Los", " Gazelle", " Gepard"},            // 6
+            {" Watt", " Volt", " Ohm", " Maxwell"},                 // 7
+            {" Rovdyr", " Avlsdyr", " Æddyr", " Byttedyr"},         // 8
+            {" Jesus", " Muhammed", " Moses", " Elijah"},           // 9
+            {" Mads Mikkelsen", " Pilou Asbæk", " Ulrich Thomsen", " Nikolaj Coster-Waldau"},   // 10
+            {" ca. 50", " ca. 200", " ca. 400", " ca. 700"},         // 11
+            {" Mønter", " Kort", " Terninger", " Frimærker"},        // 12
+            {" I albuen", " I knæet", " I rygsøjlen", " I håndleddet"},    // 13
+            {" Plastik", " Stof", " Metal", " Glas"},             // 14
+            {" Bolero", " Barolo", " Brunello", " Barbaresco"}  // 15
 
     };
 
@@ -97,18 +100,19 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     'A'       // 15
             };
 
-    // Pengebeløb liste
+// Pengebeløb liste
     String[] rewardsList = {"1000 KR", "2000 KR", "3000 KR", "4000 KR", "5000 KR", "8000 KR", "12000 KR", "20000 KR",
             "32000 KR", "50000 KR", "75000 KR", "125000 KR", "250000 KR", "500000 KR", "1 MILLION KR"};
 
-    // Gamedesign variabler
-    char answer;    // vil holde på svar.
-    int index;      // Bruges som en timer til at vide hvilket spørgsmål man er ved.
-    int total_questions = questions.length;
-    int correct_guesses = 0;      // vil holde på antal korrekte gæt.
-    int results;     // Holder på resultat.
-    int seconds = 30;   // Timer til hvor mange sekunder man har ved hvert spørgsmål.
+// Gamedesign variabler
+    private char answer;    // vil holde på svar.
+    private int index;      // Bruges som en timer til at vide hvilket spørgsmål man er ved.
+    private int total_questions = questions.length;
+    private int correct_guesses = 0;      // vil holde på antal korrekte gæt.
+    private int results;     // Holder på resultat.
+    private int seconds = 30;   // Timer til hvor mange sekunder man har ved hvert spørgsmål.
 
+// Timer Design
     Timer countdown = new Timer(1000, new ActionListener() {     // fx 2000ms = 2 sekunder.
 
         @Override
@@ -116,6 +120,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             seconds--;      // Efter hvert action performed method, så decrementer vi seconds med 1.
             seconds_left.setText(String.valueOf(seconds));
             if (seconds <= 0) {      // Hvis timeren rammer 0.
+                clockRanOut = new SoundDesign("Soundeffects/wrong-answer.wav");
+                clockRanOut.play();
                 displayAnswer();    // Vil display det rigtige svar, og disable alle muligheder.
             }
         }
@@ -124,24 +130,29 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
     // Gamedesign constructor.
     public GameDesign() {
-        soundDesign = new SoundDesign("Soundeffects/førstespørgsmål.wav");
-        soundDesign.play();
-        soundDesign.loop();
-
         try {
             gameRun();
         } catch (RuntimeException e) {
             System.out.println("Runtime afbrudt");
         }
+        gameAudio();
 
     }
+
+    public void gameAudio() {
+        soundDesign = new SoundDesign("Soundeffects/førstespørgsmål.wav");
+        soundDesign.play();
+        soundDesign.loop();
+
+    }
+
 
     public void gameRun() {
         // Game fields
         textField.setBounds(0, 475, 800, 20);      // 'setBounds' bruger man til at bestemme placeringen.
         textField.setBackground(new Color(0, 50, 159));
         textField.setForeground(new Color(255, 185, 0));
-        textField.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 20));  // // WindowsPC : "Copperplate Gothic Bold"
+        textField.setFont(new Font("Copperplate", Font.BOLD, 20));  // // WindowsPC : "Copperplate Gothic Bold"
         textField.setBorder(BorderFactory.createLineBorder(new Color(0, 50, 255), 1, true));
         textField.setHorizontalAlignment(JTextField.CENTER);    // Juster placeringen af teksten.(Center)
         textField.setFocusable(false);
@@ -152,14 +163,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         textArea.setWrapStyleWord(true);
         textArea.setBackground(new Color(0, 0, 250));
         textArea.setForeground(new Color(255, 255, 255));
-        textArea.setFont(new Font("Calibri", Font.BOLD, 20));
+        textArea.setFont(new Font("Calibri", Font.PLAIN, 19));
         textArea.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 1, true));
         textArea.setEditable(false);
 
 
 // Game Buttons
         // Button A
-        buttonA.setBounds(0, 535, 150, 125);
+        buttonA.setBounds(0, 540, 150, 120);
         buttonA.setForeground(new Color(255, 185, 0));
         buttonA.setBackground(new Color(0, 0, 159));
         buttonA.setFont(new Font("Impact", Font.BOLD, 40));
@@ -170,7 +181,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         buttonA.setOpaque(true);
 
         // Button B
-        buttonB.setBounds(400, 535, 150, 125);
+        buttonB.setBounds(400, 540, 150, 120);
         buttonB.setForeground(new Color(255, 185, 0));
         buttonB.setBackground(new Color(0, 0, 159));
         buttonB.setFont(new Font("Impact", Font.BOLD, 40));
@@ -292,17 +303,15 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         menuPanelCentralMid.setBackground(new Color(0, 0, 159));
         menuPanelCentralMid.setBounds(400, 200, 400, 275);
 
-// Timer design fik det til at virke, men programmet kan åbenbart ikke fungere så.
-//        timerBar.setBorder(BorderFactory.createLineBorder(new Color(0, 50, 159), 5, false));
-//        timerBar.setValue(0);
-//        timerBar.setBounds(0,475,800,20);
-//        timerBar.setFont(new Font("Copperplate", Font.BOLD, 20));
-//        timerBar.setFont(new Font("Copperplate", Font.PLAIN, 20));
+// Optionpane/Pop-Up design
+    //    UI = new UIManager();
+    //    UI.put("OptionPane.background", new ColorUIResource(197,179,88));
+    //    UI.put("Panel.background", new ColorUIResource(197,179,88));
 
         seconds_left.setBounds(0, 475, 800, 20);
         seconds_left.setForeground(new Color(255, 185, 0));
         seconds_left.setBackground(new Color(0, 50, 159));
-        seconds_left.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 30));   // Windows: "Copperplate Gothic Bold"
+        seconds_left.setFont(new Font("Copperplate", Font.BOLD, 30));   // Windows: "Copperplate Gothic Bold"
         seconds_left.setHorizontalAlignment(JTextField.RIGHT);
         seconds_left.setText(String.valueOf(seconds));
 
@@ -321,7 +330,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
 // Adding table
         gameFrame.add(seconds_left);
-        gameFrame.add(timerBar);
+       // gameFrame.add(timerBar);
 
         gameFrame.add(textField);
         gameFrame.add(textArea);
@@ -356,24 +365,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
         gameFrame.setVisible(true);
         nextQuestion();
-        // fillTimerBar();
-
 
     }
-
-//    public void fillTimerBar() {
-//        int count = 100;
-//        while (count > 0) {
-//            timerBar.setValue(count);
-//            try {
-//                Thread.sleep( 300); // Thread: tillader et program til at køre mere effektivt ved at køre flere tasks på samme tid
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            count -= 1;
-//        }
-//        timerBar.setString("TIDEN ER UDLØBET");
-//    }
 
     public void nextQuestion() {
         if (index >= total_questions) {
@@ -393,7 +386,9 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
         } else {
             textField.setText("Spørgsmål " + (index + 1));       // Incrementer 'Spørgsmål' hver gang der kommer et nyt spørgsmål.
-            JOptionPane.showOptionDialog(gameFrame, "SPØRGSMÅL TIL  " + rewardsList[index], "PENGEBELØB", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            textField.setFont(new Font("Copperplate", Font.BOLD, 30));
+            textField.setForeground(new Color(212,175,55));
+            JOptionPane.showOptionDialog(gameFrame, "SPØRGSMÅL TIL: " + rewardsList[index], "PENGEBELØB", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             textArea.setText(questions[index]);                  // Hver gang index bliver incremented, så skal programmet skifte til næste spørgsmål.
             answer_labelA.setText(options[index][0]);            // Bruger vores options 2d array, for at hente svarmulighederne.
             answer_labelB.setText(options[index][1]);
@@ -405,19 +400,20 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int correct_guesses = 0;      // vil holde på antal korrekte gæt. Bruger vi ikke rigtigt endnu
+      //  int correct_guesses = 0;      // vil holde på antal korrekte gæt. Bruger vi ikke rigtigt endnu
+        correctAnswer = new SoundDesign("Soundeffects/correct.wav");
+        wrongAnswer = new SoundDesign("Soundeffects/wrong.wav");
+
         buttonA.setEnabled(false);
         buttonB.setEnabled(false);
         buttonC.setEnabled(false);
         buttonD.setEnabled(false);
-        correctAnswer = new SoundDesign("Soundeffects/correct-answer.wav");
-        wrongAnswer = new SoundDesign("Soundeffects/wrong-answer.wav");
 
             if (e.getSource() == buttonA) {      // Hvis en person klikker på Button A, hvad skal der så ske?
                 answer = 'A';
                 if (answer == answers[index]) {  // Hvis vores svar er equal til det svar der er stored i vores 'answers array' i et bestemt index, så incrementer vi 'correct_guess' med 1.
                     correctAnswer.play();
-                    correct_guesses++;
+           //         correct_guesses++;
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
@@ -427,7 +423,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 answer = 'B';
                 if (answer == answers[index]) {
                     correctAnswer.play();
-                    correct_guesses++;
+               //     correct_guesses++;
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
@@ -437,7 +433,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 answer = 'C';
                 if (answer == answers[index]) {
                     correctAnswer.play();
-                    correct_guesses++;
+                //    correct_guesses++;
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
@@ -447,7 +443,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 answer = 'D';
                 if (answer == answers[index]) {
                     correctAnswer.play();
-                    correct_guesses++;
+                 //   correct_guesses++;
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
@@ -463,7 +459,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
     public void displayAnswer() {
         countdown.stop();
-
         buttonA.setEnabled(false);
         buttonB.setEnabled(false);
         buttonC.setEnabled(false);
@@ -471,25 +466,52 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
         // Skifter farve
         if (answers[index] == 'A')     // Hvis svaret er 'A', hvad gør vi så?
-            answer_labelA.setForeground(new Color(240, 230, 140));
+            answer_labelA.setForeground(new Color(255,255,255));
         if (answers[index] == 'B')    // Hvis svaret er 'B', hvad gør vi så?
-            answer_labelB.setForeground(new Color(240, 230, 140));
+            answer_labelB.setForeground(new Color(255,255,255));
         if (answers[index] == 'C')    // Hvis svaret er 'C', hvad gør vi så?
-            answer_labelC.setForeground(new Color(240, 230, 140));
+            answer_labelC.setForeground(new Color(255,255,255));
         if (answers[index] == 'D')     // Hvis svaret er 'D', hvad gør vi så?
-            answer_labelD.setForeground(new Color(240, 230, 140));
+            answer_labelD.setForeground(new Color(255,255,255));
 
         if (answers[index] != 'A')     // Hvis svaret ikke er 'A', hvad gør vi så?
-            answer_labelA.setForeground(new Color(255, 0, 0));
+            answer_labelA.setForeground(new Color(255,255,255));
         if (answers[index] != 'B')    // Hvis svaret ikke er 'B', hvad gør vi så?
-            answer_labelB.setForeground(new Color(255, 0, 0));
+            answer_labelB.setForeground(new Color(255,255,255));
         if (answers[index] != 'C')    // Hvis svaret ikke er 'C', hvad gør vi så?
-            answer_labelC.setForeground(new Color(255, 0, 0));
+            answer_labelC.setForeground(new Color(255,255,255));
         if (answers[index] != 'D')     // Hvis svaret ikke er 'D', hvad gør vi så?
-            answer_labelD.setForeground(new Color(255, 0, 0));
+            answer_labelD.setForeground(new Color(255,255,255));
+
+        // Delay efter man har trykket på et svar.
+        Timer delayClock = new Timer(2800, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (answers[index] == 'A')     // Hvis svaret er 'A', hvad gør vi så?
+                    answer_labelA.setForeground(new Color(240, 230, 140));
+                if (answers[index] == 'B')    // Hvis svaret er 'B', hvad gør vi så?
+                    answer_labelB.setForeground(new Color(240, 230, 140));
+                if (answers[index] == 'C')    // Hvis svaret er 'C', hvad gør vi så?
+                    answer_labelC.setForeground(new Color(240, 230, 140));
+                if (answers[index] == 'D')     // Hvis svaret er 'D', hvad gør vi så?
+                    answer_labelD.setForeground(new Color(240, 230, 140));
+
+                if (answers[index] != 'A')     // Hvis svaret ikke er 'A', hvad gør vi så?
+                    answer_labelA.setForeground(new Color(255, 0, 0));
+                if (answers[index] != 'B')    // Hvis svaret ikke er 'B', hvad gør vi så?
+                    answer_labelB.setForeground(new Color(255, 0, 0));
+                if (answers[index] != 'C')    // Hvis svaret ikke er 'C', hvad gør vi så?
+                    answer_labelC.setForeground(new Color(255, 0, 0));
+                if (answers[index] != 'D')     // Hvis svaret ikke er 'D', hvad gør vi så?
+                    answer_labelD.setForeground(new Color(255, 0, 0));
+
+            }
+        });
+        delayClock.setRepeats(false);
+        delayClock.start();
 
         // Timer i metoden, da vi gerne vil have de forkerte svar converter til deres oprindelige farve igen, efter skift af hvert spørgsmål.
-        Timer pause = new Timer(5000, new ActionListener() {     // 5 sekunders pause efter hver spørgsmål.
+        Timer pause = new Timer(6000, new ActionListener() {     // 5 sekunders pause efter hver spørgsmål.
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -498,7 +520,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 answer_labelC.setForeground(new Color(255, 255, 255));
                 answer_labelD.setForeground(new Color(255, 255, 255));
 
-                //   answer = ' ';    // Reset vores svar.
                 seconds = 30;
                 seconds_left.setText(String.valueOf(seconds));
                 buttonA.setEnabled(true);        // Vi skal nemlig huske at enable vores knapper igen her.
