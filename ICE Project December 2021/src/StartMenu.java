@@ -9,7 +9,6 @@ public class StartMenu extends JPanel implements ActionListener {
     JButton spilKnap;
     JButton quitKnap;
     SoundDesign soundDesign;
-    SoundDesign timerRunOut;
 
     public StartMenu() {
         startMenu();

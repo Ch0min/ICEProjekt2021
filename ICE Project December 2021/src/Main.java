@@ -16,7 +16,8 @@ public class Main {
 /* NOTER TIL NÆSTE GANG
 - Pop result window, 'Knappen Pengecheck' skal åbne nyt vindue.       //done
 - Få resultwindow op, når man har tabt.                               //done
-- Når timeren rammer 0, skal der lyd på
+- Når timeren rammer 0, skal der lyd på                                 // done
+- Final answer lyd - delay efter man har har trykket et svar            // done
 - resultwindow popup vindue skal designes
 - pengebeløb popup vindue skal designes
 - resultwindow skal der ny lyd til

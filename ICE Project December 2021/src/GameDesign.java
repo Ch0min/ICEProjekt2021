@@ -100,12 +100,13 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             "32000 KR", "50000 KR", "75000 KR", "125000 KR", "250000 KR", "500000 KR", "1 MILLION KR"};
 
 // Gamedesign variabler
-    char answer;    // vil holde på svar.
-    int index;      // Bruges som en timer til at vide hvilket spørgsmål man er ved.
-    int total_questions = questions.length;
-    int correct_guesses = 0;      // vil holde på antal korrekte gæt.
-    int results;     // Holder på resultat.
-    int seconds = 30;   // Timer til hvor mange sekunder man har ved hvert spørgsmål.
+    private char answer;    // vil holde på svar.
+    private int index;      // Bruges som en timer til at vide hvilket spørgsmål man er ved.
+    private int total_questions = questions.length;
+    private int correct_guesses = 0;      // vil holde på antal korrekte gæt.
+    private int results;     // Holder på resultat.
+    private int seconds = 30;   // Timer til hvor mange sekunder man har ved hvert spørgsmål.
+    private boolean delay;  // Delay efter man har svaret.
 
 // Timer Design
     Timer countdown = new Timer(1000, new ActionListener() {     // fx 2000ms = 2 sekunder.
@@ -470,7 +471,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
     public void displayAnswer() {
         countdown.stop();
-
         buttonA.setEnabled(false);
         buttonB.setEnabled(false);
         buttonC.setEnabled(false);
@@ -478,25 +478,52 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
         // Skifter farve
         if (answers[index] == 'A')     // Hvis svaret er 'A', hvad gør vi så?
-            answer_labelA.setForeground(new Color(240, 230, 140));
+            answer_labelA.setForeground(new Color(255,255,255));
         if (answers[index] == 'B')    // Hvis svaret er 'B', hvad gør vi så?
-            answer_labelB.setForeground(new Color(240, 230, 140));
+            answer_labelB.setForeground(new Color(255,255,255));
         if (answers[index] == 'C')    // Hvis svaret er 'C', hvad gør vi så?
-            answer_labelC.setForeground(new Color(240, 230, 140));
+            answer_labelC.setForeground(new Color(255,255,255));
         if (answers[index] == 'D')     // Hvis svaret er 'D', hvad gør vi så?
-            answer_labelD.setForeground(new Color(240, 230, 140));
+            answer_labelD.setForeground(new Color(255,255,255));
 
         if (answers[index] != 'A')     // Hvis svaret ikke er 'A', hvad gør vi så?
-            answer_labelA.setForeground(new Color(255, 0, 0));
+            answer_labelA.setForeground(new Color(255,255,255));
         if (answers[index] != 'B')    // Hvis svaret ikke er 'B', hvad gør vi så?
-            answer_labelB.setForeground(new Color(255, 0, 0));
+            answer_labelB.setForeground(new Color(255,255,255));
         if (answers[index] != 'C')    // Hvis svaret ikke er 'C', hvad gør vi så?
-            answer_labelC.setForeground(new Color(255, 0, 0));
+            answer_labelC.setForeground(new Color(255,255,255));
         if (answers[index] != 'D')     // Hvis svaret ikke er 'D', hvad gør vi så?
-            answer_labelD.setForeground(new Color(255, 0, 0));
+            answer_labelD.setForeground(new Color(255,255,255));
+
+        // Delay efter man har trykket på et svar.
+        Timer delayClock = new Timer(2800, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (answers[index] == 'A')     // Hvis svaret er 'A', hvad gør vi så?
+                    answer_labelA.setForeground(new Color(240, 230, 140));
+                if (answers[index] == 'B')    // Hvis svaret er 'B', hvad gør vi så?
+                    answer_labelB.setForeground(new Color(240, 230, 140));
+                if (answers[index] == 'C')    // Hvis svaret er 'C', hvad gør vi så?
+                    answer_labelC.setForeground(new Color(240, 230, 140));
+                if (answers[index] == 'D')     // Hvis svaret er 'D', hvad gør vi så?
+                    answer_labelD.setForeground(new Color(240, 230, 140));
+
+                if (answers[index] != 'A')     // Hvis svaret ikke er 'A', hvad gør vi så?
+                    answer_labelA.setForeground(new Color(255, 0, 0));
+                if (answers[index] != 'B')    // Hvis svaret ikke er 'B', hvad gør vi så?
+                    answer_labelB.setForeground(new Color(255, 0, 0));
+                if (answers[index] != 'C')    // Hvis svaret ikke er 'C', hvad gør vi så?
+                    answer_labelC.setForeground(new Color(255, 0, 0));
+                if (answers[index] != 'D')     // Hvis svaret ikke er 'D', hvad gør vi så?
+                    answer_labelD.setForeground(new Color(255, 0, 0));
+
+            }
+        });
+        delayClock.setRepeats(false);
+        delayClock.start();
 
         // Timer i metoden, da vi gerne vil have de forkerte svar converter til deres oprindelige farve igen, efter skift af hvert spørgsmål.
-        Timer pause = new Timer(5000, new ActionListener() {     // 5 sekunders pause efter hver spørgsmål.
+        Timer pause = new Timer(6000, new ActionListener() {     // 5 sekunders pause efter hver spørgsmål.
 
             @Override
             public void actionPerformed(ActionEvent e) {
