@@ -16,7 +16,7 @@ public class StartMenu extends JPanel implements ActionListener {
     }
 
     public void startMenuAudio() {
-        soundDesign = new SoundDesign("Soundeffects/menu.wav");
+        soundDesign = new SoundDesign("Soundeffects/intromain.wav");
         soundDesign.play();
         soundDesign.loop();
     }
@@ -36,10 +36,10 @@ public class StartMenu extends JPanel implements ActionListener {
         spilKnap.setHorizontalAlignment(JButton.LEFT);
         spilKnap.setHorizontalTextPosition(JButton.RIGHT);
         spilKnap.setVerticalTextPosition(JButton.CENTER);
-        spilKnap.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 25));   // WindowsPC : "Copperplate Gothic Bold"
+        spilKnap.setFont(new Font("Georgia", Font.BOLD, 25));
         spilKnap.setBackground(new Color(0, 50, 200));
         spilKnap.setForeground(new Color(240, 230, 140));
-        spilKnap.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 5, true));
+        spilKnap.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 5, false));
         spilKnap.setOpaque(true);
 
 
@@ -54,10 +54,10 @@ public class StartMenu extends JPanel implements ActionListener {
         quitKnap.setHorizontalAlignment(JButton.LEFT);
         quitKnap.setHorizontalTextPosition(JButton.RIGHT);
         quitKnap.setVerticalTextPosition(JButton.CENTER);
-        quitKnap.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 20));  // WindowsPC : "Copperplate Gothic Bold"
+        quitKnap.setFont(new Font("Georgia", Font.PLAIN, 20));
         quitKnap.setBackground(new Color(0, 50, 200));
         quitKnap.setForeground(new Color(240, 230, 140));
-        quitKnap.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 3, true));
+        quitKnap.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 3, false));
         quitKnap.setOpaque(true);
 
 
@@ -73,15 +73,6 @@ public class StartMenu extends JPanel implements ActionListener {
         label2.setIcon(icon2);
         label2.setHorizontalAlignment(JLabel.CENTER);
 
-        ImageIcon iconLightLeft = new ImageIcon("Pictures/lightleftgd.png");
-        JLabel lightLeft = new JLabel();
-        lightLeft.setIcon(iconLightLeft);
-        lightLeft.setVerticalAlignment(JLabel.CENTER);
-
-        JPanel menuPanelTopLeft = new JPanel();
-        menuPanelTopLeft.setBackground(new Color(0, 0, 159));
-        menuPanelTopLeft.setBounds(0, 0, 400, 200);
-
         JPanel menuPanelMidLeft = new JPanel();
         menuPanelMidLeft.setBackground(new Color(0, 0, 159));
         menuPanelMidLeft.setBounds(0, 200, 400, 275);
@@ -90,11 +81,16 @@ public class StartMenu extends JPanel implements ActionListener {
         menuPanelBottomLeft.setBackground(new Color(0, 0, 159));
         menuPanelBottomLeft.setBounds(0, 460, 400, 450);
 
-        // Middle design
-        ImageIcon toplogo = new ImageIcon("Pictures/hvvmlogo.png");
-        JLabel label3 = new JLabel();
-        label3.setIcon(toplogo);
-        label3.setVerticalAlignment(JLabel.TOP);
+        // Central side design
+        ImageIcon spotlightIcon = new ImageIcon("Pictures/spotlight.png");
+        JLabel spotlight = new JLabel();
+        spotlight.setIcon(spotlightIcon);
+        spotlight.setVerticalAlignment(JLabel.BOTTOM);
+
+        ImageIcon topBorderIcon = new ImageIcon("Pictures/topBorder.png");
+        JLabel topBorder = new JLabel();
+        topBorder.setIcon(topBorderIcon);
+        topBorder.setVerticalAlignment(JLabel.BOTTOM);
 
         ImageIcon iconMidLight = new ImageIcon("Pictures/lightmid.png");
         JLabel midLight = new JLabel();
@@ -102,19 +98,18 @@ public class StartMenu extends JPanel implements ActionListener {
         midLight.setVerticalAlignment(JLabel.BOTTOM);
 
         JPanel menuPanelCentralTop = new JPanel();
-        menuPanelCentralTop.setBackground(new Color(0, 0, 159));
-        menuPanelCentralTop.setBounds(400, 0, 400, 450);
+        menuPanelCentralTop.setBackground(new Color(0,0,159));
+        menuPanelCentralTop.setBounds(0, 0, 1200, 200);
+
+        JPanel menuPanelCentral = new JPanel();
+        menuPanelCentral.setBackground(new Color(0,0,159));
+        menuPanelCentral.setBounds(400, 200, 400, 300);
 
         JPanel menuPanelCentralBot = new JPanel();
         menuPanelCentralBot.setBackground(new Color(0, 0, 159));
         menuPanelCentralBot.setBounds(400, 450, 400, 450);
 
         // Right side design
-        ImageIcon iconLightRight = new ImageIcon("Pictures/lightrightgd.png");
-        JLabel lightRight = new JLabel();
-        lightRight.setIcon(iconLightRight);
-        lightRight.setVerticalAlignment(JLabel.CENTER);
-
         ImageIcon iconCrowdMenu = new ImageIcon("Pictures/rightmidmenu.png");
         JLabel crowdMenu = new JLabel();
         crowdMenu.setIcon(iconCrowdMenu);
@@ -124,10 +119,6 @@ public class StartMenu extends JPanel implements ActionListener {
         JLabel rightbg = new JLabel();
         rightbg.setIcon(iconRightbg);
         rightbg.setVerticalAlignment(JLabel.CENTER);
-
-        JPanel menuPanelTopRight = new JPanel();
-        menuPanelTopRight.setBackground(new Color(0, 0, 159));
-        menuPanelTopRight.setBounds(800, 0, 400, 200);
 
         JPanel menuPanelMidRight = new JPanel();
         menuPanelMidRight.setBackground(new Color(0, 0, 159));
@@ -154,24 +145,23 @@ public class StartMenu extends JPanel implements ActionListener {
         menuFrame.add(quitKnap);
 
         // Left side
-        menuPanelTopLeft.add(lightLeft);
         menuPanelMidLeft.add(label);
         menuPanelBottomLeft.add(label2);
-        menuFrame.add(menuPanelTopLeft);
         menuFrame.add(menuPanelMidLeft);
         menuFrame.add(menuPanelBottomLeft);
 
         // Middle
-        menuPanelCentralTop.add(label3);
+        menuPanelCentralTop.add(spotlight);
+        menuPanelCentral.add(topBorder);
+
         menuPanelCentralBot.add(midLight);
         menuFrame.add(menuPanelCentralTop);
+        menuFrame.add(menuPanelCentral);
         menuFrame.add(menuPanelCentralBot);
 
         // Right side
-        menuPanelTopRight.add(lightRight);
         menuPanelMidRight.add(crowdMenu);
         menuPanelBottomRight.add(rightbg);
-        menuFrame.add(menuPanelTopRight);
         menuFrame.add(menuPanelMidRight);
         menuFrame.add(menuPanelBottomRight);
 

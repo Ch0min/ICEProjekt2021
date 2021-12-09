@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +6,7 @@ import java.awt.event.ActionListener;
 public class GameDesign extends JPanel implements ActionListener {     // Da programmet kører på en masse små handlinger.
 // Gamedesigns Instanser
     JFrame gameFrame = new JFrame();
+    JFrame resultsFrame;
     JTextField textField = new JTextField();  // Vil holde the current spørgsmål, som man er på.
     JTextArea textArea = new JTextArea();    // Vil også holde på the current spørgsmål.
 
@@ -24,6 +24,10 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     JPanel resultPanel = new JPanel();
     JLabel resultLabel = new JLabel();
     JButton resultButton = new JButton();
+    JButton resultButton1M = new JButton();
+    JPanel highlight;
+    JTextField number_right = new JTextField();     //  Vil vises efter vi har calculated vores resultater.
+
 
     // Bruges til at farve optionPane vinduerne.
     UIManager UI;
@@ -36,6 +40,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     SoundDesign correctAnswer;
     SoundDesign wrongAnswer;
     SoundDesign clockRanOut;
+    SoundDesign questionAudio;
+    SoundDesign oneMillion;
 
 // Spørgsmåls Instans Lister
     String[] questions = {      // Indeholder spørgsmålene.
@@ -90,24 +96,26 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     'C',    // 9
                     'D',    // 10
                     'C',    // 11
-                    'A',     // 12
-                    'B',     // 13
-                    'D',     // 14
-                    'A'       // 15
+                    'A',    // 12
+                    'B',    // 13
+                    'D',    // 14
+                    'A'     // 15
             };
 
 // Pengebeløb liste
-    String[] rewardsList = {"1000 KR", "2000 KR", "3000 KR", "4000 KR", "5000 KR", "8000 KR", "12000 KR", "20000 KR",
-            "32000 KR", "50000 KR", "75000 KR", "125000 KR", "250000 KR", "500000 KR", "1 MILLION KR"};
+    String[] rewardsList = {"0", "1000", "2000", "3000", "4000", "5000", "8000", "12000", "20000",
+            "32000", "50000", "75000", "125000", "250000", "500000", "1 MILLION"};
 
 // Gamedesign variabler
     private char answer;    // vil holde på svar.
-    private int index;      // Bruges som en timer til at vide hvilket spørgsmål man er ved.
+    int index;      // Bruges som en timer til at vide hvilket spørgsmål man er ved.
     private int total_questions = questions.length;
-    private int results;     // Holder på resultat.
+    int correct_guesses = 0;
+    private String results;     // Holder på resultat.
     private int seconds = 30;   // Timer til hvor mange sekunder man har ved hvert spørgsmål.
 
 // Timer Design
+    Timer pause;
     Timer countdown = new Timer(1000, new ActionListener() {     // fx 2000ms = 2 sekunder.
 
         @Override
@@ -147,7 +155,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         textField.setBounds(0, 475, 800, 20);      // 'setBounds' bruger man til at bestemme placeringen.
         textField.setBackground(new Color(0, 50, 159));
         textField.setForeground(new Color(255, 185, 0));
-        textField.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 20));  // // WindowsPC : "Copperplate Gothic Bold"
+        textField.setFont(new Font("Arial", Font.BOLD, 20));
         textField.setBorder(BorderFactory.createLineBorder(new Color(0, 50, 255), 1, true));
         textField.setHorizontalAlignment(JTextField.CENTER);    // Juster placeringen af teksten.(Center)
         textField.setFocusable(false);
@@ -158,7 +166,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         textArea.setWrapStyleWord(true);
         textArea.setBackground(new Color(0, 0, 250));
         textArea.setForeground(new Color(255, 255, 255));
-        textArea.setFont(new Font("Calibri", Font.PLAIN, 19));
+        textArea.setFont(new Font("Arial", Font.BOLD, 20));
         textArea.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 1, true));
         textArea.setEditable(false);
 
@@ -210,33 +218,32 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
         // Pengecheck button
         resultPanel = new JPanel();
-        resultPanel.setFont(new Font("Calibri", Font.BOLD, 15));
+        resultPanel.setFont(new Font("Arial", Font.BOLD, 15));
         resultLabel = new JLabel("SE DINE RESULTATER: ");
-        resultLabel.setFont(new Font("Calibri", Font.PLAIN, 20));
+        resultLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         resultButton = new JButton("PENGECHECK");
         resultButton.setFont(new Font("Impact", Font.BOLD, 30));
         resultButton.addActionListener(this);
         resultPanel.add(resultLabel);
         resultPanel.add(resultButton);
 
-
 // Game Panels
         // Question design
         answer_labelA.setBounds(150, 535, 250, 125);
         answer_labelA.setForeground(new Color(255, 255, 255));
-        answer_labelA.setFont(new Font("Calibri", Font.PLAIN, 25));
+        answer_labelA.setFont(new Font("Arial", Font.PLAIN, 20));
 
         answer_labelB.setBounds(550, 535, 250, 125);
         answer_labelB.setForeground(new Color(255, 255, 255));
-        answer_labelB.setFont(new Font("Calibri", Font.PLAIN, 25));
+        answer_labelB.setFont(new Font("Arial", Font.PLAIN, 20));
 
         answer_labelC.setBounds(150, 657, 250, 125);
         answer_labelC.setForeground(new Color(255, 255, 255));
-        answer_labelC.setFont(new Font("Calibri", Font.PLAIN, 25));
+        answer_labelC.setFont(new Font("Arial", Font.PLAIN, 20));
 
         answer_labelD.setBounds(550, 657, 250, 125);
         answer_labelD.setForeground(new Color(255, 255, 255));
-        answer_labelD.setFont(new Font("Calibri", Font.PLAIN, 25));
+        answer_labelD.setFont(new Font("Arial", Font.PLAIN, 20));
 
         JPanel panel_A = new JPanel();
         panel_A.setBackground(new Color(65, 105, 225));
@@ -252,7 +259,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         panel_C.setBackground(new Color(65, 105, 225));
         panel_C.setBounds(150, 657, 250, 125);
         panel_C.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, true));
-
 
         JPanel panel_D = new JPanel();
         panel_D.setBackground(new Color(65, 105, 225));
@@ -271,13 +277,13 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         spillergd.setIcon(iconSpiller);
         spillergd.setVerticalAlignment(JLabel.CENTER);
 
-        JPanel menuPanelTopLeft = new JPanel();
-        menuPanelTopLeft.setBackground(new Color(0, 0, 159));
-        menuPanelTopLeft.setBounds(0, 0, 400, 200);
+        JPanel gamePanelTopLeft = new JPanel();
+        gamePanelTopLeft.setBackground(new Color(0, 0, 159));
+        gamePanelTopLeft.setBounds(0, 0, 400, 200);
 
-        JPanel menuPanelMidLeft = new JPanel();
-        menuPanelMidLeft.setBackground(new Color(0, 0, 159));
-        menuPanelMidLeft.setBounds(0, 200, 400, 275);
+        JPanel gamePanelMidLeft = new JPanel();
+        gamePanelMidLeft.setBackground(new Color(0, 0, 159));
+        gamePanelMidLeft.setBounds(0, 200, 400, 275);
 
         // Middle design
         ImageIcon iconLightRight = new ImageIcon("Pictures/lightrightgd.png");
@@ -290,13 +296,129 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         hansgd.setIcon(iconHansgd);
         hansgd.setVerticalAlignment(JLabel.CENTER);
 
-        JPanel menuPanelCentralTop = new JPanel();
-        menuPanelCentralTop.setBackground(new Color(0, 0, 159));
-        menuPanelCentralTop.setBounds(400, 0, 400, 200);
+        JPanel gamePanelCentralTop = new JPanel();
+        gamePanelCentralTop.setBackground(new Color(0, 0, 159));
+        gamePanelCentralTop.setBounds(400, 0, 400, 200);
 
-        JPanel menuPanelCentralMid = new JPanel();
-        menuPanelCentralMid.setBackground(new Color(0, 0, 159));
-        menuPanelCentralMid.setBounds(400, 200, 400, 275);
+        JPanel gamePanelCentralMid = new JPanel();
+        gamePanelCentralMid.setBackground(new Color(0, 0, 159));
+        gamePanelCentralMid.setBounds(400, 200, 400, 275);
+
+        // Right design
+        highlight = new JPanel();
+        highlight.setBackground(new Color(255, 229, 94, 150));
+        highlight.setBounds(890, 695, 300,40);
+        highlight.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 3, false));
+        highlight.setOpaque(true);
+
+        JLabel kr1000 = new JLabel();
+        kr1000.setText("1  KR 1.000");
+        kr1000.setForeground(new Color(255, 185, 0));
+        kr1000.setBounds(925, 650, 300,50);
+        kr1000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
+        kr1000.setHorizontalTextPosition(JLabel.CENTER);
+        JLabel kr2000 = new JLabel();
+        kr2000.setText("2  KR 2.000");
+        kr2000.setForeground(new Color(255, 185, 0));
+        kr2000.setBounds(925, 610, 300,50);
+        kr2000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
+        kr2000.setHorizontalTextPosition(JLabel.CENTER);
+        JLabel kr3000 = new JLabel();
+        kr3000.setText("3  KR 3.000");
+        kr3000.setForeground(new Color(255, 185, 0));
+        kr3000.setBounds(925, 570, 300,50);
+        kr3000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
+        kr3000.setHorizontalTextPosition(JLabel.CENTER);
+        JLabel kr4000 = new JLabel();
+        kr4000.setText("4  KR 4.000");
+        kr4000.setForeground(new Color(255, 185, 0));
+        kr4000.setBounds(925, 530, 300,50);
+        kr4000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
+        kr4000.setHorizontalTextPosition(JLabel.CENTER);
+        JLabel kr5000 = new JLabel();
+        kr5000.setText("5  KR 5.000");
+        kr5000.setForeground(new Color(255,255,255));
+        kr5000.setBounds(925, 490, 300,50);
+        kr5000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
+        kr5000.setHorizontalTextPosition(JLabel.CENTER);
+        JLabel kr8000 = new JLabel();
+        kr8000.setText("6  KR 8.000");
+        kr8000.setForeground(new Color(255, 185, 0));
+        kr8000.setBounds(925, 450, 300,50);
+        kr8000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
+        kr8000.setHorizontalTextPosition(JLabel.CENTER);
+        JLabel kr12000 = new JLabel();
+        kr12000.setText("7  KR 12.000");
+        kr12000.setForeground(new Color(255, 185, 0));
+        kr12000.setBounds(925, 410, 300,50);
+        kr12000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
+        kr12000.setHorizontalTextPosition(JLabel.CENTER);
+        JLabel kr20000 = new JLabel();
+        kr20000.setText("8  KR 20.000");
+        kr20000.setForeground(new Color(255, 185, 0));
+        kr20000.setBounds(925, 370, 300,50);
+        kr20000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
+        kr20000.setHorizontalTextPosition(JLabel.CENTER);
+        JLabel kr32000 = new JLabel();
+        kr32000.setText("9  KR 32.000");
+        kr32000.setForeground(new Color(255, 185, 0));
+        kr32000.setBounds(925, 330, 300,50);
+        kr32000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
+        kr32000.setHorizontalTextPosition(JLabel.CENTER);
+        JLabel kr50000 = new JLabel();
+        kr50000.setText("10  KR 50.000");
+        kr50000.setForeground(new Color(255,255,255));
+        kr50000.setBounds(905, 290, 300,50);
+        kr50000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
+        kr50000.setHorizontalTextPosition(JLabel.CENTER);
+        JLabel kr75000 = new JLabel();
+        kr75000.setText("11  KR 75.000");
+        kr75000.setForeground(new Color(255, 185, 0));
+        kr75000.setBounds(905, 250, 300,50);
+        kr75000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
+        kr75000.setHorizontalTextPosition(JLabel.CENTER);
+        JLabel kr125000 = new JLabel();
+        kr125000.setText("12  KR 125.000");
+        kr125000.setForeground(new Color(255, 185, 0));
+        kr125000.setBounds(905, 210, 300,50);
+        kr125000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
+        kr125000.setHorizontalTextPosition(JLabel.CENTER);
+        JLabel kr250000 = new JLabel();
+        kr250000.setText("13  KR 250.000");
+        kr250000.setForeground(new Color(255, 185, 0));
+        kr250000.setBounds(905, 170, 300,50);
+        kr250000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
+        kr250000.setHorizontalTextPosition(JLabel.CENTER);
+        JLabel kr500000 = new JLabel();
+        kr500000.setText("14  KR 500.000");
+        kr500000.setForeground(new Color(255, 185, 0));
+        kr500000.setBounds(905, 130, 300,50);
+        kr500000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
+        kr500000.setHorizontalTextPosition(JLabel.CENTER);
+        JLabel kr1000000 = new JLabel();
+        kr1000000.setText("15  1 MILLION KR");
+        kr1000000.setForeground(new Color(255,255,255));
+        kr1000000.setBounds(905, 90, 300,50);
+        kr1000000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
+        kr1000000.setHorizontalTextPosition(JLabel.CENTER);
+
+// virker ikke
+        ImageIcon blueArrow = new ImageIcon("Pictures/bluearrow.png");
+        JLabel ba = new JLabel();
+        ba.setIcon(blueArrow);
+        JPanel gamePanelTopRight = new JPanel();
+        gamePanelTopRight.setBackground(new Color(0, 0, 159));
+        gamePanelTopRight.setBounds(800, 0, 400, 100);
+
+        JPanel gamePanelMidRight = new JPanel();
+        gamePanelMidRight.setBackground(new Color(0, 0, 159));
+        gamePanelMidRight.setBounds(800, 100, 400, 600);
+
+        JPanel gamePanelBottomRight = new JPanel();
+        gamePanelBottomRight.setBackground(new Color(0, 0, 159));
+        gamePanelBottomRight.setBounds(800, 695, 400, 100);
+        gamePanelBottomRight.setOpaque(true);
+
 
 // Optionpane/Pop-Up design
     //    UI = new UIManager();
@@ -306,7 +428,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         seconds_left.setBounds(0, 475, 800, 20);
         seconds_left.setForeground(new Color(255, 185, 0));
         seconds_left.setBackground(new Color(0, 50, 159));
-        seconds_left.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 30));   // Windows: "Copperplate Gothic Bold"
+        seconds_left.setFont(new Font("JetBrains Mono", Font.BOLD, 23));
         seconds_left.setHorizontalAlignment(JTextField.RIGHT);
         seconds_left.setText(String.valueOf(seconds));
 
@@ -346,16 +468,40 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         gameFrame.add(panel_D);
 
         // Left side
-        menuPanelTopLeft.add(lightLeft);
-        menuPanelMidLeft.add(spillergd);
-        gameFrame.add(menuPanelTopLeft);
-        gameFrame.add(menuPanelMidLeft);
+        gamePanelTopLeft.add(lightLeft);
+        gamePanelMidLeft.add(spillergd);
+        gameFrame.add(gamePanelTopLeft);
+        gameFrame.add(gamePanelMidLeft);
 
         // Middle side
-        menuPanelCentralTop.add(lightRight);
-        menuPanelCentralMid.add(hansgd);
-        gameFrame.add(menuPanelCentralTop);
-        gameFrame.add(menuPanelCentralMid);
+        gamePanelCentralTop.add(lightRight);
+        gamePanelCentralMid.add(hansgd);
+        gameFrame.add(gamePanelCentralTop);
+        gameFrame.add(gamePanelCentralMid);
+
+        // Right side
+        gameFrame.add(gamePanelBottomRight);
+        gameFrame.add(gamePanelTopRight);
+
+        gamePanelMidRight.add(highlight);
+        gameFrame.add(highlight);
+        gameFrame.add(kr1000);
+        gameFrame.add(kr2000);
+        gameFrame.add(kr3000);
+        gameFrame.add(kr4000);
+        gameFrame.add(kr5000);
+        gameFrame.add(kr8000);
+        gameFrame.add(kr12000);
+        gameFrame.add(kr20000);
+        gameFrame.add(kr32000);
+        gameFrame.add(kr50000);
+        gameFrame.add(kr75000);
+        gameFrame.add(kr125000);
+        gameFrame.add(kr250000);
+        gameFrame.add(kr500000);
+        gameFrame.add(kr1000000);
+        gameFrame.add(ba);
+        gameFrame.add(gamePanelMidRight);
 
         gameFrame.setVisible(true);
 
@@ -366,23 +512,28 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     public void nextQuestion() {
         if (index >= total_questions) {
             // Pengecheck popup vindue
-            String[] options = {"Afslut"};
+            String[] options = {"Afslut Spil"};
             JPanel resultPanel = new JPanel();
-            resultPanel.setFont(new Font("Calibri", Font.BOLD, 15));
+            resultPanel.setFont(new Font("Arial", Font.BOLD, 15));
             JLabel resultLabel = new JLabel("SE DINE RESULTATER: ");
-            resultLabel.setFont(new Font("Calibri", Font.PLAIN, 20));
+            resultLabel.setFont(new Font("Arial", Font.PLAIN, 20));
             JButton resultButton = new JButton("PENGECHECK");
             resultButton.setFont(new Font("Impact", Font.BOLD, 30));
             resultPanel.add(resultLabel);
             resultPanel.add(resultButton);
-            JOptionPane.showOptionDialog(gameFrame, resultPanel, "RESULTAT", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-            System.exit(0);
+            JOptionPane.showOptionDialog(gameFrame, "TILLYKKE! DU HAR VUNDET 1 MILLION KRONER!!!", "PENGEBELØB", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            soundDesign.stop();
+            oneMillion = new SoundDesign("Soundeffects/1MIL.wav");
+            oneMillion.play();
+            gameFrame.removeAll();
+            gameFrame.dispose();
+            reward();
 
         } else {
             textField.setText("Spørgsmål " + (index + 1));       // Incrementer 'Spørgsmål' hver gang der kommer et nyt spørgsmål.
-            textField.setFont(new Font("Copperplate", Font.BOLD, 30));
-            textField.setForeground(new Color(212,175,55));
-            JOptionPane.showOptionDialog(gameFrame, "SPØRGSMÅL TIL: " + rewardsList[index], "PENGEBELØB", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            textField.setFont(new Font("Droid Sans Mono", Font.BOLD, 20));
+            textField.setForeground(new Color(255, 185, 0));
+            JOptionPane.showOptionDialog(gameFrame, "SPØRGSMÅL TIL: " + rewardsList[index + 1] + " KR", "HANS PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             textArea.setText(questions[index]);                  // Hver gang index bliver incremented, så skal programmet skifte til næste spørgsmål.
             answer_labelA.setText(options[index][0]);            // Bruger vores options 2d array, for at hente svarmulighederne.
             answer_labelB.setText(options[index][1]);
@@ -396,25 +547,43 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     public void actionPerformed(ActionEvent e) {
         correctAnswer = new SoundDesign("Soundeffects/correct.wav");
         wrongAnswer = new SoundDesign("Soundeffects/wrong.wav");
+        questionAudio = new SoundDesign("Soundeffects/5000000-music.wav");
 
         buttonA.setEnabled(false);
         buttonB.setEnabled(false);
         buttonC.setEnabled(false);
         buttonD.setEnabled(false);
 
-            if (e.getSource() == buttonA) {      // Hvis en person klikker på Button A, hvad skal der så ske?
+        if (e.getSource() == buttonA) {      // Hvis en person klikker på Button A, hvad skal der så ske?
                 answer = 'A';
                 if (answer == answers[index]) {  // Hvis vores svar er equal til det svar der er stored i vores 'answers array' i et bestemt index, så incrementer vi 'correct_guess' med 1.
                     correctAnswer.play();
+                    Timer delayClock = new Timer(2800, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            highlight.setLocation(highlight.getX(), highlight.getY() + -40);
+                        }
+                    });
+                    delayClock.setRepeats(false);
+                    delayClock.start();
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
             }
 
+
             if (e.getSource() == buttonB) {
                 answer = 'B';
                 if (answer == answers[index]) {
                     correctAnswer.play();
+                    Timer delayClock = new Timer(2800, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            highlight.setLocation(highlight.getX(), highlight.getY() + -40);
+                        }
+                    });
+                    delayClock.setRepeats(false);
+                    delayClock.start();
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
@@ -424,6 +593,15 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 answer = 'C';
                 if (answer == answers[index]) {
                     correctAnswer.play();
+                    Timer delayClock = new Timer(2800, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            highlight.setLocation(highlight.getX(), highlight.getY() + -40);
+
+                        }
+                    });
+                    delayClock.setRepeats(false);
+                    delayClock.start();
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
@@ -433,16 +611,27 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 answer = 'D';
                 if (answer == answers[index]) {
                     correctAnswer.play();
+                    Timer delayClock = new Timer(2800, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            highlight.setLocation(highlight.getX(), highlight.getY() + -40);
+                        }
+                    });
+                    delayClock.setRepeats(false);
+                    delayClock.start();
                 } else if (answer != answers[index]) {
                     wrongAnswer.play();
                 }
             }
 
         if (e.getSource() == resultButton) {
-            gameFrame.dispose();    // Lukker menu vinduet.
             soundDesign.stop();
-            ResultsWindow resultsWindow = new ResultsWindow();   // Når der klikkes på spilknappen, så åbner der et nyt vindue i GameDesign.
+            gameFrame.removeAll();
+            gameFrame.dispose();
+            reward();
+
         }
+
         displayAnswer();
     }
 
@@ -500,7 +689,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         delayClock.start();
 
         // Timer i metoden, da vi gerne vil have de forkerte svar converter til deres oprindelige farve igen, efter skift af hvert spørgsmål.
-        Timer pause = new Timer(6000, new ActionListener() {     // 6 sekunders pause efter hver spørgsmål.
+        pause = new Timer(1000, new ActionListener() {     // 6 sekunders pause efter hver spørgsmål.
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -524,9 +713,11 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     // Hvis svaret er forkert. Så åben resultat vindue.
                 } else if (answer != answers[index]) {
                     // Pengecheck popup vindue
-                    String[] options = {"Afslut"};
+                    decider();
+                    String[] options = {"Afslut Spil"};
                     JOptionPane.showOptionDialog(gameFrame, resultPanel, "RESULTAT", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
                     gameFrame.dispose();
+                    pause.stop();
 
                 }
             }
@@ -535,10 +726,156 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         pause.start();               // Her får vi timeren til at starte.
     }
 
+    private void reward() {
+        SoundDesign reward = new SoundDesign("Soundeffects/intromain.wav");
+        reward.play();
+        reward.loop();
+
+// Result Panels
+        // Left side design
+        ImageIcon lf1Icon = new ImageIcon("Gifs/f1top.gif");
+        JLabel lf1 = new JLabel();
+        lf1.setIcon(lf1Icon);
+
+        ImageIcon lf2Icon = new ImageIcon("Gifs/f1bot.gif");
+        JLabel lf2 = new JLabel();
+        lf2.setIcon(lf2Icon);
+
+        ImageIcon hansRIcon = new ImageIcon("Pictures/goldthumbs.png");
+        JLabel hansR = new JLabel();
+        hansR.setIcon(hansRIcon);
+
+        JPanel resultPanelTopLeft = new JPanel();
+        resultPanelTopLeft.setBackground(new Color(0, 0, 23));
+        resultPanelTopLeft.setBounds(0, 0, 300, 250);
+
+        JPanel resultPanelCentralLeft = new JPanel();
+        resultPanelCentralLeft.setBackground(new Color(0,0,23));
+        resultPanelCentralLeft.setBounds(0, 250, 300, 270);
+
+        JPanel resultPanelBottomLeft = new JPanel();
+        resultPanelBottomLeft.setBackground(new Color(0, 0, 23));
+        resultPanelBottomLeft.setBounds(0, 515, 300, 250);
+
+        // Central side design
+        ImageIcon check = new ImageIcon("Pictures/rewardcheck.png");
+        JLabel checkLabel = new JLabel();
+        checkLabel.setText(rewardsList[index]);
+        checkLabel.setFont(new Font("Droid Sans Mono", Font.PLAIN, 40));
+        checkLabel.setHorizontalTextPosition(JLabel.CENTER);
+        checkLabel.setIcon(check);
+        checkLabel.setVerticalAlignment(JLabel.CENTER);
+
+        ImageIcon lightbeamIcon = new ImageIcon("Pictures/lightbeam.png");
+        JLabel lightbeam = new JLabel();
+        lightbeam.setIcon(lightbeamIcon);
+
+        ImageIcon mbag1icon = new ImageIcon("Gifs/mbag.gif");
+        JLabel mbag1 = new JLabel();
+        mbag1.setIcon(mbag1icon);
+        mbag1.setHorizontalAlignment(JLabel.CENTER);
+
+        ImageIcon mbag2icon = new ImageIcon("Gifs/mbag.gif");
+        JLabel mbag2 = new JLabel();
+        mbag2.setIcon(mbag2icon);
+        mbag2.setHorizontalAlignment(JLabel.CENTER);
+
+        JPanel resultPanelTopCentral = new JPanel();
+        resultPanelTopCentral.setBackground(new Color(0,0,23));
+        resultPanelTopCentral.setBounds(300, 0, 600, 255);
+
+        JPanel resultPanelCentral = new JPanel();
+        resultPanelCentral.setBounds(300, 250, 600, 265);
+
+        JPanel resultPanelBottomCentralLeft = new JPanel();
+        resultPanelBottomCentralLeft.setBackground(new Color(0,0,23));
+        resultPanelBottomCentralLeft.setBounds(300, 515, 300, 250);
+
+        JPanel resultPanelBottomCentralRight = new JPanel();
+        resultPanelBottomCentralRight.setBackground(new Color(0,0,23));
+        resultPanelBottomCentralRight.setBounds(600, 515, 300, 250);
+
+        // Right side design
+        ImageIcon rf1Icon = new ImageIcon("Gifs/f1top.gif");
+        JLabel rf1 = new JLabel();
+        rf1.setIcon(rf1Icon);
+
+        ImageIcon rf2Icon = new ImageIcon("Gifs/f1bot.gif");
+        JLabel rf2 = new JLabel();
+        rf2.setIcon(rf2Icon);
+
+        ImageIcon glistIcon = new ImageIcon("Gifs/glistfall.gif");
+        JLabel glist = new JLabel();
+        glist.setIcon(glistIcon);
+
+        JPanel resultPanelTopRight = new JPanel();
+        resultPanelTopRight.setBackground(new Color(0, 0, 23));
+        resultPanelTopRight.setBounds(900, 0, 300, 250);
+
+        JPanel resultPanelCentralRight = new JPanel();
+        resultPanelCentralRight.setBackground(new Color(0,0,23));
+        resultPanelCentralRight.setBounds(900, 250, 300, 270);
+
+        JPanel resultPanelBottomRight = new JPanel();
+        resultPanelBottomRight.setBackground(new Color(0, 0, 23));
+        resultPanelBottomRight.setBounds(900, 515, 300, 250);
+
+// Results Frame Design
+        resultsFrame = new JFrame();
+        resultsFrame.setTitle("RESULTAT: Hvem Vil Være Millionær?");
+        resultsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        resultsFrame.setLayout(null);
+        resultsFrame.setResizable(false);
+        resultsFrame.setSize(1200, 800);   // Egentlige størrelse?
+        ImageIcon logo = new ImageIcon("Pictures/logo.png");
+        resultsFrame.setIconImage(logo.getImage());
+
+
+// Adding Table
+        // Left side
+        resultPanelTopLeft.add(lf1);
+        resultPanelBottomLeft.add(lf2);
+        resultPanelCentralLeft.add(hansR);
+        resultsFrame.add(resultPanelTopLeft);
+        resultsFrame.add(resultPanelCentralLeft);
+        resultsFrame.add(resultPanelBottomLeft);
+
+        // Central side
+        resultPanelCentral.add(checkLabel);
+        resultPanelTopCentral.add(lightbeam);
+        resultPanelBottomCentralLeft.add(mbag1);
+        resultPanelBottomCentralRight.add(mbag2);
+        resultsFrame.add(resultPanelTopCentral);
+        resultsFrame.add(resultPanelCentral);
+        resultsFrame.add(resultPanelBottomCentralLeft);
+        resultsFrame.add(resultPanelBottomCentralRight);
+
+        // Right side
+        resultPanelTopRight.add(rf1);
+        resultPanelBottomRight.add(rf2);
+        resultPanelCentralRight.add(glist);
+        resultsFrame.add(resultPanelTopRight);
+        resultsFrame.add(resultPanelCentralRight);
+        resultsFrame.add(resultPanelBottomRight);
+
+        resultsFrame.setVisible(true);
+    }
+
+    public void decider() {
+        if (index <= 4) {
+            index = 0;
+        }
+        if (index >= 5 && index < 10) {
+            index = 5;
+        }
+        if (index >= 10) {
+            index = 10;
+        }
+        if (index == 15) {
+            index = 15;
+        }
+    }
 }
-
-
-
 
 
 
