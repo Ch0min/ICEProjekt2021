@@ -63,12 +63,12 @@ public class StartMenu extends JPanel implements ActionListener {
 
 // Menu Panels
         // Left side design
-        ImageIcon icon = new ImageIcon("Pictures/taleboble.png");
+        ImageIcon icon = new ImageIcon("Gifs/taleboble3.gif");
         JLabel label = new JLabel();
         label.setIcon(icon);
         label.setVerticalAlignment(JLabel.CENTER);
 
-        ImageIcon icon2 = new ImageIcon("Pictures/hansmenu.png");
+        ImageIcon icon2 = new ImageIcon("Gifs/hansintro.gif");
         JLabel label2 = new JLabel();
         label2.setIcon(icon2);
         label2.setHorizontalAlignment(JLabel.CENTER);
@@ -153,7 +153,6 @@ public class StartMenu extends JPanel implements ActionListener {
         // Middle
         menuPanelCentralTop.add(spotlight);
         menuPanelCentral.add(topBorder);
-
         menuPanelCentralBot.add(midLight);
         menuFrame.add(menuPanelCentralTop);
         menuFrame.add(menuPanelCentral);
@@ -175,7 +174,7 @@ public class StartMenu extends JPanel implements ActionListener {
         if(e.getSource() == spilKnap) {
             menuFrame.dispose();    // Lukker menu vinduet.
             soundDesign.stop();
-            GameDesign openGame = new GameDesign();   // Når der klikkes på spilknappen, så åbner der et nyt vindue i GameDesign.
+            CategoryWindow chooseCategory = new CategoryWindow();   // Når der klikkes på spilknappen, så åbner der et nyt vindue i GameDesign.
 
 
 // Et popup vindue, der bekræfter om man vil afslut programmet.

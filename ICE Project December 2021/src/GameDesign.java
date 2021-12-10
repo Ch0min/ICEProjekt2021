@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameDesign extends JPanel implements ActionListener {     // Da programmet kører på en masse små handlinger.
-// Gamedesigns Instanser
+    // Gamedesigns Instanser
     JFrame gameFrame = new JFrame();
     JFrame resultsFrame;
     JTextField textField = new JTextField();  // Vil holde the current spørgsmål, som man er på.
@@ -14,13 +14,15 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     JButton buttonB = new JButton();
     JButton buttonC = new JButton();
     JButton buttonD = new JButton();
+    JButton stopButton;
+    JButton quitButton;
 
     JLabel answer_labelA = new JLabel();    // Labels til at holde på vores forskellige svarmuligheder.
     JLabel answer_labelB = new JLabel();
     JLabel answer_labelC = new JLabel();
     JLabel answer_labelD = new JLabel();
 
-// Results & Pop-Up Vinduer Instanser
+    // Results & Pop-Up Vinduer Instanser
     JPanel resultPanel = new JPanel();
     JLabel resultLabel = new JLabel();
     JButton resultButton = new JButton();
@@ -32,10 +34,10 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     // Bruges til at farve optionPane vinduerne.
     UIManager UI;
 
-// Timer Instanser
+    // Timer Instanser
     JLabel seconds_left = new JLabel();             // Vil fungere som selve displayet for vores countdown timer.
 
-// Audio Instanser
+    // Audio Instanser
     SoundDesign soundDesign;    // Introduktion
     SoundDesign correctAnswer;
     SoundDesign wrongAnswer;
@@ -43,7 +45,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     SoundDesign questionAudio;
     SoundDesign oneMillion;
 
-// Spørgsmåls Instans Lister
+    // Spørgsmåls Instans Lister
     String[] questions = {      // Indeholder spørgsmålene.
             "Hvilket apparat kaldte man tidligere for en datamat?",                                             // 1
             "I hvilket årstal vandt Danmarks herrelandshold deres første fodbold EM-trofæ?",                // 2
@@ -102,11 +104,11 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     'A'     // 15
             };
 
-// Pengebeløb liste
+    // Pengebeløb liste
     String[] rewardsList = {"0", "1000", "2000", "3000", "4000", "5000", "8000", "12000", "20000",
             "32000", "50000", "75000", "125000", "250000", "500000", "1 MILLION"};
 
-// Gamedesign variabler
+    // Gamedesign variabler
     private char answer;    // vil holde på svar.
     int index;      // Bruges som en timer til at vide hvilket spørgsmål man er ved.
     private int total_questions = questions.length;
@@ -114,7 +116,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     private String results;     // Holder på resultat.
     private int seconds = 30;   // Timer til hvor mange sekunder man har ved hvert spørgsmål.
 
-// Timer Design
+    // Timer Design
     Timer pause;
     Timer countdown = new Timer(1000, new ActionListener() {     // fx 2000ms = 2 sekunder.
 
@@ -179,7 +181,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         buttonA.setFont(new Font("Impact", Font.BOLD, 40));
         buttonA.setFocusable(false);     // Vil gøre så en button ikke bliver highlighted når den bliver trykket på.
         buttonA.addActionListener(this);
-        buttonA.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, true));
+        buttonA.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, false));
         buttonA.setText("A:");
         buttonA.setOpaque(true);
 
@@ -190,7 +192,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         buttonB.setFont(new Font("Impact", Font.BOLD, 40));
         buttonB.setFocusable(false);     // Vil gøre så en button ikke bliver highlighted når den bliver trykket på.
         buttonB.addActionListener(this);
-        buttonB.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, true));
+        buttonB.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, false));
         buttonB.setText("B:");
         buttonB.setOpaque(true);
 
@@ -201,7 +203,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         buttonC.setFont(new Font("Impact", Font.BOLD, 40));
         buttonC.setFocusable(false);     // Vil gøre så en button ikke bliver highlighted når den bliver trykket på.
         buttonC.addActionListener(this);
-        buttonC.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, true));
+        buttonC.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, false));
         buttonC.setText("C:");
         buttonC.setOpaque(true);
 
@@ -212,9 +214,57 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         buttonD.setFont(new Font("Impact", Font.BOLD, 40));
         buttonD.setFocusable(false);
         buttonD.addActionListener(this);
-        buttonD.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, true));
+        buttonD.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, false));
         buttonD.setText("D:");
         buttonD.setOpaque(true);
+
+        // Tag pengene Button
+        stopButton = new JButton();
+        stopButton.setBounds(850, 700, 200, 50);
+        stopButton.setForeground(new Color(160,82,45));
+        stopButton.setBackground(new Color(218,165,32));
+        stopButton.setFont(new Font("Impact", Font.PLAIN, 28));
+        stopButton.setFocusable(false);
+        stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (JOptionPane.showConfirmDialog(gameFrame, "Er det din endelige beslutning?'", "HANS PILGAARD", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+                    if (e.getSource() == stopButton) {
+                        soundDesign.stop();
+                        countdown.stop();
+                        gameFrame.removeAll();
+                        gameFrame.dispose();
+                        reward();
+                    }
+                }
+            }
+        });
+        stopButton.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 4, false));
+        stopButton.setText("TAG PENGENE");
+        stopButton.setOpaque(true);
+
+        // Afslut Spil/Quit Button
+        quitButton = new JButton();
+        quitButton.setBounds(1100, 700, 75, 50);
+        quitButton.setForeground(new Color(255, 185, 0));
+        quitButton.setBackground(new Color(0, 0, 250));
+        quitButton.setFont(new Font("Impact", Font.PLAIN, 14));
+        quitButton.setFocusable(false);
+        quitButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+             if (JOptionPane.showConfirmDialog(gameFrame, "Bekræft afslutning af 'Hvem vil være Millionær?'", "AFSLUT PROGRAM", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+                   if (e.getSource() == quitButton) {
+                       soundDesign.stop();
+                          System.exit(0);
+                          }
+                       }
+                   }
+             });
+
+        quitButton.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, false));
+        quitButton.setText("AFSLUT SPIL");
+        quitButton.setOpaque(true);
 
         // Pengecheck button
         resultPanel = new JPanel();
@@ -265,6 +315,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         panel_D.setBounds(550, 657, 250, 125);
         panel_D.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, true));
 
+
 // Frame design
         // Left side game design
         ImageIcon iconLightLeft = new ImageIcon("Pictures/lightleftgd.png");
@@ -307,105 +358,101 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         // Right design
         highlight = new JPanel();
         highlight.setBackground(new Color(255, 229, 94, 150));
-        highlight.setBounds(890, 695, 300,40);
+        highlight.setBounds(890, 695, 300, 40);
         highlight.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 3, false));
         highlight.setOpaque(true);
 
         JLabel kr1000 = new JLabel();
         kr1000.setText("1  KR 1.000");
         kr1000.setForeground(new Color(255, 185, 0));
-        kr1000.setBounds(925, 650, 300,50);
+        kr1000.setBounds(925, 650, 300, 50);
         kr1000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr1000.setHorizontalTextPosition(JLabel.CENTER);
         JLabel kr2000 = new JLabel();
         kr2000.setText("2  KR 2.000");
         kr2000.setForeground(new Color(255, 185, 0));
-        kr2000.setBounds(925, 610, 300,50);
+        kr2000.setBounds(925, 610, 300, 50);
         kr2000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr2000.setHorizontalTextPosition(JLabel.CENTER);
         JLabel kr3000 = new JLabel();
         kr3000.setText("3  KR 3.000");
         kr3000.setForeground(new Color(255, 185, 0));
-        kr3000.setBounds(925, 570, 300,50);
+        kr3000.setBounds(925, 570, 300, 50);
         kr3000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr3000.setHorizontalTextPosition(JLabel.CENTER);
         JLabel kr4000 = new JLabel();
         kr4000.setText("4  KR 4.000");
         kr4000.setForeground(new Color(255, 185, 0));
-        kr4000.setBounds(925, 530, 300,50);
+        kr4000.setBounds(925, 530, 300, 50);
         kr4000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr4000.setHorizontalTextPosition(JLabel.CENTER);
         JLabel kr5000 = new JLabel();
         kr5000.setText("5  KR 5.000");
-        kr5000.setForeground(new Color(255,255,255));
-        kr5000.setBounds(925, 490, 300,50);
+        kr5000.setForeground(new Color(255, 255, 255));
+        kr5000.setBounds(925, 490, 300, 50);
         kr5000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr5000.setHorizontalTextPosition(JLabel.CENTER);
         JLabel kr8000 = new JLabel();
         kr8000.setText("6  KR 8.000");
         kr8000.setForeground(new Color(255, 185, 0));
-        kr8000.setBounds(925, 450, 300,50);
+        kr8000.setBounds(925, 450, 300, 50);
         kr8000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr8000.setHorizontalTextPosition(JLabel.CENTER);
         JLabel kr12000 = new JLabel();
         kr12000.setText("7  KR 12.000");
         kr12000.setForeground(new Color(255, 185, 0));
-        kr12000.setBounds(925, 410, 300,50);
+        kr12000.setBounds(925, 410, 300, 50);
         kr12000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr12000.setHorizontalTextPosition(JLabel.CENTER);
         JLabel kr20000 = new JLabel();
         kr20000.setText("8  KR 20.000");
         kr20000.setForeground(new Color(255, 185, 0));
-        kr20000.setBounds(925, 370, 300,50);
+        kr20000.setBounds(925, 370, 300, 50);
         kr20000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr20000.setHorizontalTextPosition(JLabel.CENTER);
         JLabel kr32000 = new JLabel();
         kr32000.setText("9  KR 32.000");
         kr32000.setForeground(new Color(255, 185, 0));
-        kr32000.setBounds(925, 330, 300,50);
+        kr32000.setBounds(925, 330, 300, 50);
         kr32000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr32000.setHorizontalTextPosition(JLabel.CENTER);
         JLabel kr50000 = new JLabel();
         kr50000.setText("10  KR 50.000");
-        kr50000.setForeground(new Color(255,255,255));
-        kr50000.setBounds(905, 290, 300,50);
+        kr50000.setForeground(new Color(255, 255, 255));
+        kr50000.setBounds(905, 290, 300, 50);
         kr50000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr50000.setHorizontalTextPosition(JLabel.CENTER);
         JLabel kr75000 = new JLabel();
         kr75000.setText("11  KR 75.000");
         kr75000.setForeground(new Color(255, 185, 0));
-        kr75000.setBounds(905, 250, 300,50);
+        kr75000.setBounds(905, 250, 300, 50);
         kr75000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr75000.setHorizontalTextPosition(JLabel.CENTER);
         JLabel kr125000 = new JLabel();
         kr125000.setText("12  KR 125.000");
         kr125000.setForeground(new Color(255, 185, 0));
-        kr125000.setBounds(905, 210, 300,50);
+        kr125000.setBounds(905, 210, 300, 50);
         kr125000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr125000.setHorizontalTextPosition(JLabel.CENTER);
         JLabel kr250000 = new JLabel();
         kr250000.setText("13  KR 250.000");
         kr250000.setForeground(new Color(255, 185, 0));
-        kr250000.setBounds(905, 170, 300,50);
+        kr250000.setBounds(905, 170, 300, 50);
         kr250000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr250000.setHorizontalTextPosition(JLabel.CENTER);
         JLabel kr500000 = new JLabel();
         kr500000.setText("14  KR 500.000");
         kr500000.setForeground(new Color(255, 185, 0));
-        kr500000.setBounds(905, 130, 300,50);
+        kr500000.setBounds(905, 130, 300, 50);
         kr500000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr500000.setHorizontalTextPosition(JLabel.CENTER);
         JLabel kr1000000 = new JLabel();
         kr1000000.setText("15  1 MILLION KR");
-        kr1000000.setForeground(new Color(255,255,255));
-        kr1000000.setBounds(905, 90, 300,50);
+        kr1000000.setForeground(new Color(255, 255, 255));
+        kr1000000.setBounds(905, 90, 300, 50);
         kr1000000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr1000000.setHorizontalTextPosition(JLabel.CENTER);
 
-// virker ikke
-        ImageIcon blueArrow = new ImageIcon("Pictures/bluearrow.png");
-        JLabel ba = new JLabel();
-        ba.setIcon(blueArrow);
         JPanel gamePanelTopRight = new JPanel();
         gamePanelTopRight.setBackground(new Color(0, 0, 159));
         gamePanelTopRight.setBounds(800, 0, 400, 100);
@@ -421,9 +468,9 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
 
 // Optionpane/Pop-Up design
-    //    UI = new UIManager();
-    //    UI.put("OptionPane.background", new ColorUIResource(197,179,88));
-    //    UI.put("Panel.background", new ColorUIResource(197,179,88));
+        //    UI = new UIManager();
+        //    UI.put("OptionPane.background", new ColorUIResource(197,179,88));
+        //    UI.put("Panel.background", new ColorUIResource(197,179,88));
 
         seconds_left.setBounds(0, 475, 800, 20);
         seconds_left.setForeground(new Color(255, 185, 0));
@@ -456,6 +503,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         gameFrame.add(buttonB);
         gameFrame.add(buttonC);
         gameFrame.add(buttonD);
+        gameFrame.add(stopButton);
+        gameFrame.add(quitButton);
 
         // Question design
         gameFrame.add(answer_labelA);
@@ -481,6 +530,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
         // Right side
         gameFrame.add(gamePanelBottomRight);
+        gameFrame.add(gamePanelMidRight);
         gameFrame.add(gamePanelTopRight);
 
         gamePanelMidRight.add(highlight);
@@ -500,7 +550,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         gameFrame.add(kr250000);
         gameFrame.add(kr500000);
         gameFrame.add(kr1000000);
-        gameFrame.add(ba);
         gameFrame.add(gamePanelMidRight);
 
         gameFrame.setVisible(true);
@@ -512,7 +561,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     public void nextQuestion() {
         if (index >= total_questions) {
             // Pengecheck popup vindue
-            String[] options = {"Afslut Spil"};
             JPanel resultPanel = new JPanel();
             resultPanel.setFont(new Font("Arial", Font.BOLD, 15));
             JLabel resultLabel = new JLabel("SE DINE RESULTATER: ");
@@ -528,12 +576,12 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             gameFrame.removeAll();
             gameFrame.dispose();
             reward();
-
         } else {
+            String[] valg = {"JA TAK"};
             textField.setText("Spørgsmål " + (index + 1));       // Incrementer 'Spørgsmål' hver gang der kommer et nyt spørgsmål.
             textField.setFont(new Font("Droid Sans Mono", Font.BOLD, 20));
             textField.setForeground(new Color(255, 185, 0));
-            JOptionPane.showOptionDialog(gameFrame, "SPØRGSMÅL TIL: " + rewardsList[index + 1] + " KR", "HANS PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            JOptionPane.showOptionDialog(gameFrame, "SPØRGSMÅL TIL: " + rewardsList[index + 1] + " KR", "HANS PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valg, valg[0]);
             textArea.setText(questions[index]);                  // Hver gang index bliver incremented, så skal programmet skifte til næste spørgsmål.
             answer_labelA.setText(options[index][0]);            // Bruger vores options 2d array, for at hente svarmulighederne.
             answer_labelB.setText(options[index][1]);
@@ -541,6 +589,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             answer_labelD.setText(options[index][3]);
             countdown.start();
         }
+
     }
 
     @Override
@@ -553,8 +602,9 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         buttonB.setEnabled(false);
         buttonC.setEnabled(false);
         buttonD.setEnabled(false);
+        stopButton.setEnabled(false);
 
-        if (e.getSource() == buttonA) {      // Hvis en person klikker på Button A, hvad skal der så ske?
+            if (e.getSource() == buttonA) {      // Hvis en person klikker på Button A, hvad skal der så ske?
                 answer = 'A';
                 if (answer == answers[index]) {  // Hvis vores svar er equal til det svar der er stored i vores 'answers array' i et bestemt index, så incrementer vi 'correct_guess' med 1.
                     correctAnswer.play();
@@ -570,7 +620,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     wrongAnswer.play();
                 }
             }
-
 
             if (e.getSource() == buttonB) {
                 answer = 'B';
@@ -623,17 +672,15 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     wrongAnswer.play();
                 }
             }
-
-        if (e.getSource() == resultButton) {
-            soundDesign.stop();
-            gameFrame.removeAll();
-            gameFrame.dispose();
-            reward();
-
+            if (e.getSource() == resultButton) {
+                soundDesign.stop();
+                gameFrame.removeAll();
+                gameFrame.dispose();
+                reward();
+            }
+            displayAnswer();
         }
 
-        displayAnswer();
-    }
 
     public void displayAnswer() {
         countdown.stop();
@@ -689,7 +736,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         delayClock.start();
 
         // Timer i metoden, da vi gerne vil have de forkerte svar converter til deres oprindelige farve igen, efter skift af hvert spørgsmål.
-        pause = new Timer(1000, new ActionListener() {     // 6 sekunders pause efter hver spørgsmål.
+        pause = new Timer(6000, new ActionListener() {     // 6 sekunders pause efter hver spørgsmål.
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -704,6 +751,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 buttonB.setEnabled(true);
                 buttonC.setEnabled(true);
                 buttonD.setEnabled(true);
+                stopButton.setEnabled(true);
+
 
                 // Hvis svaret er rigtigt så fortsæt.
                 if (answer == answers[index]) {
@@ -718,13 +767,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     JOptionPane.showOptionDialog(gameFrame, resultPanel, "RESULTAT", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
                     gameFrame.dispose();
                     pause.stop();
-
                 }
             }
         });  // Tilføje ');', så error går væk. Sikkert fordi Timeren mangler en parentes.
         pause.setRepeats(false);     // For at timeren kun aktiveres en gang.
         pause.start();               // Her får vi timeren til at starte.
     }
+
+
 
     private void reward() {
         SoundDesign reward = new SoundDesign("Soundeffects/intromain.wav");
@@ -741,7 +791,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         JLabel lf2 = new JLabel();
         lf2.setIcon(lf2Icon);
 
-        ImageIcon hansRIcon = new ImageIcon("Pictures/goldthumbs.png");
+        ImageIcon hansRIcon = new ImageIcon("Gifs/goldthumbs.gif");
         JLabel hansR = new JLabel();
         hansR.setIcon(hansRIcon);
 
@@ -766,16 +816,16 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         checkLabel.setIcon(check);
         checkLabel.setVerticalAlignment(JLabel.CENTER);
 
-        ImageIcon lightbeamIcon = new ImageIcon("Pictures/lightbeam.png");
+        ImageIcon lightbeamIcon = new ImageIcon("Gifs/lightbeam.gif");
         JLabel lightbeam = new JLabel();
         lightbeam.setIcon(lightbeamIcon);
 
-        ImageIcon mbag1icon = new ImageIcon("Gifs/mbag.gif");
+        ImageIcon mbag1icon = new ImageIcon("Gifs/sky3.gif");
         JLabel mbag1 = new JLabel();
         mbag1.setIcon(mbag1icon);
         mbag1.setHorizontalAlignment(JLabel.CENTER);
 
-        ImageIcon mbag2icon = new ImageIcon("Gifs/mbag.gif");
+        ImageIcon mbag2icon = new ImageIcon("Gifs/sky3.gif");
         JLabel mbag2 = new JLabel();
         mbag2.setIcon(mbag2icon);
         mbag2.setHorizontalAlignment(JLabel.CENTER);
@@ -870,12 +920,11 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         }
         if (index >= 10) {
             index = 10;
-        }
-        if (index == 15) {
-            index = 15;
+
         }
     }
 }
+
 
 
 
