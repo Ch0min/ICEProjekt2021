@@ -86,6 +86,7 @@ public class CategoryWindow extends JFrame implements ActionListener {
         }
          if (e.getSource() == datamatikButton){
              categoryWindow.dispose();
+             soundDesign.stop();
              DataGameDesign dataGameDesign = new DataGameDesign();
          }
         //if(e.getSource()==comingsoonButton){

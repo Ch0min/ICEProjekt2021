@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -68,7 +69,6 @@ public class CategoryWindow extends JFrame implements ActionListener {
         categoryWindow.add(standardButton);
         categoryWindow.add(comingsoonButton);
 
-
         categoryPanel.add(blueBG);
         categoryWindow.add(categoryPanel);
 
@@ -79,15 +79,15 @@ public class CategoryWindow extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == standardButton) {
+        if (e.getSource() == standardButton) {
             categoryWindow.dispose();
             soundDesign.stop();
             GameDesign gameDesign = new GameDesign();
         }
-        // if(e.getSource()==datamatikButton){
-        // categoryWindwow.dispose();
-        //  DatamatikFrame datamatikFrame = new DatamatikFrame();
-        // }
+         if (e.getSource() == datamatikButton){
+             categoryWindow.dispose();
+             DataGameDesign dataGameDesign = new DataGameDesign();
+         }
         //if(e.getSource()==comingsoonButton){
         //categoryWindwow.dispose();
         //ComingSoonFrame comingSoonFrame = new ComingSoonFrame();

@@ -54,20 +54,20 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     SoundDesign questionAudio;
     SoundDesign oneMillion;
     SoundDesign fifty50Sound;
-    SoundDesign askmobSound;
+    SoundDesign askmobSound = new SoundDesign("Soundeffects/moblifelineUse.wav");
     SoundDesign callafriendSound = new SoundDesign("Soundeffects/phonelifelineCut.wav");
 
     // Spørgsmåls Instans Lister
     String[] questions = {      // Indeholder spørgsmålene.
-            "Hvilket apparat kaldte man tidligere for en datamat?",                                                   // 1
+            "Hvor mange forskellige værdier har de mønter man benytter til at betale med i Danmark?",            // 1
             "I hvilket årstal vandt Danmarks herrelandshold deres første fodbold EM-trofæ?",                       // 2
             "Hvor mange dele består en trilogi af?",                                                              // 3
             "Hvad spiser Skipper Skræk når han har brug for ekstra kræfter?",                                   // 4
-            "Hvilket sprog taler man i Østrig?",                                                              // 5
-            "Hvilket af disse dyr hører IKKE til kattefamilien",                                             // 6
+            "Hvad kalder man nordlys på den sydlige halvkugle?",                                                              // 5
+            "Hvilket af disse fodboldklubber kommer fra Aarhus?",                                             // 6
             "Hvad måler man elektrisk spænding i?",                                                           // 7
-            "Hvad kalder man et dyr der bliver ædt af andre dyr?",                                          // 8
-            "Hvem blev efterladt i Nilen som baby?",                                                        // 9
+            "Hvilket skolefag hed tidligere formning?",                                          // 8
+            "Hvilket af disse ledere levede for færrest år siden?",                                                        // 9
             "Hvilken dansk skuespiller spiller hovedrollen i den amerikanske film 'Shot Caller fra 2017?",  // 10
             "Hvor mange øer består Danmark af?",                                                            // 11
             "Hvad samler en numismatiker på?",                                                              // 12
@@ -79,15 +79,15 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
     String[][] options = {      // Holder på alle svarmulighederne, til vores spørgsmål.
             // Ved at gøre det på den her måde, så kan vi tilføje og slette spørgsmål, da det her program er dynamisk.
-            {" Mobiltelefon", " MP3-afspiller", " Lommeregner", " Computer"},   // 1
+            {" 4", " 5", " 6", " 7"},   // 1
             {" 1990", " 1992", " 1994", " 1996"},                   // 2
             {" 1", " 2", " 3", " 4"},                               // 3
             {" Gulerødder", " Kartofler", " Tomater", " Spinat"},   // 4
-            {" Tysk", " Østrigsk", " Fransk", " Italiensk"},        // 5
-            {" Leopard", " Los", " Gazelle", " Gepard"},            // 6
+            {" Sydlys", " Polarislys", " Antarktisk lys", " Spirallys"},        // 5
+            {" AaB", " AB", " AGF", " BGA"},            // 6
             {" Watt", " Volt", " Ohm", " Maxwell"},                 // 7
-            {" Rovdyr", " Avlsdyr", " Æddyr", " Byttedyr"},         // 8
-            {" Jesus", " Muhammed", " Moses", " Elijah"},           // 9
+            {" Sløjd", " Håndarbejde", " Hjemkundskab", " Billedkunst"},         // 8
+            {" Genghis Khan", " Tutankhamon", " Gorm den Gamle", " Julius Cæsar"},           // 9
             {" Mads Mikkelsen", " Pilou Asbæk", " Ulrich Thomsen", " Nikolaj Coster-Waldau"},   // 10
             {" ca. 50", " ca. 200", " ca. 400", " ca. 700"},         // 11
             {" Mønter", " Kort", " Terninger", " Frimærker"},        // 12
@@ -99,7 +99,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
     char[] answers =    // Holder på alle de rigtige svar.
             {
-                    'D',    // 1
+                    'C',    // 1
                     'B',    // 2
                     'C',    // 3
                     'D',    // 4
@@ -107,7 +107,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     'C',    // 6
                     'B',    // 7
                     'D',    // 8
-                    'C',    // 9
+                    'A',    // 9
                     'D',    // 10
                     'C',    // 11
                     'A',    // 12
@@ -115,8 +115,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     'D',    // 14
                     'A'     // 15
             };
-
-    ArrayList<Character> answersTempList = new ArrayList<>();
 
     // Pengebeløb liste
     String[] rewardsList = {"0", "1000", "2000", "3000", "4000", "5000", "8000", "12000", "20000",
@@ -424,6 +422,108 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         callAFriend.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, false));
         callAFriend.setOpaque(true);
 
+
+        ImageIcon askMobIcon = new ImageIcon("Pictures/askmobsmall.png");
+        ImageIcon askMobIconDisabled = new ImageIcon("Pictures/askmobdisabled.png");
+        JLabel askMobLabel= new JLabel();
+        JLabel askMobLabelDisabled = new JLabel();
+        askMobLabel.setIcon(askMobIcon);
+        askMobLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        askMob = new JButton();
+        askMob.setBounds(1065, 15, 80, 65);
+        askMob.setFont(new Font("Arial", Font.BOLD, 20));
+        askMob.setForeground(new Color(255, 185, 0));
+        askMob.setBackground(new Color(0, 0, 250));
+        askMob.setFocusable(false);
+        askMob.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                answer = 'A';
+                if (e.getSource() == askMob) {
+                    askmobSound.play();
+                    askMob.setEnabled(false);
+                    askMobLabelDisabled.setIcon(askMobIconDisabled);
+                    askMobLabelDisabled.setDisabledIcon(askMobIconDisabled);
+                    askMobLabel.setIcon(null);
+                    if (answer == answers[index]) {
+                        JFrame askmob1 = new JFrame();
+                        askmob1.setSize(415,325);
+                        askmob1.setBackground(new Color(0,0,159));
+                        askmob1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        askmob1.setResizable(false);
+                        askmob1.setVisible(true);
+                        ImageIcon askmob1Icon = new ImageIcon("Pictures/askmobStatAsmall.png");
+                        JLabel askmob1Label = new JLabel();
+                        askmob1Label.setIcon(askmob1Icon);
+                        askmob1.add(askmob1Label);
+                    }
+                }
+                answer = 'B';
+                if (e.getSource() == askMob) {
+                    askmobSound.play();
+                    askMob.setEnabled(false);
+                    askMobLabelDisabled.setIcon(askMobIconDisabled);
+                    askMobLabelDisabled.setDisabledIcon(askMobIconDisabled);
+                    askMobLabel.setIcon(null);
+                    if (answer == answers[index]) {
+                        JFrame askmob2 = new JFrame();
+                        askmob2.setSize(415,325);
+                        askmob2.setBackground(new Color(0,0,159));
+                        askmob2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        askmob2.setResizable(false);
+                        askmob2.setVisible(true);
+                        ImageIcon askmob2Icon = new ImageIcon("Pictures/askmobStatBsmall.png");
+                        JLabel askmob2Label = new JLabel();
+                        askmob2Label.setIcon(askmob2Icon);
+                        askmob2.add(askmob2Label);
+                    }
+                }
+                answer = 'C';
+                if (e.getSource() == askMob) {
+                    askmobSound.play();
+                    askMob.setEnabled(false);
+                    askMobLabelDisabled.setIcon(askMobIconDisabled);
+                    askMobLabelDisabled.setDisabledIcon(askMobIconDisabled);
+                    askMobLabel.setIcon(null);
+                    if (answer == answers[index]) {
+                        JFrame askmob3 = new JFrame();
+                        askmob3.setSize(415,325);
+                        askmob3.setBackground(new Color(0,0,159));
+                        askmob3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        askmob3.setResizable(false);
+                        askmob3.setVisible(true);
+                        ImageIcon askMob3Icon = new ImageIcon("Pictures/askmobStatCsmall.png");
+                        JLabel askMob3Label = new JLabel();
+                        askMob3Label.setIcon(askMob3Icon);
+                        askmob3.add(askMob3Label);
+                    }
+                }
+                answer = 'D';
+                if (e.getSource() == askMob) {
+                    askmobSound.play();
+                    askMob.setEnabled(false);
+                    askMobLabelDisabled.setIcon(askMobIconDisabled);
+                    askMobLabelDisabled.setDisabledIcon(askMobIconDisabled);
+                    askMobLabel.setIcon(null);
+                    if (answer == answers[index]) {
+                        JFrame askmob4 = new JFrame();
+                        askmob4.setSize(415,325);
+                        askmob4.setBackground(new Color(0,0,159));
+                        askmob4.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        askmob4.setResizable(false);
+                        askmob4.setVisible(true);
+                        ImageIcon askmob4Icon = new ImageIcon("Pictures/askmobStatDsmall.png");
+                        JLabel askmob4Label = new JLabel();
+                        askmob4Label.setIcon(askmob4Icon);
+                        askmob4.add(askmob4Label);
+                    }
+                }
+            }
+        });
+        askMob.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, false));
+        askMob.setOpaque(true);
+
         // Pengecheck button
         resultPanel = new JPanel();
         resultPanel.setFont(new Font("Arial", Font.BOLD, 15));
@@ -672,10 +772,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         fifty50.add(fiftyLabelDisabled);
         callAFriend.add(cafLabel);
         callAFriend.add(cafLabelDisabled);
+        askMob.add(askMobLabel);
+        askMob.add(askMobLabelDisabled);
         gamePanelTopRight.add(fifty50);
         gamePanelTopRight.add(callAFriend);
+        gamePanelTopRight.add(askMob);
         gameFrame.add(fifty50);
         gameFrame.add(callAFriend);
+        gameFrame.add(askMob);
 
         // Question design
         gameFrame.add(answer_labelA);
@@ -741,7 +845,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             resultButton.setFont(new Font("Impact", Font.BOLD, 30));
             resultPanel.add(resultLabel);
             resultPanel.add(resultButton);
-            JOptionPane.showOptionDialog(gameFrame, "TILLYKKE! DU HAR VUNDET 1 MILLION KRONER!!!", "PENGEBELØB", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            JOptionPane.showOptionDialog(gameFrame, "DET RIGTIGT TILLYKKE! DU HAR VUNDET 1 MILLION KRONER!!!", "HANS PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             soundDesign.stop();
             secondsCallAFriend.stop();
             oneMillion = new SoundDesign("Soundeffects/1MIL.wav");
@@ -785,7 +889,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     public void actionPerformed(ActionEvent e) {
                         highlight.setLocation(highlight.getX(), highlight.getY() + -40);
                         callafriendSound.stop();
-
+                        askmobSound.stop();
                     }
                 });
                 delayClock.setRepeats(false);
@@ -793,6 +897,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             } else if (answer != answers[index]) {
                 wrongAnswer.play();
                 callafriendSound.stop();
+                askmobSound.stop();
             }
         }
 
@@ -805,6 +910,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     public void actionPerformed(ActionEvent e) {
                         highlight.setLocation(highlight.getX(), highlight.getY() + -40);
                         callafriendSound.stop();
+                        askmobSound.stop();
                     }
                 });
                 delayClock.setRepeats(false);
@@ -812,6 +918,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             } else if (answer != answers[index]) {
                 wrongAnswer.play();
                 callafriendSound.stop();
+                askmobSound.stop();
             }
         }
 
@@ -824,6 +931,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     public void actionPerformed(ActionEvent e) {
                         highlight.setLocation(highlight.getX(), highlight.getY() + -40);
                         callafriendSound.stop();
+                        askmobSound.stop();
                     }
                 });
                 delayClock.setRepeats(false);
@@ -831,6 +939,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             } else if (answer != answers[index]) {
                 wrongAnswer.play();
                 callafriendSound.stop();
+                askmobSound.stop();
             }
         }
 
@@ -843,6 +952,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     public void actionPerformed(ActionEvent e) {
                         highlight.setLocation(highlight.getX(), highlight.getY() + -40);
                         callafriendSound.stop();
+                        askmobSound.stop();
                     }
                 });
                 delayClock.setRepeats(false);
@@ -850,6 +960,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             } else if (answer != answers[index]) {
                 wrongAnswer.play();
                 callafriendSound.stop();
+                askmobSound.stop();
             }
         }
         if (e.getSource() == resultButton) {

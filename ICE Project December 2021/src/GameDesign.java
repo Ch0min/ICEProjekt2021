@@ -19,6 +19,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     JButton buttonD = new JButton();
     JButton stopButton;
     JButton quitButton;
+    JButton returnButton;
 
     // Lifelines
     JButton fifty50 = new JButton();
@@ -59,21 +60,21 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
     // Spørgsmåls Instans Lister
     String[] questions = {      // Indeholder spørgsmålene.
-            "Hvor mange forskellige værdier har de mønter man benytter til at betale med i Danmark?",            // 1
-            "I hvilket årstal vandt Danmarks herrelandshold deres første fodbold EM-trofæ?",                       // 2
-            "Hvor mange dele består en trilogi af?",                                                              // 3
-            "Hvad spiser Skipper Skræk når han har brug for ekstra kræfter?",                                   // 4
-            "Hvad kalder man nordlys på den sydlige halvkugle?",                                                              // 5
-            "Hvilket af disse fodboldklubber kommer fra Aarhus?",                                             // 6
-            "Hvad måler man elektrisk spænding i?",                                                           // 7
-            "Hvilket skolefag hed tidligere formning?",                                          // 8
-            "Hvilket af disse ledere levede for færrest år siden?",                                                        // 9
-            "Hvilken dansk skuespiller spiller hovedrollen i den amerikanske film 'Shot Caller fra 2017?",  // 10
-            "Hvor mange øer består Danmark af?",                                                            // 11
-            "Hvad samler en numismatiker på?",                                                              // 12
-            "I hvilket af kroppens led sidder 'patella'?",                                                   // 13
-            "Hvilket materiale er man berømt for at producere og forarbejde i Murano i det nordlige Italien?", // 14
-            "Hvilket af følgende er ikke et vinmærke?"                                                     // 15
+            " Hvor mange forskellige værdier har de mønter man benytter til at betale med i Danmark?",            // 1
+            " I hvilket årstal vandt Danmarks herrelandshold deres første fodbold EM-trofæ?",                       // 2
+            " Hvor mange dele består en trilogi af?",                                                              // 3
+            " Hvad spiser Skipper Skræk når han har brug for ekstra kræfter?",                                   // 4
+            " Hvad kalder man nordlys på den sydlige halvkugle?",                                                              // 5
+            " Hvilket af disse fodboldklubber kommer fra Aarhus?",                                             // 6
+            " Hvad måler man elektrisk spænding i?",                                                           // 7
+            " Hvilket skolefag hed tidligere formning?",                                          // 8
+            " Hvilket af disse ledere levede for færrest år siden?",                                                        // 9
+            " Hvilken dansk skuespiller spiller hovedrollen i den amerikanske film 'Shot Caller fra 2017?",  // 10
+            " Hvor mange øer består Danmark af?",                                                            // 11
+            " Hvad samler en numismatiker på?",                                                              // 12
+            " I hvilket af kroppens led sidder 'patella'?",                                                   // 13
+            " Hvilket materiale er man berømt for at producere og forarbejde i Murano i det nordlige Italien?", // 14
+            " Hvilket af følgende er ikke et vinmærke?"                                                     // 15
 
     };
 
@@ -115,8 +116,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     'D',    // 14
                     'A'     // 15
             };
-
-    ArrayList<Character> answersTempList = new ArrayList<>();
 
     // Pengebeløb liste
     String[] rewardsList = {"0", "1000", "2000", "3000", "4000", "5000", "8000", "12000", "20000",
@@ -755,6 +754,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
 
 // Adding table
+        // Timers
         gameFrame.add(seconds_left);
         gameFrame.add(seconds_left_CAF);
 
@@ -1075,6 +1075,29 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         reward.loop();
 
 // Result Panels
+        // Return Button
+        returnButton = new JButton();
+        returnButton.setBounds(930, 330, 225, 100);
+        returnButton.setForeground(new Color(160, 82, 45));
+        returnButton.setBackground(new Color(218, 165, 32));
+        returnButton.setText("TILBAGE TIL HOVEDMENUEN");
+        returnButton.setFont(new Font("Impact", Font.PLAIN, 20));
+        returnButton.setFocusable(false);
+        returnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    if (e.getSource() == returnButton) {
+                        reward.stop();
+                        StartMenu returnMenu = new StartMenu();
+                        resultsFrame.dispose();
+
+                }
+            }
+        });
+        returnButton.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 4, false));
+        returnButton.setOpaque(true);
+        
+        
         // Left side design
         ImageIcon lf1Icon = new ImageIcon("Gifs/f1top.gif");
         JLabel lf1 = new JLabel();
@@ -1147,9 +1170,9 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         JLabel rf2 = new JLabel();
         rf2.setIcon(rf2Icon);
 
-        ImageIcon glistIcon = new ImageIcon("Gifs/glistfall.gif");
-        JLabel glist = new JLabel();
-        glist.setIcon(glistIcon);
+//        ImageIcon glistIcon = new ImageIcon("Gifs/glistfall.gif");
+//        JLabel glist = new JLabel();
+//        glist.setIcon(glistIcon);
 
         JPanel resultPanelTopRight = new JPanel();
         resultPanelTopRight.setBackground(new Color(0, 0, 23));
@@ -1196,10 +1219,13 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         // Right side
         resultPanelTopRight.add(rf1);
         resultPanelBottomRight.add(rf2);
-        resultPanelCentralRight.add(glist);
+//        resultPanelCentralRight.add(glist);
+        resultPanelCentralRight.add(returnButton);
+        resultsFrame.add(returnButton);
         resultsFrame.add(resultPanelTopRight);
         resultsFrame.add(resultPanelCentralRight);
         resultsFrame.add(resultPanelBottomRight);
+
 
         resultsFrame.setVisible(true);
     }
