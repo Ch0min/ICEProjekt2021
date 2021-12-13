@@ -4,7 +4,11 @@ public class Main {
         //  StartMenu startMenu = new StartMenu();  // Klassen starter vores flow af programmet.
           GameDesign gameDesign = new GameDesign();     // Skal ikke være her til sidst. Bruges kun til at lave Gamedesign så menuen ikke popper op først hele tiden.
          // ResultsWindow rw = new ResultsWindow();    //   Samme som ^
+<<<<<<< HEAD
       //  CategoryWindow cw = new CategoryWindow();
+=======
+        //CategoryWindow cw = new CategoryWindow();
+>>>>>>> origin/main
     }
 }
 
