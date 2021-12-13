@@ -36,6 +36,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     JButton resultButton = new JButton();
     JPanel highlight;
 
+    JPanel gamePanelMidLeft;
+
 
     // Bruges til at farve optionPane vinduerne.
     UIManager UI;
@@ -43,8 +45,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     // Timer Instanser
     JLabel seconds_left = new JLabel();             // Vil fungere som selve displayet for vores countdown timer.
     JLabel seconds_left_CAF = new JLabel();
-    JLabel seconds_left_CAF2 = new JLabel();
-
 
     // Audio Instanser
     SoundDesign soundDesign;    // Introduktion
@@ -55,8 +55,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     SoundDesign oneMillion;
     SoundDesign fifty50Sound;
     SoundDesign askmobSound;
-    SoundDesign callafriendSound;
-
+    SoundDesign callafriendSound = new SoundDesign("Soundeffects/phonelifelineCut.wav");
 
     // Spørgsmåls Instans Lister
     String[] questions = {      // Indeholder spørgsmålene.
@@ -403,12 +402,11 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             public void actionPerformed(ActionEvent e) {
                 String[] valgc = {"Ja tak Hans"};
                 if (e.getSource() == callAFriend) {
+                    callAFriend.setEnabled(false);
                     cafLabelDisabled.setIcon(cafIconDisabled);
                     cafLabelDisabled.setDisabledIcon(cafIconDisabled);
                     cafLabel.setIcon(null);
-                    callafriendSound = new SoundDesign("Soundeffects/phonelifelineCut.wav");
                     callafriendSound.play();
-                    soundDesign.stop();
                     countdown.stop();
                     secondsCallAFriend.start();
                     JOptionPane.showOptionDialog(gameFrame, "Din tid begynder nu. Du har 45 sekunder til at spørge eller ringe til en ven. Held og lykke!", "HANS PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valgc, valgc[0]);
@@ -425,8 +423,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
         callAFriend.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, false));
         callAFriend.setOpaque(true);
-
-
 
         // Pengecheck button
         resultPanel = new JPanel();
@@ -495,7 +491,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         gamePanelTopLeft.setBackground(new Color(0, 0, 159));
         gamePanelTopLeft.setBounds(0, 0, 400, 200);
 
-        JPanel gamePanelMidLeft = new JPanel();
+        gamePanelMidLeft = new JPanel();
         gamePanelMidLeft.setBackground(new Color(0, 0, 159));
         gamePanelMidLeft.setBounds(0, 200, 400, 275);
 
@@ -769,7 +765,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) throws NullPointerException {
         correctAnswer = new SoundDesign("Soundeffects/correct.wav");
         wrongAnswer = new SoundDesign("Soundeffects/wrong.wav");
         questionAudio = new SoundDesign("Soundeffects/5000000-music.wav");
@@ -788,12 +784,15 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         highlight.setLocation(highlight.getX(), highlight.getY() + -40);
+                        callafriendSound.stop();
+
                     }
                 });
                 delayClock.setRepeats(false);
                 delayClock.start();
             } else if (answer != answers[index]) {
                 wrongAnswer.play();
+                callafriendSound.stop();
             }
         }
 
@@ -805,12 +804,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         highlight.setLocation(highlight.getX(), highlight.getY() + -40);
+                        callafriendSound.stop();
                     }
                 });
                 delayClock.setRepeats(false);
                 delayClock.start();
             } else if (answer != answers[index]) {
                 wrongAnswer.play();
+                callafriendSound.stop();
             }
         }
 
@@ -822,12 +823,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         highlight.setLocation(highlight.getX(), highlight.getY() + -40);
+                        callafriendSound.stop();
                     }
                 });
                 delayClock.setRepeats(false);
                 delayClock.start();
             } else if (answer != answers[index]) {
                 wrongAnswer.play();
+                callafriendSound.stop();
             }
         }
 
@@ -839,12 +842,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         highlight.setLocation(highlight.getX(), highlight.getY() + -40);
+                        callafriendSound.stop();
                     }
                 });
                 delayClock.setRepeats(false);
                 delayClock.start();
             } else if (answer != answers[index]) {
                 wrongAnswer.play();
+                callafriendSound.stop();
             }
         }
         if (e.getSource() == resultButton) {
@@ -860,8 +865,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     public void displayAnswer() {
         countdown.stop();
         secondsCallAFriend.stop();
-        questionAudio.play();
-
         buttonA.setEnabled(false);
         buttonB.setEnabled(false);
         buttonC.setEnabled(false);
@@ -930,6 +933,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 buttonC.setEnabled(true);
                 buttonD.setEnabled(true);
                 stopButton.setEnabled(true);
+                seconds_left_CAF.setText(null);
+                seconds_left_CAF.setForeground(new Color(255,255,255,255));
 
                 // Hvis svaret er rigtigt så fortsæt.
                 if (answer == answers[index]) {
