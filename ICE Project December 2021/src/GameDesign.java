@@ -21,11 +21,10 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     JButton quitButton;
 
     // Lifelines
-    JButton block50 = new JButton();
     JButton fifty50 = new JButton();
-    JButton askMob = new JButton();
     JButton callAFriend = new JButton();
-
+    JButton askMob = new JButton();
+    
     JLabel answer_labelA = new JLabel();    // Labels til at holde på vores forskellige svarmuligheder.
     JLabel answer_labelB = new JLabel();
     JLabel answer_labelC = new JLabel();
@@ -35,9 +34,9 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     JPanel resultPanel = new JPanel();
     JLabel resultLabel = new JLabel();
     JButton resultButton = new JButton();
-    JButton resultButton1M = new JButton();
     JPanel highlight;
-    JTextField number_right = new JTextField();     //  Vil vises efter vi har calculated vores resultater.
+
+    JPanel gamePanelMidLeft;
 
 
     // Bruges til at farve optionPane vinduerne.
@@ -45,6 +44,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
     // Timer Instanser
     JLabel seconds_left = new JLabel();             // Vil fungere som selve displayet for vores countdown timer.
+    JLabel seconds_left_CAF = new JLabel();
 
     // Audio Instanser
     SoundDesign soundDesign;    // Introduktion
@@ -53,7 +53,10 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     SoundDesign clockRanOut;
     SoundDesign questionAudio;
     SoundDesign oneMillion;
-
+    SoundDesign fifty50Sound;
+    SoundDesign askmobSound;
+    SoundDesign callafriendSound = new SoundDesign("Soundeffects/phonelifelineCut.wav");
+    
     // Spørgsmåls Instans Lister
     String[] questions = {      // Indeholder spørgsmålene.
             "Hvilket apparat kaldte man tidligere for en datamat?",                                                   // 1
@@ -125,11 +128,13 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     private int total_questions = questions.length;
     private String result;     // Holder på resultat.
     private int seconds = 30;   // Timer til hvor mange sekunder man har ved hvert spørgsmål.
+    private int secondsCAF = 45;   // Timer til hvor mange sekunder man har ved hvert spørgsmål.
+
 
     // Timer Design
     Timer pause;
-    Timer countdown = new Timer(1000, new ActionListener() {     // fx 2000ms = 2 sekunder.
 
+    Timer countdown = new Timer(1000, new ActionListener() {     // fx 2000ms = 2 sekunder.
         @Override
         public void actionPerformed(ActionEvent e) {
             seconds--;      // Efter hvert action performed method, så decrementer vi seconds med 1.
@@ -141,6 +146,22 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             }
         }
     });  // Tilføje ');', så error går væk. Sikkert fordi Timeren mangler en parentes.
+
+    Timer secondsCallAFriend = new Timer(1000, new ActionListener() {     // fx 2000ms = 2 sekunder.
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            secondsCAF--;
+            seconds_left_CAF.setText(String.valueOf(secondsCAF));
+            if (secondsCAF <= 0) {
+                clockRanOut = new SoundDesign("Soundeffects/wrong-answer.wav");
+                clockRanOut.play();
+                displayAnswer();
+                secondsCallAFriend.setRepeats(false);
+                secondsCallAFriend.stop();
+                callafriendSound.stop();
+            }
+        }
+    });
 
 
     // Gamedesign constructor.
@@ -275,10 +296,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         quitButton.setText("AFSLUT SPIL");
         quitButton.setOpaque(true);
 
-        // Livlinjer
-        // muligvis sætte disable icon tilstand til at være gråt
-        ImageIcon fiftyIcon = new ImageIcon("Pictures/5050.png");
+// Livlinjer
+        // 5050 Lifeline
+        fifty50Sound = new SoundDesign("Soundeffects/5050lifeline.wav");
+
+        ImageIcon fiftyIcon = new ImageIcon("Pictures/5050small.png");
+        ImageIcon fiftyIconDisabled = new ImageIcon("Pictures/5050disabled.png");
         JLabel fiftyLabel = new JLabel();
+        JLabel fiftyLabelDisabled = new JLabel();
         fiftyLabel.setIcon(fiftyIcon);
 
         fifty50 = new JButton();
@@ -292,8 +317,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 public void actionPerformed(ActionEvent e) {
                     answer = 'A';
                     if (e.getSource() == fifty50) {
+                        fifty50Sound.play();
                         fifty50.setEnabled(false);
+                        fiftyLabelDisabled.setIcon(fiftyIconDisabled);
+                        fiftyLabelDisabled.setDisabledIcon(fiftyIconDisabled);
+                        fiftyLabel.setIcon(null);
                         if (answer == answers[index]) {
+                            answer_labelB.setForeground(new Color(255, 0, 0));
+                            answer_labelC.setForeground(new Color(255, 0, 0));
                             buttonA.setEnabled(true);
                             buttonB.setEnabled(false);
                             buttonC.setEnabled(false);
@@ -302,8 +333,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     }
                     answer = 'B';
                     if (e.getSource() == fifty50) {
+                        fifty50Sound.play();
                         fifty50.setEnabled(false);
+                        fiftyLabelDisabled.setIcon(fiftyIconDisabled);
+                        fiftyLabelDisabled.setDisabledIcon(fiftyIconDisabled);
+                        fiftyLabel.setIcon(null);
                         if (answer == answers[index]) {
+                            answer_labelC.setForeground(new Color(255, 0, 0));
+                            answer_labelD.setForeground(new Color(255, 0, 0));
                             buttonA.setEnabled(true);
                             buttonB.setEnabled(true);
                             buttonC.setEnabled(false);
@@ -312,8 +349,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     }
                     answer = 'C';
                     if (e.getSource() == fifty50) {
+                        fifty50Sound.play();
                         fifty50.setEnabled(false);
+                        fiftyLabelDisabled.setIcon(fiftyIconDisabled);
+                        fiftyLabelDisabled.setDisabledIcon(fiftyIconDisabled);
+                        fiftyLabel.setIcon(null);
                         if (answer == answers[index]) {
+                            answer_labelA.setForeground(new Color(255, 0, 0));
+                            answer_labelD.setForeground(new Color(255, 0, 0));
                             buttonA.setEnabled(false);
                             buttonB.setEnabled(true);
                             buttonC.setEnabled(true);
@@ -322,8 +365,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     }
                     answer = 'D';
                     if (e.getSource() == fifty50) {
+                        fifty50Sound.play();
                         fifty50.setEnabled(false);
+                        fiftyLabelDisabled.setIcon(fiftyIconDisabled);
+                        fiftyLabelDisabled.setDisabledIcon(fiftyIconDisabled);
+                        fiftyLabel.setIcon(null);
                         if (answer == answers[index]) {
+                            answer_labelA.setForeground(new Color(255, 0, 0));
+                            answer_labelB.setForeground(new Color(255, 0, 0));
                             buttonA.setEnabled(false);
                             buttonB.setEnabled(false);
                             buttonC.setEnabled(true);
@@ -334,6 +383,46 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             });
         fifty50.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, false));
         fifty50.setOpaque(true);
+
+        // CallAFriend Lifeline
+        ImageIcon cafIcon = new ImageIcon("Pictures/callafriendsmall.png");
+        ImageIcon cafIconDisabled = new ImageIcon("Pictures/callafrienddisabled.png");
+        JLabel cafLabel = new JLabel();
+        JLabel cafLabelDisabled = new JLabel();
+        cafLabel.setIcon(cafIcon);
+
+        callAFriend = new JButton();
+        callAFriend.setBounds(970, 15, 80, 65);
+        callAFriend.setFont(new Font("Arial", Font.BOLD, 20));
+        callAFriend.setForeground(new Color(255, 185, 0));
+        callAFriend.setBackground(new Color(0, 0, 250));
+        callAFriend.setFocusable(false);
+        callAFriend.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] valgc = {"Ja tak Hans"};
+                if (e.getSource() == callAFriend) {
+                    callAFriend.setEnabled(false);
+                    cafLabelDisabled.setIcon(cafIconDisabled);
+                    cafLabelDisabled.setDisabledIcon(cafIconDisabled);
+                    cafLabel.setIcon(null);
+                    callafriendSound.play();
+                    countdown.stop();
+                    secondsCallAFriend.start();
+                    JOptionPane.showOptionDialog(gameFrame, "Din tid begynder nu. Du har 45 sekunder til at spørge eller ringe til en ven. Held og lykke!", "HANS PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valgc, valgc[0]);
+                    // 100 sekunder timer
+                    seconds_left_CAF.setBounds(0, 200, 200, 200);
+                    seconds_left_CAF.setForeground(new Color(255, 0, 0));
+                    seconds_left_CAF.setFont(new Font("JetBrains Mono", Font.BOLD, 35));
+                    seconds_left_CAF.setHorizontalAlignment(JTextField.CENTER);
+                    seconds_left_CAF.setText(String.valueOf(secondsCAF));
+
+                }
+            }
+        });
+
+        callAFriend.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, false));
+        callAFriend.setOpaque(true);
 
         // Pengecheck button
         resultPanel = new JPanel();
@@ -396,15 +485,13 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         ImageIcon iconSpiller = new ImageIcon("Pictures/spillergd.png");
         JLabel spillergd = new JLabel();
         spillergd.setIcon(iconSpiller);
-        spillergd.setText("HEJ");
-        spillergd.setFont(new Font("Arial", Font.PLAIN, 20));
         spillergd.setVerticalAlignment(JLabel.CENTER);
 
         JPanel gamePanelTopLeft = new JPanel();
         gamePanelTopLeft.setBackground(new Color(0, 0, 159));
         gamePanelTopLeft.setBounds(0, 0, 400, 200);
 
-        JPanel gamePanelMidLeft = new JPanel();
+        gamePanelMidLeft = new JPanel();
         gamePanelMidLeft.setBackground(new Color(0, 0, 159));
         gamePanelMidLeft.setBounds(0, 200, 400, 275);
 
@@ -544,14 +631,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         //    UI.put("OptionPane.background", new ColorUIResource(197,179,88));
         //    UI.put("Panel.background", new ColorUIResource(197,179,88));
 
-// Timer
+// Timere
+        // 30 sekunder timer
         seconds_left.setBounds(0, 475, 800, 20);
         seconds_left.setForeground(new Color(255, 185, 0));
         seconds_left.setBackground(new Color(0, 50, 159));
         seconds_left.setFont(new Font("JetBrains Mono", Font.BOLD, 23));
         seconds_left.setHorizontalAlignment(JTextField.RIGHT);
         seconds_left.setText(String.valueOf(seconds));
-
 
 // Game Frame
         gameFrame = new JFrame();
@@ -567,6 +654,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
 // Adding table
         gameFrame.add(seconds_left);
+        gameFrame.add(seconds_left_CAF);
 
         gameFrame.add(textField);
         gameFrame.add(textArea);
@@ -581,8 +669,13 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
         // Lifelines Buttons
         fifty50.add(fiftyLabel);
+        fifty50.add(fiftyLabelDisabled);
+        callAFriend.add(cafLabel);
+        callAFriend.add(cafLabelDisabled);
         gamePanelTopRight.add(fifty50);
+        gamePanelTopRight.add(callAFriend);
         gameFrame.add(fifty50);
+        gameFrame.add(callAFriend);
 
         // Question design
         gameFrame.add(answer_labelA);
@@ -597,6 +690,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         // Left side
         gamePanelTopLeft.add(lightLeft);
         gamePanelMidLeft.add(spillergd);
+        gamePanelMidLeft.add(seconds_left_CAF);
         gameFrame.add(gamePanelTopLeft);
         gameFrame.add(gamePanelMidLeft);
 
@@ -649,6 +743,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             resultPanel.add(resultButton);
             JOptionPane.showOptionDialog(gameFrame, "TILLYKKE! DU HAR VUNDET 1 MILLION KRONER!!!", "PENGEBELØB", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             soundDesign.stop();
+            secondsCallAFriend.stop();
             oneMillion = new SoundDesign("Soundeffects/1MIL.wav");
             oneMillion.play();
             gameFrame.removeAll();
@@ -670,7 +765,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) throws NullPointerException {
         correctAnswer = new SoundDesign("Soundeffects/correct.wav");
         wrongAnswer = new SoundDesign("Soundeffects/wrong.wav");
         questionAudio = new SoundDesign("Soundeffects/5000000-music.wav");
@@ -681,7 +776,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         buttonD.setEnabled(false);
         stopButton.setEnabled(false);
 
-        
         if (e.getSource() == buttonA) {      // Hvis en person klikker på Button A, hvad skal der så ske?
             answer = 'A';
             if (answer == answers[index]) {  // Hvis vores svar er equal til det svar der er stored i vores 'answers array' i et bestemt index, så incrementer vi 'correct_guess' med 1.
@@ -690,12 +784,15 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         highlight.setLocation(highlight.getX(), highlight.getY() + -40);
+                        callafriendSound.stop();
+
                     }
                 });
                 delayClock.setRepeats(false);
                 delayClock.start();
             } else if (answer != answers[index]) {
                 wrongAnswer.play();
+                callafriendSound.stop();
             }
         }
 
@@ -707,12 +804,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         highlight.setLocation(highlight.getX(), highlight.getY() + -40);
+                        callafriendSound.stop();
                     }
                 });
                 delayClock.setRepeats(false);
                 delayClock.start();
             } else if (answer != answers[index]) {
                 wrongAnswer.play();
+                callafriendSound.stop();
             }
         }
 
@@ -724,12 +823,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         highlight.setLocation(highlight.getX(), highlight.getY() + -40);
+                        callafriendSound.stop();
                     }
                 });
                 delayClock.setRepeats(false);
                 delayClock.start();
             } else if (answer != answers[index]) {
                 wrongAnswer.play();
+                callafriendSound.stop();
             }
         }
 
@@ -741,12 +842,14 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         highlight.setLocation(highlight.getX(), highlight.getY() + -40);
+                        callafriendSound.stop();
                     }
                 });
                 delayClock.setRepeats(false);
                 delayClock.start();
             } else if (answer != answers[index]) {
                 wrongAnswer.play();
+                callafriendSound.stop();
             }
         }
         if (e.getSource() == resultButton) {
@@ -761,6 +864,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
     public void displayAnswer() {
         countdown.stop();
+        secondsCallAFriend.stop();
         buttonA.setEnabled(false);
         buttonB.setEnabled(false);
         buttonC.setEnabled(false);
@@ -829,12 +933,13 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                 buttonC.setEnabled(true);
                 buttonD.setEnabled(true);
                 stopButton.setEnabled(true);
+                seconds_left_CAF.setText(null);
+                seconds_left_CAF.setForeground(new Color(255,255,255,255));
 
                 // Hvis svaret er rigtigt så fortsæt.
                 if (answer == answers[index]) {
                     index++;     // For at køre videre til næste spørgsmål.
                     nextQuestion();
-
                     // Hvis svaret er forkert. Så åben resultat vindue.
                 } else if (answer != answers[index]) {
                     // Pengecheck popup vindue
