@@ -10,8 +10,5 @@ public class Main {
 
             }
         });
-          //GameDesign gameDesign = new GameDesign();     // Skal ikke være her til sidst. Bruges kun til at lave Gamedesign så menuen ikke popper op først hele tiden.
-        //DataGameDesign d = new DataGameDesign();     // Skal ikke være her til sidst. Bruges kun til at lave Gamedesign så menuen ikke popper op først hele tiden.
-
     }
 }

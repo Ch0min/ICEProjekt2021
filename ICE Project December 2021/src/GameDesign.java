@@ -1085,7 +1085,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         pause.start();               // Her får vi timeren til at starte.
     }
 
-
     private void reward() {
         SoundDesign reward = new SoundDesign("Soundeffects/intromain.wav");
         reward.play();

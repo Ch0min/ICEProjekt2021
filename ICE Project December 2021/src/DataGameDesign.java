@@ -36,10 +36,6 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
 
     JPanel gamePanelMidLeft;
 
-
-    // Bruges til at farve optionPane vinduerne.
-    UIManager UI;
-
     // Timer Instanser
     JLabel seconds_left = new JLabel();             // Vil fungere som selve displayet for vores countdown timer.
     JLabel seconds_left_CAF = new JLabel();
@@ -57,60 +53,60 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
 
     // Spørgsmåls Instans Lister
     String[] questions = {      // Indeholder spørgsmålene.
-            " Hvor mange forskellige værdier har de mønter man benytter til at betale med i Danmark?",            // 1
-            " I hvilket årstal vandt Danmarks herrelandshold deres første fodbold EM-trofæ?",                       // 2
-            " Hvor mange dele består en trilogi af?",                                                              // 3
-            " Hvad spiser Skipper Skræk når han har brug for ekstra kræfter?",                                   // 4
-            " Hvad kalder man nordlys på den sydlige halvkugle?",                                            // 5
-            " Hvilket af disse fodboldklubber kommer fra Aarhus?",                                             // 6
-            " Hvad måler man elektrisk spænding i?",                                                           // 7
-            " Hvilket skolefag hed tidligere formning?",                                                           // 8
-            " Hvilket af disse ledere levede for færrest år siden?",                                           // 9
-            " Hvilken dansk skuespiller spiller hovedrollen i den amerikanske film 'Shot Caller fra 2017?",  // 10
-            " Hvor mange øer består Danmark af?",                                                            // 11
-            " Hvad samler en numismatiker på?",                                                              // 12
-            " I hvilket af kroppens led sidder 'patella'?",                                                   // 13
-            " Hvilket materiale er man berømt for at producere og forarbejde i Murano i det nordlige Italien?", // 14
-            " Hvilket af følgende er ikke et vinmærke?"                                                     // 15
+            " Hvilket apparat kaldte man tidligere for en datamat?",                              // 1
+            " Hvad står OOP for?",                                                                // 2
+            " I Java alle statements skal slutte med hvilket symbol?",                            // 3
+            " Hvad kalder man computerens korttidshukommelse?",                                   // 4
+            " Hvilken af følgende er den rigtige syntaks for et for-loop?",                       // 5
+            " Hvad er det der gør det muligt at kører flere programmer på en computer?",          // 6
+            " Hvilken del af computeren kaldes “Hjernen af computeren” ?",                        // 7
+            " Hvilket begreb betegner public, private, protected og default?",                    // 8
+            " Hvad står GUI for?",                                                                // 9
+            " Hvad står HTML for?",                                                               // 10
+            " Hvilken af følgende hører ikke under OOP’s grundprincipper?",                       // 11
+            " Navnet på Konstruktøren er altid samme navn som __?",                               // 12
+            " En lokal variable er en variabel erklæret i ?",                                     // 13
+            " Hvad oversætter high-level language til maskin kode?",                         // 14
+            " Hvem har grundtlagt Java?"               // 15
 
     };
 
     String[][] options = {      // Holder på alle svarmulighederne, til vores spørgsmål.
             // Ved at gøre det på den her måde, så kan vi tilføje og slette spørgsmål, da det her program er dynamisk.
-            {" 4", " 5", " 6", " 7"},   // 1
-            {" 1990", " 1992", " 1994", " 1996"},                   // 2
-            {" 1", " 2", " 3", " 4"},                               // 3
-            {" Gulerødder", " Kartofler", " Tomater", " Spinat"},   // 4
-            {" Sydlys", " Polarislys", " Antarktisk lys", " Spirallys"},        // 5
-            {" AaB", " AB", " AGF", " BGA"},            // 6
-            {" Watt", " Volt", " Ohm", " Maxwell"},                 // 7
-            {" Sløjd", " Håndarbejde", " Hjemkundskab", " Billedkunst"},         // 8
-            {" Genghis Khan", " Tutankhamon", " Gorm den Gamle", " Julius Cæsar"},           // 9
-            {" Mads Mikkelsen", " Pilou Asbæk", " Ulrich Thomsen", " Nikolaj Coster-Waldau"},   // 10
-            {" ca. 50", " ca. 200", " ca. 400", " ca. 700"},         // 11
-            {" Mønter", " Kort", " Terninger", " Frimærker"},        // 12
-            {" I albuen", " I knæet", " I rygsøjlen", " I håndleddet"},    // 13
-            {" Plastik", " Stof", " Metal", " Glas"},             // 14
-            {" Bolero", " Barolo", " Brunello", " Barbaresco"}  // 15
+            {" Mobiltelefon", " MP3-afspiller", " Lommeregner", " Computer"},   // 1
+            {" Object-oriented Programming", " Order of the Phoenix", " Out of Process", " Ordinary Object Pointer"},                   // 2
+            {"  ;", "   )", "   -", "   !"},                               // 3
+            {" REM", " ROM", " RAM", " RIM"},   // 4
+            {" for(int 0 = i < -5; i+5)", " for(int i = 0; i < 10; i++)", " for(int i = 0; i ¤ 10; i/5)", " for(int 0 = i; i > 10; i-+)"},        // 5
+            {" NIC", " OS", " API", " GUI"},            // 6
+            {" Motherboard", " Memory", " CPU", " NIC"},                 // 7
+            {" Access Humidifier", " Access Scope", " Access Point", " Access Modifiers"},         // 8
+            {" Graphical User Interim", " Geographical User Interruption", " Graphical User Interface", " Gain Upper Intensity"},           // 9
+            {" HyperText Market Language", " HyperText Markup Language", " HomeTool Markup Language", " HyperTool Markup Language"},   // 10
+            {" Indkapsling", " Nedarvning", " Databaser", " Abstraktion"},         // 11
+            {" Parameter variablen", " Klassen", " Access modifier", " Instance variablen"},        // 12
+            {" Kroppen af metoden", " Kroppen af klassen", " Dokumentations kommentarer", " Hovedet af klassen"},    // 13
+            {" Interpreter", " Linker", " Compiler", " Assembler"},             // 14
+            {" James Gosling", " Dennis Ritchie", " Guido van Rossum", " Anders Hejlsberg"}  // 15
 
     };
 
     char[] answers =    // Holder på alle de rigtige svar.
             {
-                    'C',    // 1
-                    'B',    // 2
-                    'C',    // 3
-                    'D',    // 4
-                    'A',    // 5
-                    'C',    // 6
-                    'B',    // 7
+                    'D',    // 1
+                    'A',    // 2
+                    'A',    // 3
+                    'C',    // 4
+                    'B',    // 5
+                    'B',    // 6
+                    'C',    // 7
                     'D',    // 8
-                    'A',    // 9
-                    'D',    // 10
+                    'C',    // 9
+                    'B',    // 10
                     'C',    // 11
-                    'A',    // 12
-                    'B',    // 13
-                    'D',    // 14
+                    'B',    // 12
+                    'A',    // 13
+                    'C',    // 14
                     'A'     // 15
             };
 
@@ -550,19 +546,19 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         // Question design
         answer_labelA.setBounds(150, 535, 250, 125);
         answer_labelA.setForeground(new Color(255, 255, 255));
-        answer_labelA.setFont(new Font("Arial", Font.PLAIN, 20));
+        answer_labelA.setFont(new Font("Arial", Font.PLAIN, 18));
 
         answer_labelB.setBounds(550, 535, 250, 125);
         answer_labelB.setForeground(new Color(255, 255, 255));
-        answer_labelB.setFont(new Font("Arial", Font.PLAIN, 20));
+        answer_labelB.setFont(new Font("Arial", Font.PLAIN, 18));
 
         answer_labelC.setBounds(150, 657, 250, 125);
         answer_labelC.setForeground(new Color(255, 255, 255));
-        answer_labelC.setFont(new Font("Arial", Font.PLAIN, 20));
+        answer_labelC.setFont(new Font("Arial", Font.PLAIN, 18));
 
         answer_labelD.setBounds(550, 657, 250, 125);
         answer_labelD.setForeground(new Color(255, 255, 255));
-        answer_labelD.setFont(new Font("Arial", Font.PLAIN, 20));
+        answer_labelD.setFont(new Font("Arial", Font.PLAIN, 18));
 
         JPanel panel_A = new JPanel();
         panel_A.setBackground(new Color(50,205,50));
