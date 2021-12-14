@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -137,6 +136,8 @@ public class StartMenu extends JPanel implements ActionListener {
         menuFrame.setSize(1200, 800);   // Egentlige størrelse?
         ImageIcon logo = new ImageIcon("Pictures/logo.png");
         menuFrame.setIconImage(logo.getImage());
+
+
 
 
 // Adding table

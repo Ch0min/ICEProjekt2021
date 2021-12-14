@@ -57,15 +57,15 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
 
     // Spørgsmåls Instans Lister
     String[] questions = {      // Indeholder spørgsmålene.
-            " Hvilket apparat kaldte man tidligere for en datamat?",            // 1
-            " Hvad står OOP for?",                       // 2
-            " Hvilken af følgende er en rigtig syntaks for et for-loop?",                                                              // 3
-            " Hvad svarer 32.000 bytes til?",                                   // 4
-            " Hvilken af følgende hører ikke under OOP's grundprincipper?",                                                              // 5
-            " Hvad står HTML for?",                                             // 6
+            " Hvor mange forskellige værdier har de mønter man benytter til at betale med i Danmark?",            // 1
+            " I hvilket årstal vandt Danmarks herrelandshold deres første fodbold EM-trofæ?",                       // 2
+            " Hvor mange dele består en trilogi af?",                                                              // 3
+            " Hvad spiser Skipper Skræk når han har brug for ekstra kræfter?",                                   // 4
+            " Hvad kalder man nordlys på den sydlige halvkugle?",                                            // 5
+            " Hvilket af disse fodboldklubber kommer fra Aarhus?",                                             // 6
             " Hvad måler man elektrisk spænding i?",                                                           // 7
-            " Hvilket skolefag hed tidligere formning?",                                          // 8
-            " Hvilket af disse ledere levede for færrest år siden?",                                                        // 9
+            " Hvilket skolefag hed tidligere formning?",                                                           // 8
+            " Hvilket af disse ledere levede for færrest år siden?",                                           // 9
             " Hvilken dansk skuespiller spiller hovedrollen i den amerikanske film 'Shot Caller fra 2017?",  // 10
             " Hvor mange øer består Danmark af?",                                                            // 11
             " Hvad samler en numismatiker på?",                                                              // 12
@@ -77,12 +77,12 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
 
     String[][] options = {      // Holder på alle svarmulighederne, til vores spørgsmål.
             // Ved at gøre det på den her måde, så kan vi tilføje og slette spørgsmål, da det her program er dynamisk.
-            {" Mobiltelefon", " MP3-afspiller", " Lommeregner", " Computer"},   // 1
-            {" Object-oriented Programming", " Order of the Phoenix", " Out of Process", " Ordinary Object Pointer"},                   // 2
-            {" for(int 0 = i < -5; i+5)", " for(int i = 0; i < 10; i++)", " for(int i = 0; i ¤ 10; i/5)", " for(int 0 = i; i > 10; i-+)"},                               // 3
-            {" 32 KB", " 320 KB", " 32 MB", " 32.000 KB"},   // 4
-            {" Indkapsling", " Nedarvning", " Databaser", " Abstraktion"},        // 5
-            {" HyperText Marketing Language", " HyperText Markup Language", " Home Tool Markup Language", " Hyperlinks and Text Markup Language"},            // 6
+            {" 4", " 5", " 6", " 7"},   // 1
+            {" 1990", " 1992", " 1994", " 1996"},                   // 2
+            {" 1", " 2", " 3", " 4"},                               // 3
+            {" Gulerødder", " Kartofler", " Tomater", " Spinat"},   // 4
+            {" Sydlys", " Polarislys", " Antarktisk lys", " Spirallys"},        // 5
+            {" AaB", " AB", " AGF", " BGA"},            // 6
             {" Watt", " Volt", " Ohm", " Maxwell"},                 // 7
             {" Sløjd", " Håndarbejde", " Hjemkundskab", " Billedkunst"},         // 8
             {" Genghis Khan", " Tutankhamon", " Gorm den Gamle", " Julius Cæsar"},           // 9
@@ -97,12 +97,12 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
 
     char[] answers =    // Holder på alle de rigtige svar.
             {
-                    'D',    // 1
-                    'A',    // 2
-                    'B',    // 3
-                    'A',    // 4
-                    'C',    // 5
-                    'B',    // 6
+                    'C',    // 1
+                    'B',    // 2
+                    'C',    // 3
+                    'D',    // 4
+                    'A',    // 5
+                    'C',    // 6
                     'B',    // 7
                     'D',    // 8
                     'A',    // 9
@@ -182,10 +182,10 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
     public void gameRun() {
         // Game fields
         textField.setBounds(0, 475, 800, 20);      // 'setBounds' bruger man til at bestemme placeringen.
-        textField.setBackground(new Color(0, 50, 159));
+        textField.setBackground(new Color(0,100,0));
         textField.setForeground(new Color(255, 185, 0));
         textField.setFont(new Font("Arial", Font.BOLD, 20));
-        textField.setBorder(BorderFactory.createLineBorder(new Color(0, 50, 255), 1, true));
+        textField.setBorder(BorderFactory.createLineBorder(new Color(50,205,50), 1, true));
         textField.setHorizontalAlignment(JTextField.CENTER);    // Juster placeringen af teksten.(Center)
         textField.setFocusable(false);
 
@@ -193,7 +193,7 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         textArea.setBounds(0, 495, 800, 45);
         textArea.setLineWrap(true);           // 'Wrap' for at teksten ikke går udover skærmen, men i stedet går ned til næste linje.
         textArea.setWrapStyleWord(true);
-        textArea.setBackground(new Color(0, 0, 250));
+        textArea.setBackground(new Color(34,139,34));
         textArea.setForeground(new Color(255, 255, 255));
         textArea.setFont(new Font("Arial", Font.BOLD, 20));
         textArea.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 1, true));
@@ -204,7 +204,7 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         // Button A
         buttonA.setBounds(0, 540, 150, 120);
         buttonA.setForeground(new Color(255, 185, 0));
-        buttonA.setBackground(new Color(0, 0, 159));
+        buttonA.setBackground(new Color(0,100,0));
         buttonA.setFont(new Font("Impact", Font.BOLD, 40));
         buttonA.setFocusable(false);     // Vil gøre så en button ikke bliver highlighted når den bliver trykket på.
         buttonA.addActionListener(this);
@@ -215,7 +215,7 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         // Button B
         buttonB.setBounds(400, 540, 150, 120);
         buttonB.setForeground(new Color(255, 185, 0));
-        buttonB.setBackground(new Color(0, 0, 159));
+        buttonB.setBackground(new Color(0,100,0));
         buttonB.setFont(new Font("Impact", Font.BOLD, 40));
         buttonB.setFocusable(false);     // Vil gøre så en button ikke bliver highlighted når den bliver trykket på.
         buttonB.addActionListener(this);
@@ -226,7 +226,7 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         // Button C
         buttonC.setBounds(0, 657, 150, 125);
         buttonC.setForeground(new Color(255, 185, 0));
-        buttonC.setBackground(new Color(0, 0, 159));
+        buttonC.setBackground(new Color(0,100,0));
         buttonC.setFont(new Font("Impact", Font.BOLD, 40));
         buttonC.setFocusable(false);     // Vil gøre så en button ikke bliver highlighted når den bliver trykket på.
         buttonC.addActionListener(this);
@@ -237,7 +237,7 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         // Button D
         buttonD.setBounds(400, 657, 150, 125);
         buttonD.setForeground(new Color(255, 185, 0));
-        buttonD.setBackground(new Color(0, 0, 159));
+        buttonD.setBackground(new Color(0,100,0));
         buttonD.setFont(new Font("Impact", Font.BOLD, 40));
         buttonD.setFocusable(false);
         buttonD.addActionListener(this);
@@ -247,7 +247,7 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
 
         // Tag pengene Button
         stopButton = new JButton();
-        stopButton.setBounds(850, 700, 200, 50);
+        stopButton.setBounds(850, 705, 200, 50);
         stopButton.setForeground(new Color(160, 82, 45));
         stopButton.setBackground(new Color(218, 165, 32));
         stopButton.setFont(new Font("Impact", Font.PLAIN, 28));
@@ -255,10 +255,12 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (JOptionPane.showConfirmDialog(gameFrame, "Er det din endelige beslutning?'", "HANS PILGAARD", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+                if (JOptionPane.showConfirmDialog(gameFrame, "Er det din endelige beslutning?'", "ROBOT PILGAARD", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
                     if (e.getSource() == stopButton) {
                         soundDesign.stop();
                         countdown.stop();
+                        callafriendSound.stop();
+                        askmobSound.stop();
                         gameFrame.removeAll();
                         gameFrame.dispose();
                         reward();
@@ -272,9 +274,9 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
 
         // Afslut Spil/Quit Button
         quitButton = new JButton();
-        quitButton.setBounds(1100, 700, 75, 50);
+        quitButton.setBounds(1100, 705, 75, 50);
         quitButton.setForeground(new Color(255, 185, 0));
-        quitButton.setBackground(new Color(0, 0, 250));
+        quitButton.setBackground(new Color(34,139,34));
         quitButton.setFont(new Font("Impact", Font.PLAIN, 14));
         quitButton.setFocusable(false);
         quitButton.addActionListener(new ActionListener() {
@@ -306,7 +308,7 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         fifty50.setBounds(875, 15, 80, 65);
         fifty50.setFont(new Font("Arial", Font.BOLD, 20));
         fifty50.setForeground(new Color(255, 185, 0));
-        fifty50.setBackground(new Color(0, 0, 250));
+        fifty50.setBackground(new Color(0,128,0));
         fifty50.setFocusable(false);
         fifty50.addActionListener(new ActionListener() {
                 @Override
@@ -391,12 +393,12 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         callAFriend.setBounds(970, 15, 80, 65);
         callAFriend.setFont(new Font("Arial", Font.BOLD, 20));
         callAFriend.setForeground(new Color(255, 185, 0));
-        callAFriend.setBackground(new Color(0, 0, 250));
+        callAFriend.setBackground(new Color(0,128,0));
         callAFriend.setFocusable(false);
         callAFriend.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String[] valgc = {"Ja tak Hans"};
+                String[] valgc = {"Ja tak Robot"};
                 if (e.getSource() == callAFriend) {
                     callAFriend.setEnabled(false);
                     cafLabelDisabled.setIcon(cafIconDisabled);
@@ -405,13 +407,15 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
                     callafriendSound.play();
                     countdown.stop();
                     secondsCallAFriend.start();
-                    JOptionPane.showOptionDialog(gameFrame, "Din tid begynder nu. Du har 45 sekunder til at spørge eller ringe til en ven. Held og lykke!", "HANS PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valgc, valgc[0]);
+                    JOptionPane.showOptionDialog(gameFrame, "Din tid begynder nu. Du har 45 sekunder til at give et svar. Du kan spørge eller ringe til en ven. Held og lykke!", "HANS PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valgc, valgc[0]);
                     // 100 sekunder timer
                     seconds_left_CAF.setBounds(0, 200, 200, 200);
+                    seconds_left_CAF.setBackground(new Color(150, 0, 0));
                     seconds_left_CAF.setForeground(new Color(255, 0, 0));
-                    seconds_left_CAF.setFont(new Font("JetBrains Mono", Font.BOLD, 35));
+                    seconds_left_CAF.setFont(new Font("JetBrains Mono", Font.BOLD, 30));
                     seconds_left_CAF.setHorizontalAlignment(JTextField.CENTER);
                     seconds_left_CAF.setText(String.valueOf(secondsCAF));
+                    seconds_left_CAF.setOpaque(true);
 
                 }
             }
@@ -432,7 +436,7 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         askMob.setBounds(1065, 15, 80, 65);
         askMob.setFont(new Font("Arial", Font.BOLD, 20));
         askMob.setForeground(new Color(255, 185, 0));
-        askMob.setBackground(new Color(0, 0, 250));
+        askMob.setBackground(new Color(0,128,0));
         askMob.setFocusable(false);
         askMob.addActionListener(new ActionListener() {
             @Override
@@ -447,9 +451,11 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
                     if (answer == answers[index]) {
                         JFrame askmob1 = new JFrame();
                         askmob1.setSize(415,325);
-                        askmob1.setBackground(new Color(0,0,159));
+                        askmob1.setBackground(new Color(0,100,0));
                         askmob1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         askmob1.setResizable(false);
+                        ImageIcon logo = new ImageIcon("Pictures/logo.png");
+                        askmob1.setIconImage(logo.getImage());
                         askmob1.setVisible(true);
                         ImageIcon askmob1Icon = new ImageIcon("Pictures/askmobStatAsmall.png");
                         JLabel askmob1Label = new JLabel();
@@ -467,9 +473,11 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
                     if (answer == answers[index]) {
                         JFrame askmob2 = new JFrame();
                         askmob2.setSize(415,325);
-                        askmob2.setBackground(new Color(0,0,159));
+                        askmob2.setBackground(new Color(0,100,0));
                         askmob2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         askmob2.setResizable(false);
+                        ImageIcon logo = new ImageIcon("Pictures/logo.png");
+                        askmob2.setIconImage(logo.getImage());
                         askmob2.setVisible(true);
                         ImageIcon askmob2Icon = new ImageIcon("Pictures/askmobStatBsmall.png");
                         JLabel askmob2Label = new JLabel();
@@ -487,9 +495,11 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
                     if (answer == answers[index]) {
                         JFrame askmob3 = new JFrame();
                         askmob3.setSize(415,325);
-                        askmob3.setBackground(new Color(0,0,159));
+                        askmob3.setBackground(new Color(0,100,0));
                         askmob3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         askmob3.setResizable(false);
+                        ImageIcon logo = new ImageIcon("Pictures/logo.png");
+                        askmob3.setIconImage(logo.getImage());
                         askmob3.setVisible(true);
                         ImageIcon askMob3Icon = new ImageIcon("Pictures/askmobStatCsmall.png");
                         JLabel askMob3Label = new JLabel();
@@ -507,9 +517,11 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
                     if (answer == answers[index]) {
                         JFrame askmob4 = new JFrame();
                         askmob4.setSize(415,325);
-                        askmob4.setBackground(new Color(0,0,159));
+                        askmob4.setBackground(new Color(0,100,0));
                         askmob4.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         askmob4.setResizable(false);
+                        ImageIcon logo = new ImageIcon("Pictures/logo.png");
+                        askmob4.setIconImage(logo.getImage());
                         askmob4.setVisible(true);
                         ImageIcon askmob4Icon = new ImageIcon("Pictures/askmobStatDsmall.png");
                         JLabel askmob4Label = new JLabel();
@@ -538,44 +550,44 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         // Question design
         answer_labelA.setBounds(150, 535, 250, 125);
         answer_labelA.setForeground(new Color(255, 255, 255));
-        answer_labelA.setFont(new Font("Arial", Font.PLAIN, 15));
+        answer_labelA.setFont(new Font("Arial", Font.PLAIN, 20));
 
         answer_labelB.setBounds(550, 535, 250, 125);
         answer_labelB.setForeground(new Color(255, 255, 255));
-        answer_labelB.setFont(new Font("Arial", Font.PLAIN, 15));
+        answer_labelB.setFont(new Font("Arial", Font.PLAIN, 20));
 
         answer_labelC.setBounds(150, 657, 250, 125);
         answer_labelC.setForeground(new Color(255, 255, 255));
-        answer_labelC.setFont(new Font("Arial", Font.PLAIN, 15));
+        answer_labelC.setFont(new Font("Arial", Font.PLAIN, 20));
 
         answer_labelD.setBounds(550, 657, 250, 125);
         answer_labelD.setForeground(new Color(255, 255, 255));
-        answer_labelD.setFont(new Font("Arial", Font.PLAIN, 15));
+        answer_labelD.setFont(new Font("Arial", Font.PLAIN, 20));
 
         JPanel panel_A = new JPanel();
-        panel_A.setBackground(new Color(65, 105, 225));
+        panel_A.setBackground(new Color(50,205,50));
         panel_A.setBounds(150, 535, 250, 125);
         panel_A.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 3, true));
 
         JPanel panel_B = new JPanel();
-        panel_B.setBackground(new Color(65, 105, 225));
+        panel_B.setBackground(new Color(50,205,50));
         panel_B.setBounds(550, 535, 250, 125);
         panel_B.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 3, true));
 
         JPanel panel_C = new JPanel();
-        panel_C.setBackground(new Color(65, 105, 225));
+        panel_C.setBackground(new Color(50,205,50));
         panel_C.setBounds(150, 657, 250, 125);
         panel_C.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, true));
 
         JPanel panel_D = new JPanel();
-        panel_D.setBackground(new Color(65, 105, 225));
+        panel_D.setBackground(new Color(50,205,50));
         panel_D.setBounds(550, 657, 250, 125);
         panel_D.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 2, true));
 
 
 // Frame design
         // Left side game design
-        ImageIcon iconLightLeft = new ImageIcon("Pictures/lightleftgd.png");
+        ImageIcon iconLightLeft = new ImageIcon("Pictures/robotleftbg.png");
         JLabel lightLeft = new JLabel();
         lightLeft.setIcon(iconLightLeft);
         lightLeft.setVerticalAlignment(JLabel.CENTER);
@@ -586,30 +598,30 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         spillergd.setVerticalAlignment(JLabel.CENTER);
 
         JPanel gamePanelTopLeft = new JPanel();
-        gamePanelTopLeft.setBackground(new Color(0, 0, 159));
+        gamePanelTopLeft.setBackground(new Color(0,100,0));
         gamePanelTopLeft.setBounds(0, 0, 400, 200);
 
         gamePanelMidLeft = new JPanel();
-        gamePanelMidLeft.setBackground(new Color(0, 0, 159));
+        gamePanelMidLeft.setBackground(new Color(0,100,0));
         gamePanelMidLeft.setBounds(0, 200, 400, 275);
 
         // Middle design
-        ImageIcon iconLightRight = new ImageIcon("Pictures/lightrightgd.png");
+        ImageIcon iconLightRight = new ImageIcon("Pictures/robotrightbg.png");
         JLabel lightRight = new JLabel();
         lightRight.setIcon(iconLightRight);
         lightRight.setVerticalAlignment(JLabel.CENTER);
 
-        ImageIcon iconHansgd = new ImageIcon("Pictures/hansventergd.png");
+        ImageIcon iconHansgd = new ImageIcon("Pictures/robothansfade.png");
         JLabel hansgd = new JLabel();
         hansgd.setIcon(iconHansgd);
         hansgd.setVerticalAlignment(JLabel.CENTER);
 
         JPanel gamePanelCentralTop = new JPanel();
-        gamePanelCentralTop.setBackground(new Color(0, 0, 159));
+        gamePanelCentralTop.setBackground(new Color(0,100,0));
         gamePanelCentralTop.setBounds(400, 0, 400, 200);
 
         JPanel gamePanelCentralMid = new JPanel();
-        gamePanelCentralMid.setBackground(new Color(0, 0, 159));
+        gamePanelCentralMid.setBackground(new Color(0,100,0));
         gamePanelCentralMid.setBounds(400, 200, 400, 275);
 
         // Right design
@@ -710,24 +722,27 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         kr1000000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr1000000.setHorizontalTextPosition(JLabel.CENTER);
 
+        ImageIcon toprighticon = new ImageIcon("Pictures/lifelineBGgreen.png");
+        JLabel toprightlabel = new JLabel();
+        toprightlabel.setIcon(toprighticon);
         JPanel gamePanelTopRight = new JPanel();
-        gamePanelTopRight.setBackground(new Color(0, 0, 159));
-        gamePanelTopRight.setBounds(800, 0, 400, 100);
+        gamePanelTopRight.setBackground(new Color(0,100,0));
+        gamePanelTopRight.setBounds(800, 0, 400, 85);
 
+        ImageIcon midrighticon = new ImageIcon("Pictures/rewardBGgreen.png");
+        JLabel midrightlabel = new JLabel();
+        midrightlabel.setIcon(midrighticon);
         JPanel gamePanelMidRight = new JPanel();
-        gamePanelMidRight.setBackground(new Color(0, 0, 159));
-        gamePanelMidRight.setBounds(800, 100, 400, 600);
+        gamePanelMidRight.setBackground(new Color(128,128,0));
+        gamePanelMidRight.setBounds(800, 85, 400, 610);
 
+        ImageIcon botrighticon = new ImageIcon("Pictures/takemoneyBGgreen.png");
+        JLabel botrightlabel = new JLabel();
+        botrightlabel.setIcon(botrighticon);
         JPanel gamePanelBottomRight = new JPanel();
-        gamePanelBottomRight.setBackground(new Color(0, 0, 159));
+        gamePanelBottomRight.setBackground(new Color(128,128,0));
         gamePanelBottomRight.setBounds(800, 695, 400, 100);
         gamePanelBottomRight.setOpaque(true);
-
-
-// Optionpane/Pop-Up design
-        //    UI = new UIManager();
-        //    UI.put("OptionPane.background", new ColorUIResource(197,179,88));
-        //    UI.put("Panel.background", new ColorUIResource(197,179,88));
 
 // Timere
         // 30 sekunder timer
@@ -751,8 +766,9 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
 
 
 // Adding table
-        gameFrame.add(seconds_left);
+        // Timers
         gameFrame.add(seconds_left_CAF);
+        gameFrame.add(seconds_left);
 
         gameFrame.add(textField);
         gameFrame.add(textArea);
@@ -803,6 +819,9 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         gameFrame.add(gamePanelCentralMid);
 
         // Right side
+        gamePanelTopRight.add(toprightlabel);
+        gamePanelMidRight.add(midrightlabel);
+        gamePanelBottomRight.add(botrightlabel);
         gameFrame.add(gamePanelBottomRight);
         gameFrame.add(gamePanelMidRight);
         gameFrame.add(gamePanelTopRight);
@@ -843,8 +862,10 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
             resultButton.setFont(new Font("Impact", Font.BOLD, 30));
             resultPanel.add(resultLabel);
             resultPanel.add(resultButton);
-            JOptionPane.showOptionDialog(gameFrame, "DET RIGTIGT TILLYKKE! DU HAR VUNDET 1 MILLION KRONER!!!", "HANS PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            JOptionPane.showOptionDialog(gameFrame, "DET RIGTIGT TILLYKKE! DU HAR VUNDET 1 MILLION KRONER!!!", "ROBOT PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             soundDesign.stop();
+            callafriendSound.stop();
+            askmobSound.stop();
             secondsCallAFriend.stop();
             oneMillion = new SoundDesign("Soundeffects/1MIL.wav");
             oneMillion.play();
@@ -856,7 +877,7 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
             textField.setText("Spørgsmål " + (index + 1));       // Incrementer 'Spørgsmål' hver gang der kommer et nyt spørgsmål.
             textField.setFont(new Font("Droid Sans Mono", Font.BOLD, 20));
             textField.setForeground(new Color(255, 185, 0));
-            JOptionPane.showOptionDialog(gameFrame, "SPØRGSMÅL TIL: " + rewardsList[index + 1] + " KR", "HANS PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valg, valg[0]);
+            JOptionPane.showOptionDialog(gameFrame, "SPØRGSMÅL TIL: " + rewardsList[index + 1] + " KR", "ROBOT PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valg, valg[0]);
             textArea.setText(questions[index]);                  // Hver gang index bliver incremented, så skal programmet skifte til næste spørgsmål.
             answer_labelA.setText(options[index][0]);            // Bruger vores options 2d array, for at hente svarmulighederne.
             answer_labelB.setText(options[index][1]);
@@ -1082,18 +1103,18 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == returnButton) {
-                    reward.stop();
-                    StartMenu returnMenu = new StartMenu();
-                    resultsFrame.dispose();
+                    if (e.getSource() == returnButton) {
+                        reward.stop();
+                        StartMenu returnMenu = new StartMenu();
+                        resultsFrame.dispose();
 
                 }
             }
         });
         returnButton.setBorder(BorderFactory.createLineBorder(new Color(128, 128, 0), 4, false));
         returnButton.setOpaque(true);
-
-
+        
+        
         // Left side design
         ImageIcon lf1Icon = new ImageIcon("Gifs/f1top.gif");
         JLabel lf1 = new JLabel();
@@ -1166,10 +1187,6 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         JLabel rf2 = new JLabel();
         rf2.setIcon(rf2Icon);
 
-//        ImageIcon glistIcon = new ImageIcon("Gifs/glistfall.gif");
-//        JLabel glist = new JLabel();
-//        glist.setIcon(glistIcon);
-
         JPanel resultPanelTopRight = new JPanel();
         resultPanelTopRight.setBackground(new Color(0, 0, 23));
         resultPanelTopRight.setBounds(900, 0, 300, 250);
@@ -1191,7 +1208,6 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         resultsFrame.setSize(1200, 800);   // Egentlige størrelse?
         ImageIcon logo = new ImageIcon("Pictures/logo.png");
         resultsFrame.setIconImage(logo.getImage());
-
 
 // Adding Table
         // Left side
@@ -1215,7 +1231,6 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         // Right side
         resultPanelTopRight.add(rf1);
         resultPanelBottomRight.add(rf2);
-//        resultPanelCentralRight.add(glist);
         resultPanelCentralRight.add(returnButton);
         resultsFrame.add(returnButton);
         resultsFrame.add(resultPanelTopRight);
@@ -1239,7 +1254,6 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         }
     }
 }
-
 
 
 

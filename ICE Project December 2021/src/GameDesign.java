@@ -2,9 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 
 public class GameDesign extends JPanel implements ActionListener {     // Da programmet kører på en masse små handlinger.
     // Gamedesigns Instanser
@@ -64,11 +61,11 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             " I hvilket årstal vandt Danmarks herrelandshold deres første fodbold EM-trofæ?",                       // 2
             " Hvor mange dele består en trilogi af?",                                                              // 3
             " Hvad spiser Skipper Skræk når han har brug for ekstra kræfter?",                                   // 4
-            " Hvad kalder man nordlys på den sydlige halvkugle?",                                                              // 5
+            " Hvad kalder man nordlys på den sydlige halvkugle?",                                            // 5
             " Hvilket af disse fodboldklubber kommer fra Aarhus?",                                             // 6
             " Hvad måler man elektrisk spænding i?",                                                           // 7
-            " Hvilket skolefag hed tidligere formning?",                                          // 8
-            " Hvilket af disse ledere levede for færrest år siden?",                                                        // 9
+            " Hvilket skolefag hed tidligere formning?",                                                           // 8
+            " Hvilket af disse ledere levede for færrest år siden?",                                           // 9
             " Hvilken dansk skuespiller spiller hovedrollen i den amerikanske film 'Shot Caller fra 2017?",  // 10
             " Hvor mange øer består Danmark af?",                                                            // 11
             " Hvad samler en numismatiker på?",                                                              // 12
@@ -250,7 +247,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
         // Tag pengene Button
         stopButton = new JButton();
-        stopButton.setBounds(850, 700, 200, 50);
+        stopButton.setBounds(850, 705, 200, 50);
         stopButton.setForeground(new Color(160, 82, 45));
         stopButton.setBackground(new Color(218, 165, 32));
         stopButton.setFont(new Font("Impact", Font.PLAIN, 28));
@@ -262,6 +259,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     if (e.getSource() == stopButton) {
                         soundDesign.stop();
                         countdown.stop();
+                        callafriendSound.stop();
+                        askmobSound.stop();
                         gameFrame.removeAll();
                         gameFrame.dispose();
                         reward();
@@ -275,7 +274,7 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
         // Afslut Spil/Quit Button
         quitButton = new JButton();
-        quitButton.setBounds(1100, 700, 75, 50);
+        quitButton.setBounds(1100, 705, 75, 50);
         quitButton.setForeground(new Color(255, 185, 0));
         quitButton.setBackground(new Color(0, 0, 250));
         quitButton.setFont(new Font("Impact", Font.PLAIN, 14));
@@ -408,13 +407,15 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                     callafriendSound.play();
                     countdown.stop();
                     secondsCallAFriend.start();
-                    JOptionPane.showOptionDialog(gameFrame, "Din tid begynder nu. Du har 45 sekunder til at spørge eller ringe til en ven. Held og lykke!", "HANS PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valgc, valgc[0]);
+                    JOptionPane.showOptionDialog(gameFrame, "Din tid begynder nu. Du har 45 sekunder til at give et svar. Du kan spørge eller ringe til en ven. Held og lykke!", "HANS PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valgc, valgc[0]);
                     // 100 sekunder timer
                     seconds_left_CAF.setBounds(0, 200, 200, 200);
+                    seconds_left_CAF.setBackground(new Color(150, 0, 0));
                     seconds_left_CAF.setForeground(new Color(255, 0, 0));
-                    seconds_left_CAF.setFont(new Font("JetBrains Mono", Font.BOLD, 35));
+                    seconds_left_CAF.setFont(new Font("JetBrains Mono", Font.BOLD, 30));
                     seconds_left_CAF.setHorizontalAlignment(JTextField.CENTER);
                     seconds_left_CAF.setText(String.valueOf(secondsCAF));
+                    seconds_left_CAF.setOpaque(true);
 
                 }
             }
@@ -453,6 +454,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                         askmob1.setBackground(new Color(0,0,159));
                         askmob1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         askmob1.setResizable(false);
+                        ImageIcon logo = new ImageIcon("Pictures/logo.png");
+                        askmob1.setIconImage(logo.getImage());
                         askmob1.setVisible(true);
                         ImageIcon askmob1Icon = new ImageIcon("Pictures/askmobStatAsmall.png");
                         JLabel askmob1Label = new JLabel();
@@ -473,6 +476,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                         askmob2.setBackground(new Color(0,0,159));
                         askmob2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         askmob2.setResizable(false);
+                        ImageIcon logo = new ImageIcon("Pictures/logo.png");
+                        askmob2.setIconImage(logo.getImage());
                         askmob2.setVisible(true);
                         ImageIcon askmob2Icon = new ImageIcon("Pictures/askmobStatBsmall.png");
                         JLabel askmob2Label = new JLabel();
@@ -493,6 +498,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                         askmob3.setBackground(new Color(0,0,159));
                         askmob3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         askmob3.setResizable(false);
+                        ImageIcon logo = new ImageIcon("Pictures/logo.png");
+                        askmob3.setIconImage(logo.getImage());
                         askmob3.setVisible(true);
                         ImageIcon askMob3Icon = new ImageIcon("Pictures/askmobStatCsmall.png");
                         JLabel askMob3Label = new JLabel();
@@ -513,6 +520,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
                         askmob4.setBackground(new Color(0,0,159));
                         askmob4.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         askmob4.setResizable(false);
+                        ImageIcon logo = new ImageIcon("Pictures/logo.png");
+                        askmob4.setIconImage(logo.getImage());
                         askmob4.setVisible(true);
                         ImageIcon askmob4Icon = new ImageIcon("Pictures/askmobStatDsmall.png");
                         JLabel askmob4Label = new JLabel();
@@ -713,24 +722,27 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         kr1000000.setFont(new Font("Droid Sans Mono", Font.BOLD, 30));
         kr1000000.setHorizontalTextPosition(JLabel.CENTER);
 
+        ImageIcon toprighticon = new ImageIcon("Pictures/lifelineBG.png");
+        JLabel toprightlabel = new JLabel();
+        toprightlabel.setIcon(toprighticon);
         JPanel gamePanelTopRight = new JPanel();
         gamePanelTopRight.setBackground(new Color(0, 0, 159));
-        gamePanelTopRight.setBounds(800, 0, 400, 100);
+        gamePanelTopRight.setBounds(800, 0, 400, 85);
 
+        ImageIcon midrighticon = new ImageIcon("Pictures/rewardBG.png");
+        JLabel midrightlabel = new JLabel();
+        midrightlabel.setIcon(midrighticon);
         JPanel gamePanelMidRight = new JPanel();
-        gamePanelMidRight.setBackground(new Color(0, 0, 159));
-        gamePanelMidRight.setBounds(800, 100, 400, 600);
+        gamePanelMidRight.setBackground(new Color(128,128,0));
+        gamePanelMidRight.setBounds(800, 85, 400, 610);
 
+        ImageIcon botrighticon = new ImageIcon("Pictures/takemoneyBG.png");
+        JLabel botrightlabel = new JLabel();
+        botrightlabel.setIcon(botrighticon);
         JPanel gamePanelBottomRight = new JPanel();
-        gamePanelBottomRight.setBackground(new Color(0, 0, 159));
+        gamePanelBottomRight.setBackground(new Color(128,128,0));
         gamePanelBottomRight.setBounds(800, 695, 400, 100);
         gamePanelBottomRight.setOpaque(true);
-
-
-// Optionpane/Pop-Up design
-        //    UI = new UIManager();
-        //    UI.put("OptionPane.background", new ColorUIResource(197,179,88));
-        //    UI.put("Panel.background", new ColorUIResource(197,179,88));
 
 // Timere
         // 30 sekunder timer
@@ -755,8 +767,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
 // Adding table
         // Timers
-        gameFrame.add(seconds_left);
         gameFrame.add(seconds_left_CAF);
+        gameFrame.add(seconds_left);
 
         gameFrame.add(textField);
         gameFrame.add(textArea);
@@ -807,6 +819,9 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         gameFrame.add(gamePanelCentralMid);
 
         // Right side
+        gamePanelTopRight.add(toprightlabel);
+        gamePanelMidRight.add(midrightlabel);
+        gamePanelBottomRight.add(botrightlabel);
         gameFrame.add(gamePanelBottomRight);
         gameFrame.add(gamePanelMidRight);
         gameFrame.add(gamePanelTopRight);
@@ -849,6 +864,8 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             resultPanel.add(resultButton);
             JOptionPane.showOptionDialog(gameFrame, "DET RIGTIGT TILLYKKE! DU HAR VUNDET 1 MILLION KRONER!!!", "HANS PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             soundDesign.stop();
+            callafriendSound.stop();
+            askmobSound.stop();
             secondsCallAFriend.stop();
             oneMillion = new SoundDesign("Soundeffects/1MIL.wav");
             oneMillion.play();
