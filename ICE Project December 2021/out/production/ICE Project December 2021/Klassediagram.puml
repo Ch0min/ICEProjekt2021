@@ -1,0 +1,46 @@
+@startuml
+class Main {
++ void static main()
+StartMenu startMenu
+}
+
+class StartMenu {
+JFrame menuFrame;
+JButton spilKnap;
+JButton quitKnap;
+SoundDesign soundDesign;
++ StartMenu()
++ void startMenuAudio()
++ void startMenu()
++ void actionPerformed(ActionEvent e)
+}
+
+class CategoryWindow {
+JFrame categoryWindow
+JPanel categoryPanel
+JButton standardButton
+JButton datamatikButton
+JButton comingsoonButton
+SoundDesign soundDesign;
++ CategoryWindow()
++ void setCategoryWindow()
++ void actionPerformed(ActionEvent e)
+}
+
+class GameDesign {
+- char answer;
+- int index;
+- int total_questions = questions.length;
+- int seconds = 30;
+- int secondsCAF = 45;
++ GameDesign()
++ void actionPerformed(ActionEvent e)
++ void gameAudio()
++ void gameRun()
++ void nextQuestion()
++ void displayAnswer()
++ void reward()
++ void decider()
+}
+
+@enduml
