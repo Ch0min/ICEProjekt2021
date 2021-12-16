@@ -1,0 +1,44 @@
+@startuml
+class Main {
+}
+
+class StartMenu {
+
+}
+
+class CategoryWindow {
+
+}
+
+class GameDesign {
+
+}
+
+
+class DataGameDesign {
+
+}
+
+class SoundDesign {
+
+}
+
+Main -- StartMenu
+StartMenu -- CategoryWindow
+CategoryWindow -- GameDesign
+GameDesign -- DataGameDesign
+GameDesign -- StartMenu
+DataGameDesign -- StartMenu
+
+JFrame -- JPanel
+JFrame -- JButton
+JFrame -- JLabel
+JFrame -- OptionPane
+JFrame -- JTextField
+JFrame -- JTextArea
+JFrame -- ActionListener
+Interface ActionListener {
+}
+
+
+@enduml

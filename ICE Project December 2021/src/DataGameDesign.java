@@ -403,7 +403,7 @@ public class DataGameDesign extends JFrame implements ActionListener {     // Da
                     callafriendSound.play();
                     countdown.stop();
                     secondsCallAFriend.start();
-                    JOptionPane.showOptionDialog(gameFrame, "Din tid begynder nu. Du har 45 sekunder til at give et svar. Du kan spørge eller ringe til en ven. Held og lykke!", "HANS PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valgc, valgc[0]);
+                    JOptionPane.showOptionDialog(gameFrame, "Din tid begynder nu. Du har 45 sekunder til at give et svar. Du kan spørge eller ringe til en ven. Held og lykke!", "ROBOT PILGAARD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, valgc, valgc[0]);
                     // 100 sekunder timer
                     seconds_left_CAF.setBounds(0, 200, 200, 200);
                     seconds_left_CAF.setBackground(new Color(150, 0, 0));
