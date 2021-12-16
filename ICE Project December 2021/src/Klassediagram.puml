@@ -1,0 +1,189 @@
+@startuml
+class Main {
++ void static main()
+StartMenu startMenu
+}
+
+class StartMenu {
+JFrame menuFrame;
+JButton spilKnap;
+JButton quitKnap;
+SoundDesign soundDesign;
++ StartMenu()
++ void startMenuAudio()
++ void startMenu()
++ void actionPerformed(ActionEvent e)
+}
+
+class CategoryWindow {
+JFrame categoryWindow
+JPanel categoryPanel
+JButton standardButton
+JButton datamatikButton
+JButton comingsoonButton
+SoundDesign soundDesign;
++ CategoryWindow()
++ void setCategoryWindow()
++ void actionPerformed(ActionEvent e)
+}
+
+class GameDesign {
+    JFrame gameFrame
+    JFrame resultsFrame;
+    JTextField textField
+    JTextArea textArea
+
+    JButton buttonA
+    JButton buttonB
+    JButton buttonC
+    JButton buttonD
+    JButton stopButton;
+    JButton quitButton;
+    JButton returnButton;
+
+    JButton fifty50
+    JButton callAFriend
+    JButton askMob
+
+    JLabel answer_labelA
+    JLabel answer_labelB
+    JLabel answer_labelC
+    JLabel answer_labelD
+
+    JPanel resultPanel = new JPanel();
+    JLabel resultLabel = new JLabel();
+    JButton resultButton = new JButton();
+    JPanel highlight;
+    JPanel gamePanelMidLeft;
+    JLabel seconds_left
+    JLabel seconds_left_CAF
+
+    SoundDesign soundDesign;
+    SoundDesign correctAnswer;
+    SoundDesign wrongAnswer;
+    SoundDesign clockRanOut;
+    SoundDesign questionAudio;
+    SoundDesign oneMillion;
+    SoundDesign fifty50Sound;
+    SoundDesign askmobSound;
+    SoundDesign callafriendSound;
+
+String[] questions
+String[][] options
+char[] answers
+String[] rewardsList
+
+Timer pause;
+Timer countdown;
+Timer secondsCallAFriend;
+
+- char answer;
+- int index;
+- int total_questions = questions.length;
+- int seconds = 30;
+- int secondsCAF = 45;
++ GameDesign()
++ void actionPerformed(ActionEvent e)
++ void gameAudio()
++ void gameRun()
++ void nextQuestion()
++ void displayAnswer()
++ void reward()
++ void decider()
+}
+
+class GameDesign {
+    JFrame gameFrame
+    JFrame resultsFrame;
+    JTextField textField
+    JTextArea textArea
+
+    JButton buttonA
+    JButton buttonB
+    JButton buttonC
+    JButton buttonD
+    JButton stopButton;
+    JButton quitButton;
+    JButton returnButton;
+
+    JButton fifty50
+    JButton callAFriend
+    JButton askMob
+
+    JLabel answer_labelA
+    JLabel answer_labelB
+    JLabel answer_labelC
+    JLabel answer_labelD
+
+    JPanel resultPanel = new JPanel();
+    JLabel resultLabel = new JLabel();
+    JButton resultButton = new JButton();
+    JPanel highlight;
+    JPanel gamePanelMidLeft;
+    JLabel seconds_left
+    JLabel seconds_left_CAF
+
+    SoundDesign soundDesign;
+    SoundDesign correctAnswer;
+    SoundDesign wrongAnswer;
+    SoundDesign clockRanOut;
+    SoundDesign questionAudio;
+    SoundDesign oneMillion;
+    SoundDesign fifty50Sound;
+    SoundDesign askmobSound;
+    SoundDesign callafriendSound;
+
+String[] questions
+String[][] options
+char[] answers
+String[] rewardsList
+
+Timer pause;
+Timer countdown;
+Timer secondsCallAFriend;
+
+- char answer;
+- int index;
+- int total_questions = questions.length;
+- int seconds = 30;
+- int secondsCAF = 45;
++ GameDesign()
++ void actionPerformed(ActionEvent e)
++ void gameAudio()
++ void gameRun()
++ void nextQuestion()
++ void displayAnswer()
++ void reward()
++ void decider()
+}
+
+class DataGameDesign {
+~
+}
+
+class SoundDesign {
+- Clip clip;
++ SoundDesign(String filename)
++ void play()
++ void loop()
++ void stop()
+}
+
+Main -- StartMenu
+StartMenu -- CategoryWindow
+CategoryWindow -- GameDesign
+GameDesign -- DataGameDesign
+
+JFrame -- JPanel
+JFrame -- JButton
+JFrame -- JLabel
+JFrame -- OptionPane
+JFrame -- JTextField
+JFrame -- JTextArea
+JFrame -- ActionListener
+Interface ActionListener {
++ void actionPerformed((ActionEvent e)
+}
+
+
+@enduml

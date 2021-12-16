@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 
 public class SoundDesign {
-    private Clip clip;
+    private Clip clip;  // Clip er en speciel data linje, hvor lyddataen kan blive loaded i et playback.
 
     public SoundDesign(String filename) {
         try {       // Kaster de exceptions som kan forekomme under lyd.

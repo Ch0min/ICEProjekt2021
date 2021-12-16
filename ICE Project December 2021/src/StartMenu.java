@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class StartMenu extends JPanel implements ActionListener {
+public class StartMenu extends JFrame implements ActionListener {
     JFrame menuFrame;
     JButton spilKnap;
     JButton quitKnap;
@@ -138,8 +138,6 @@ public class StartMenu extends JPanel implements ActionListener {
         menuFrame.setIconImage(logo.getImage());
 
 
-
-
 // Adding table
         // Buttons
         menuFrame.add(spilKnap);
@@ -176,7 +174,6 @@ public class StartMenu extends JPanel implements ActionListener {
             menuFrame.dispose();    // Lukker menu vinduet.
             soundDesign.stop();
             CategoryWindow chooseCategory = new CategoryWindow();   // Når der klikkes på spilknappen, så åbner der et nyt vindue i GameDesign.
-
 
 // Et popup vindue, der bekræfter om man vil afslut programmet.
         } else if (JOptionPane.showConfirmDialog(menuFrame, "Bekræft afslutning af 'Hvem vil være Millionær?'", "AFSLUT PROGRAM", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {

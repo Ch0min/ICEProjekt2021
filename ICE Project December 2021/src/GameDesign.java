@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameDesign extends JPanel implements ActionListener {     // Da programmet kører på en masse små handlinger.
+public class GameDesign extends JFrame implements ActionListener {     // Da programmet kører på en masse små handlinger.
     // Gamedesigns Instanser
     JFrame gameFrame = new JFrame();
     JFrame resultsFrame;
@@ -35,7 +35,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     JPanel highlight;
 
     JPanel gamePanelMidLeft;
-
 
     // Bruges til at farve optionPane vinduerne.
     UIManager UI;
@@ -77,12 +76,12 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
 
     String[][] options = {      // Holder på alle svarmulighederne, til vores spørgsmål.
             // Ved at gøre det på den her måde, så kan vi tilføje og slette spørgsmål, da det her program er dynamisk.
-            {" 4", " 5", " 6", " 7"},   // 1
-            {" 1990", " 1992", " 1994", " 1996"},                   // 2
-            {" 1", " 2", " 3", " 4"},                               // 3
+            {" 4", " 5", " 6", " 7"},                                   // 1
+            {" 1990", " 1992", " 1994", " 1996"},                        // 2
+            {" 1", " 2", " 3", " 4"},                                      // 3
             {" Gulerødder", " Kartofler", " Tomater", " Spinat"},   // 4
             {" Sydlys", " Polarislys", " Antarktisk lys", " Spirallys"},        // 5
-            {" AaB", " AB", " AGF", " BGA"},            // 6
+            {" AaB", " AB", " AGF", " BGA"},                        // 6
             {" Watt", " Volt", " Ohm", " Maxwell"},                 // 7
             {" Sløjd", " Håndarbejde", " Hjemkundskab", " Billedkunst"},         // 8
             {" Genghis Khan", " Tutankhamon", " Gorm den Gamle", " Julius Cæsar"},           // 9
@@ -122,7 +121,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
     private char answer;    // vil holde på svar.
     int index;      // Bruges som en timer til at vide hvilket spørgsmål man er ved.
     private int total_questions = questions.length;
-    private String result;     // Holder på resultat.
     private int seconds = 30;   // Timer til hvor mange sekunder man har ved hvert spørgsmål.
     private int secondsCAF = 45;   // Timer til hvor mange sekunder man har ved hvert spørgsmål.
 
@@ -168,14 +166,12 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
             System.out.println("Runtime afbrudt");
         }
         gameAudio();
-
     }
 
     public void gameAudio() {
         soundDesign = new SoundDesign("Soundeffects/førstespørgsmål.wav");
         soundDesign.play();
         soundDesign.loop();
-
     }
 
 
@@ -1186,10 +1182,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         JLabel rf2 = new JLabel();
         rf2.setIcon(rf2Icon);
 
-//        ImageIcon glistIcon = new ImageIcon("Gifs/glistfall.gif");
-//        JLabel glist = new JLabel();
-//        glist.setIcon(glistIcon);
-
         JPanel resultPanelTopRight = new JPanel();
         resultPanelTopRight.setBackground(new Color(0, 0, 23));
         resultPanelTopRight.setBounds(900, 0, 300, 250);
@@ -1235,7 +1227,6 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         // Right side
         resultPanelTopRight.add(rf1);
         resultPanelBottomRight.add(rf2);
-//        resultPanelCentralRight.add(glist);
         resultPanelCentralRight.add(returnButton);
         resultsFrame.add(returnButton);
         resultsFrame.add(resultPanelTopRight);
@@ -1259,8 +1250,3 @@ public class GameDesign extends JPanel implements ActionListener {     // Da pro
         }
     }
 }
-
-
-
-
-

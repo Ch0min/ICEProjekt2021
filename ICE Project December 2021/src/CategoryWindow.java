@@ -76,7 +76,6 @@ public class CategoryWindow extends JFrame implements ActionListener {
     }
 
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == standardButton) {
@@ -89,9 +88,5 @@ public class CategoryWindow extends JFrame implements ActionListener {
              soundDesign.stop();
              DataGameDesign dataGameDesign = new DataGameDesign();
          }
-        //if(e.getSource()==comingsoonButton){
-        //categoryWindwow.dispose();
-        //ComingSoonFrame comingSoonFrame = new ComingSoonFrame();
-
     }
 }

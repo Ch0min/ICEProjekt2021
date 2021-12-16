@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DataGameDesign extends JPanel implements ActionListener {     // Da programmet kører på en masse små handlinger.
+public class DataGameDesign extends JFrame implements ActionListener {     // Da programmet kører på en masse små handlinger.
     // Gamedesigns Instanser
     JFrame gameFrame = new JFrame();
     JFrame resultsFrame;
@@ -58,7 +58,7 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
             " I Java alle statements skal slutte med hvilket symbol?",                            // 3
             " Hvad kalder man computerens korttidshukommelse?",                                   // 4
             " Hvilken af følgende er den rigtige syntaks for et for-loop?",                       // 5
-            " Hvad er det der gør det muligt at kører flere programmer på en computer?",          // 6
+            " Hvad er det der gør det muligt at køre flere programmer på en computer?",          // 6
             " Hvilken del af computeren kaldes “Hjernen af computeren” ?",                        // 7
             " Hvilket begreb betegner public, private, protected og default?",                    // 8
             " Hvad står GUI for?",                                                                // 9
@@ -1250,8 +1250,4 @@ public class DataGameDesign extends JPanel implements ActionListener {     // Da
         }
     }
 }
-
-
-
-
 
